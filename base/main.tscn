@@ -1,0 +1,137 @@
+[gd_scene load_steps=15 format=3 uid="uid://k0l5u4k00hgg"]
+
+[ext_resource type="Script" uid="uid://d1fpxr52ujblt" path="res://Scripts/main.gd" id="1_0xm2m"]
+[ext_resource type="Texture2D" uid="uid://ba63i7le6r7ww" path="res://Texture/Setiings_menu.png" id="2_lquwl"]
+[ext_resource type="Texture2D" uid="uid://fvngg1twcqg5" path="res://Texture/Setting.png" id="3_h2yge"]
+[ext_resource type="Texture2D" uid="uid://bns0babx35v73" path="res://Texture/button.png" id="4_1bvp3"]
+[ext_resource type="Script" uid="uid://d2f88pafu8js6" path="res://Scripts/Button.gd" id="4_lquwl"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lquwl"]
+atlas = ExtResource("4_1bvp3")
+region = Rect2(0, 0, 128, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7mycd"]
+atlas = ExtResource("4_1bvp3")
+region = Rect2(128, 0, 128, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_272bh"]
+atlas = ExtResource("4_1bvp3")
+region = Rect2(256, 0, 128, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5vw27"]
+atlas = ExtResource("4_1bvp3")
+region = Rect2(384, 0, 128, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kek77"]
+atlas = ExtResource("4_1bvp3")
+region = Rect2(0, 64, 128, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4c57u"]
+atlas = ExtResource("4_1bvp3")
+region = Rect2(128, 64, 128, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_efxa6"]
+atlas = ExtResource("4_1bvp3")
+region = Rect2(256, 64, 128, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dg77c"]
+atlas = ExtResource("4_1bvp3")
+region = Rect2(384, 64, 128, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ycdy4"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lquwl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7mycd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_272bh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5vw27")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kek77")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4c57u")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_efxa6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dg77c")
+}],
+"loop": true,
+"name": &"default",
+"speed": 3.0
+}]
+
+[node name="Main" type="Node2D"]
+script = ExtResource("1_0xm2m")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(1279, 791.49994)
+scale = Vector2(1.3427082, 1.4749999)
+texture = ExtResource("2_lquwl")
+
+[node name="TextureButton" type="TextureButton" parent="."]
+offset_left = 1868.0
+offset_top = 1202.0
+offset_right = 2169.0
+offset_bottom = 1378.0
+texture_normal = ExtResource("3_h2yge")
+ignore_texture_size = true
+stretch_mode = 0
+script = ExtResource("4_lquwl")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(2026.0001, 924)
+scale = Vector2(3.82422, 3.35156)
+sprite_frames = SubResource("SpriteFrames_ycdy4")
+autoplay = "default"
+frame = 4
+frame_progress = 0.848125
+
+[node name="Button" type="Button" parent="AnimatedSprite2D"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -64.0
+offset_top = -32.0
+offset_right = -64.0
+offset_bottom = -32.0
+grow_horizontal = 2
+grow_vertical = 2
+focus_mode = 0
+flat = true
+metadata/_edit_lock_ = true
+
+[node name="AnimatedSprite2D2" type="AnimatedSprite2D" parent="."]
+position = Vector2(2022.0001, 525)
+scale = Vector2(3.82422, 3.35156)
+sprite_frames = SubResource("SpriteFrames_ycdy4")
+autoplay = "default"
+frame = 4
+frame_progress = 0.848125
+
+[node name="Button1" type="Button" parent="AnimatedSprite2D2"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -63.80387
+offset_top = -32.223804
+offset_right = -63.738495
+offset_bottom = -32.298374
+grow_horizontal = 2
+grow_vertical = 2
+focus_mode = 0
+flat = true
+metadata/_edit_lock_ = true
+
+[connection signal="pressed" from="TextureButton" to="." method="_on_texture_button_pressed"]
+[connection signal="pressed" from="AnimatedSprite2D/Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="AnimatedSprite2D2/Button1" to="." method="_on_button_1_pressed"]

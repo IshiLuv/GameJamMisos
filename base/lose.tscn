@@ -1,0 +1,28 @@
+[gd_scene load_steps=5 format=3 uid="uid://nnsci7pchdkw"]
+
+[ext_resource type="Texture2D" uid="uid://ba63i7le6r7ww" path="res://Texture/Setiings_menu.png" id="1_rtc1j"]
+[ext_resource type="Script" uid="uid://qlppw8o5oh4q" path="res://lose.gd" id="1_xrsfq"]
+[ext_resource type="Texture2D" uid="uid://bxnq787u8wm5r" path="res://Texture/Exit.png" id="2_46blr"]
+[ext_resource type="Script" uid="uid://d2f88pafu8js6" path="res://Scripts/Button.gd" id="3_xrsfq"]
+
+[node name="Lose" type="Node2D"]
+script = ExtResource("1_xrsfq")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+offset_left = -18.0
+offset_top = -2.0
+offset_right = 2552.0
+offset_bottom = 1603.0
+texture = ExtResource("1_rtc1j")
+
+[node name="Exit" type="TextureButton" parent="."]
+offset_left = 433.0
+offset_top = 1221.0
+offset_right = 760.0
+offset_bottom = 1374.0
+texture_normal = ExtResource("2_46blr")
+ignore_texture_size = true
+stretch_mode = 0
+script = ExtResource("3_xrsfq")
+
+[connection signal="pressed" from="Exit" to="." method="_on_exit_pressed"]

@@ -1,0 +1,88 @@
+[gd_scene load_steps=8 format=3 uid="uid://hyspm5rulkn2"]
+
+[ext_resource type="Script" uid="uid://fx2k2jawj2xt" path="res://Scripts/settings_menu.gd" id="1_mlw3h"]
+[ext_resource type="Texture2D" uid="uid://ba63i7le6r7ww" path="res://Texture/Setiings_menu.png" id="2_d0eu6"]
+[ext_resource type="Texture2D" uid="uid://bxnq787u8wm5r" path="res://Texture/Exit.png" id="3_fiqec"]
+[ext_resource type="Script" uid="uid://d2f88pafu8js6" path="res://Scripts/Button.gd" id="4_d0eu6"]
+[ext_resource type="Texture2D" uid="uid://btis3f75jujg" path="res://Texture/Claider.png" id="5_fiqec"]
+[ext_resource type="AudioStream" uid="uid://dbgjag1bquglw" path="res://Sounds/мирцал-пока-пока.ogg" id="6_h437d"]
+[ext_resource type="Texture2D" uid="uid://cvpv7finc4w4a" path="res://Texture/fold_on.png" id="7_2tlyv"]
+
+[node name="Settings_menu" type="Node2D"]
+script = ExtResource("1_mlw3h")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(1278, 803.5)
+scale = Vector2(1.3375001, 1.487963)
+texture = ExtResource("2_d0eu6")
+
+[node name="Exit" type="TextureButton" parent="."]
+offset_left = 1134.0
+offset_top = 1087.0
+offset_right = 1461.0
+offset_bottom = 1240.0
+texture_normal = ExtResource("3_fiqec")
+ignore_texture_size = true
+stretch_mode = 0
+script = ExtResource("4_d0eu6")
+
+[node name="HSlider" type="HSlider" parent="."]
+offset_left = 1120.0
+offset_top = 844.0
+offset_right = 1445.0
+offset_bottom = 969.0
+theme_override_icons/grabber = ExtResource("5_fiqec")
+theme_override_icons/grabber_highlight = ExtResource("5_fiqec")
+theme_override_icons/grabber_disabled = ExtResource("5_fiqec")
+min_value = -25.0
+max_value = 20.0
+rounded = true
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("6_h437d")
+bus = &"Music"
+
+[node name="OptionButton" type="OptionButton" parent="."]
+offset_left = 1109.0
+offset_top = 596.0
+offset_right = 1465.0
+offset_bottom = 702.0
+button_pressed = true
+item_count = 5
+popup/item_0/text = "1920x1080"
+popup/item_0/icon = ExtResource("5_fiqec")
+popup/item_0/id = 0
+popup/item_1/text = "1366×768"
+popup/item_1/icon = ExtResource("5_fiqec")
+popup/item_1/id = 1
+popup/item_2/text = "1280×1024"
+popup/item_2/icon = ExtResource("5_fiqec")
+popup/item_2/id = 2
+popup/item_3/text = "2560×1440"
+popup/item_3/icon = ExtResource("5_fiqec")
+popup/item_3/id = 3
+popup/item_4/text = "our_based_screen_size"
+popup/item_4/icon = ExtResource("5_fiqec")
+popup/item_4/id = 4
+
+[node name="Button" type="Button" parent="."]
+offset_left = 605.0
+offset_top = 586.0
+offset_right = 861.0
+offset_bottom = 700.0
+toggle_mode = true
+
+[node name="TextureRect" type="TextureRect" parent="."]
+offset_left = 584.0
+offset_top = 406.0
+offset_right = 871.0
+offset_bottom = 559.0
+focus_mode = 2
+texture = ExtResource("7_2tlyv")
+expand_mode = 1
+
+[connection signal="pressed" from="Exit" to="." method="_on_exit_pressed"]
+[connection signal="value_changed" from="HSlider" to="." method="_on_h_slider_value_changed"]
+[connection signal="item_selected" from="OptionButton" to="." method="_on_option_button_item_selected"]
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
+[connection signal="toggled" from="Button" to="." method="_on_button_toggled"]

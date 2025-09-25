@@ -1,0 +1,124 @@
+[gd_scene load_steps=16 format=3 uid="uid://c6m0xrr1juo11"]
+
+[ext_resource type="Script" uid="uid://by07laqkfc42u" path="res://Scripts/main_menu.gd" id="1_glbon"]
+[ext_resource type="Texture2D" uid="uid://byyrfq3cmyp71" path="res://Texture/MenuPNG.png" id="2_nlkkf"]
+[ext_resource type="Texture2D" uid="uid://dgoqsjvkn0s0j" path="res://Texture/Play.png" id="3_qe12f"]
+[ext_resource type="Texture2D" uid="uid://fvngg1twcqg5" path="res://Texture/Setting.png" id="4_8qtwp"]
+[ext_resource type="Script" uid="uid://d2f88pafu8js6" path="res://Scripts/Button.gd" id="4_nlkkf"]
+[ext_resource type="Texture2D" uid="uid://bxnq787u8wm5r" path="res://Texture/Exit.png" id="5_dy7ct"]
+[ext_resource type="AudioStream" uid="uid://dbgjag1bquglw" path="res://Sounds/мирцал-пока-пока.ogg" id="7_qe12f"]
+[ext_resource type="Texture2D" uid="uid://bc8ujha1krx03" path="res://Texture/front.png" id="8_8qtwp"]
+[ext_resource type="Script" uid="uid://cpxtsb14m5i1s" path="res://Scripts/back.gd" id="9_dy7ct"]
+[ext_resource type="Texture2D" uid="uid://bgnxj37l202qm" path="res://Texture/jam_logo.png" id="10_0k4wn"]
+[ext_resource type="VideoStream" uid="uid://4w4kjcg0mfud" path="res://Texture/priyatnogo_appetita_intro.ogv" id="11_j5v2v"]
+[ext_resource type="Shader" uid="uid://n4xe5nk7jph5" path="res://glith.gdshader" id="12_j5v2v"]
+[ext_resource type="Texture2D" uid="uid://dgxg5eqmr6p5s" path="res://Texture/godotsmart.png" id="13_iotk1"]
+[ext_resource type="VideoStream" uid="uid://dbjxisfqrgy2h" path="res://Texture/Unreal Engine Intro.ogv" id="14_w44g7"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_iotk1"]
+shader = ExtResource("12_j5v2v")
+shader_parameter/shake_power = 0.25
+shader_parameter/shake_rate = 1.0
+shader_parameter/shake_speed = 4.0
+shader_parameter/shake_block_size = 30.5
+shader_parameter/shake_color_rate = 0.01
+
+[node name="MainMenu" type="Node2D"]
+script = ExtResource("1_glbon")
+
+[node name="back" type="TextureRect" parent="."]
+offset_left = -249.0
+offset_top = -74.0
+offset_right = 2991.0
+offset_bottom = 1809.0
+texture = ExtResource("2_nlkkf")
+script = ExtResource("9_dy7ct")
+
+[node name="front" type="TextureRect" parent="."]
+offset_left = 24.0
+offset_top = 15.0
+offset_right = 2818.0
+offset_bottom = 1705.0
+mouse_filter = 2
+texture = ExtResource("8_8qtwp")
+
+[node name="Play" type="TextureButton" parent="."]
+offset_left = 1071.0
+offset_top = 495.0
+offset_right = 1402.0
+offset_bottom = 629.0
+texture_normal = ExtResource("3_qe12f")
+ignore_texture_size = true
+stretch_mode = 0
+script = ExtResource("4_nlkkf")
+
+[node name="Settings" type="TextureButton" parent="."]
+offset_left = 1069.0
+offset_top = 790.0
+offset_right = 1400.0
+offset_bottom = 924.0
+texture_normal = ExtResource("4_8qtwp")
+ignore_texture_size = true
+stretch_mode = 0
+script = ExtResource("4_nlkkf")
+
+[node name="Exit" type="TextureButton" parent="."]
+offset_left = 1087.0
+offset_top = 1127.0
+offset_right = 1418.0
+offset_bottom = 1261.0
+texture_normal = ExtResource("5_dy7ct")
+ignore_texture_size = true
+stretch_mode = 0
+script = ExtResource("4_nlkkf")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_qe12f")
+bus = &"Music"
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_left = -653.0
+offset_top = -308.0
+offset_right = 3225.0
+offset_bottom = 2138.0
+color = Color(0, 0, 0, 1)
+
+[node name="JamLogo" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(1243, 792)
+texture = ExtResource("10_0k4wn")
+
+[node name="Intro" type="VideoStreamPlayer" parent="."]
+visible = false
+offset_left = 281.0
+offset_top = 221.0
+offset_right = 2201.0
+offset_bottom = 1301.0
+stream = ExtResource("11_j5v2v")
+
+[node name="Gogot_logo" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(1290.0001, 701)
+scale = Vector2(2.5507813, 2.3373015)
+texture = ExtResource("13_iotk1")
+
+[node name="Unreal_fake" type="VideoStreamPlayer" parent="."]
+visible = false
+offset_left = 1.0
+offset_top = 1.0
+offset_right = 2564.0
+offset_bottom = 1601.0
+stream = ExtResource("14_w44g7")
+expand = true
+
+[node name="ColorRect2" type="ColorRect" parent="."]
+visible = false
+material = SubResource("ShaderMaterial_iotk1")
+offset_left = 556.0
+offset_top = 184.0
+offset_right = 2185.0
+offset_bottom = 1350.0
+
+[connection signal="pressed" from="Play" to="." method="_on_play_pressed"]
+[connection signal="pressed" from="Settings" to="." method="_on_settings_pressed"]
+[connection signal="pressed" from="Exit" to="." method="_on_exit_pressed"]
