@@ -1,6 +1,20 @@
-[gd_scene load_steps=2 format=3 uid="uid://k0l5u4k00hgg"]
+[gd_scene load_steps=3 format=3 uid="uid://k0l5u4k00hgg"]
 
 [ext_resource type="Script" uid="uid://d1fpxr52ujblt" path="res://Scripts/main.gd" id="1_jjgbg"]
+[ext_resource type="PackedScene" uid="uid://84yjwl4ucn7p" path="res://Scenes/old_enemy.tscn" id="2_bo1nx"]
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_jjgbg")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+scale = Vector2(0.1, 0.1)
+ignore_rotation = false
+
+[node name="RigidBody2D" parent="." instance=ExtResource("2_bo1nx")]
+position = Vector2(-8, 6)
+
+[node name="Character" parent="." instance=ExtResource("2_bo1nx")]
+position = Vector2(-485, 176)
+
+[node name="Character2" parent="." instance=ExtResource("2_bo1nx")]
+position = Vector2(353, 278)
