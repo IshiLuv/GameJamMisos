@@ -1,5 +1,6 @@
-[gd_scene load_steps=16 format=3 uid="uid://dexq3ltogr4g0"]
+[gd_scene load_steps=17 format=3 uid="uid://dexq3ltogr4g0"]
 
+[ext_resource type="Script" path="res://Scripts/Enemy.gd" id="1_4gyqm"]
 [ext_resource type="Texture2D" uid="uid://egn664igg1dn" path="res://Assets/UI/char_anim (2).png" id="1_7k104"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_4gyqm"]
@@ -104,8 +105,10 @@ radius = 8.0
 height = 24.0
 
 [node name="Enemy" type="CharacterBody2D"]
+script = ExtResource("1_4gyqm")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_7xaro")
 animation = &"run"
 autoplay = "idle"
