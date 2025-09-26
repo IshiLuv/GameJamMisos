@@ -14,6 +14,7 @@ height = 64.0
 radius = 3.1622777
 
 [node name="Character" type="CharacterBody2D"]
+collision_layer = 9
 script = ExtResource("1_owm7s")
 
 [node name="Camera2D" type="Camera2D" parent="."]
@@ -61,5 +62,15 @@ collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
 shape = SubResource("CircleShape2D_nytcm")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer"]
+offset_left = 69.0
+offset_top = 61.0
+offset_right = 109.0
+offset_bottom = 101.0
+scale = Vector2(2, 1.5)
+theme_override_constants/separation = 4
 
 [connection signal="body_entered" from="Hurtbox" to="." method="_on_hurtbox_body_entered"]

@@ -15,4 +15,4 @@ shader = ExtResource("1_g213h")
 shader_parameter/dissolve_texture = SubResource("NoiseTexture2D_g213h")
 shader_parameter/dissolve_value = 1.0
 shader_parameter/burn_size = 0.1499999966472
-shader_parameter/burn_color = Color(1, 0.7, 0, 1)
+shader_parameter/burn_color = Color(0.56, 0.392, 0, 1)

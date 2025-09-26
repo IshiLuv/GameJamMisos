@@ -16,8 +16,8 @@ func blink(obj: Object, time: float = randf()/10):
 		obj.visible = !obj.visible
 		await get_tree().create_timer(time).timeout
 
-func flash(obj): 
-	obj.modulate = Color(5,5,5)
+func flash(obj, power: float): 
+	obj.modulate = Color(power,power,power)
 	await get_tree().create_timer(0.03).timeout
 	obj.modulate = Color(1,1,1)
 
