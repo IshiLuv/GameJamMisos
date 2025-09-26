@@ -1,6 +1,6 @@
-[gd_resource type="ShaderMaterial" load_steps=4 format=3 uid="uid://bk4t0524ujx0s"]
+[gd_resource type="ShaderMaterial" load_steps=4 format=3 uid="uid://blwcs65av652f"]
 
-[ext_resource type="Shader" uid="uid://biw7j37neki2i" path="res://Assets/burn.gdshader" id="1_g213h"]
+[ext_resource type="Shader" path="res://Assets/burn.gdshader" id="1_g213h"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_g213h"]
 frequency = 0.0033
