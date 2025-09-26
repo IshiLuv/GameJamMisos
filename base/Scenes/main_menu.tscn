@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://c6m0xrr1juo11"]
+[gd_scene load_steps=15 format=3 uid="uid://c6m0xrr1juo11"]
 
 [ext_resource type="Script" uid="uid://by07laqkfc42u" path="res://Scripts/main_menu.gd" id="1_vtepg"]
 [ext_resource type="Texture2D" uid="uid://byyrfq3cmyp71" path="res://Assets/UI/MenuPNG.png" id="2_8dnnj"]
@@ -7,7 +7,6 @@
 [ext_resource type="Texture2D" uid="uid://dgoqsjvkn0s0j" path="res://Assets/UI/Play.png" id="5_ujyyl"]
 [ext_resource type="Script" uid="uid://d2f88pafu8js6" path="res://Scripts/Button.gd" id="6_mkpwh"]
 [ext_resource type="Texture2D" uid="uid://fvngg1twcqg5" path="res://Assets/UI/Setting.png" id="7_4nkqq"]
-[ext_resource type="Texture2D" uid="uid://bxnq787u8wm5r" path="res://Assets/UI/Exit.png" id="8_ehtkc"]
 [ext_resource type="AudioStream" uid="uid://dbgjag1bquglw" path="res://Assets/Sounds/мирцал-пока-пока.ogg" id="9_6dk6o"]
 [ext_resource type="Texture2D" uid="uid://bgnxj37l202qm" path="res://Assets/UI/jam_logo.png" id="10_jr6u5"]
 [ext_resource type="Texture2D" uid="uid://dgxg5eqmr6p5s" path="res://Assets/UI/godotsmart.png" id="11_6m47u"]
@@ -60,7 +59,7 @@ offset_left = -179.0
 offset_top = 131.0
 offset_right = 152.0
 offset_bottom = 265.0
-texture_normal = ExtResource("8_ehtkc")
+texture_normal = ExtResource("5_ujyyl")
 ignore_texture_size = true
 stretch_mode = 0
 script = ExtResource("6_mkpwh")

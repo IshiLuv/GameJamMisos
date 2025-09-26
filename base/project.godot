@@ -10,7 +10,7 @@ config_version=5
 
 [application]
 
-config/name="Base"
+config/name="HELLOween"
 run/main_scene="uid://c6m0xrr1juo11"
 config/features=PackedStringArray("4.5", "Forward Plus")
 config/icon="res://Assets/UI/icon.svg"
