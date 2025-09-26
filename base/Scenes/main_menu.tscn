@@ -1,0 +1,145 @@
+[gd_scene load_steps=16 format=3 uid="uid://c6m0xrr1juo11"]
+
+[ext_resource type="Script" uid="uid://by07laqkfc42u" path="res://Scripts/main_menu.gd" id="1_vtepg"]
+[ext_resource type="Texture2D" uid="uid://byyrfq3cmyp71" path="res://Assets/UI/MenuPNG.png" id="2_8dnnj"]
+[ext_resource type="Script" uid="uid://cpxtsb14m5i1s" path="res://Scripts/back.gd" id="3_m3bi6"]
+[ext_resource type="Texture2D" uid="uid://bc8ujha1krx03" path="res://Assets/UI/front.png" id="4_wyh8j"]
+[ext_resource type="Texture2D" uid="uid://dgoqsjvkn0s0j" path="res://Assets/UI/Play.png" id="5_ujyyl"]
+[ext_resource type="Script" uid="uid://d2f88pafu8js6" path="res://Scripts/Button.gd" id="6_mkpwh"]
+[ext_resource type="Texture2D" uid="uid://fvngg1twcqg5" path="res://Assets/UI/Setting.png" id="7_4nkqq"]
+[ext_resource type="Texture2D" uid="uid://bxnq787u8wm5r" path="res://Assets/UI/Exit.png" id="8_ehtkc"]
+[ext_resource type="AudioStream" uid="uid://dbgjag1bquglw" path="res://Assets/Sounds/мирцал-пока-пока.ogg" id="9_6dk6o"]
+[ext_resource type="Texture2D" uid="uid://bgnxj37l202qm" path="res://Assets/UI/jam_logo.png" id="10_jr6u5"]
+[ext_resource type="Texture2D" uid="uid://dgxg5eqmr6p5s" path="res://Assets/UI/godotsmart.png" id="11_6m47u"]
+[ext_resource type="VideoStream" uid="uid://4w4kjcg0mfud" path="res://Assets/UI/priyatnogo_appetita_intro.ogv" id="12_84iac"]
+[ext_resource type="Shader" uid="uid://n4xe5nk7jph5" path="res://Assets/glith.gdshader" id="13_5n0dv"]
+[ext_resource type="VideoStream" uid="uid://dbjxisfqrgy2h" path="res://Assets/UI/Unreal Engine Intro.ogv" id="14_ne6ao"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_iotk1"]
+shader = ExtResource("13_5n0dv")
+shader_parameter/shake_power = 0.25
+shader_parameter/shake_rate = 1.0
+shader_parameter/shake_speed = 4.0
+shader_parameter/shake_block_size = 30.5
+shader_parameter/shake_color_rate = 0.01
+
+[node name="MainMenu" type="Node2D"]
+script = ExtResource("1_vtepg")
+skipIntro = true
+
+[node name="back" type="Sprite2D" parent="."]
+scale = Vector2(1.11, 1.11)
+texture = ExtResource("2_8dnnj")
+script = ExtResource("3_m3bi6")
+
+[node name="front" type="Sprite2D" parent="."]
+texture = ExtResource("4_wyh8j")
+
+[node name="Play" type="TextureButton" parent="."]
+offset_left = -192.0
+offset_top = -193.0
+offset_right = 139.0
+offset_bottom = -59.0
+texture_normal = ExtResource("5_ujyyl")
+ignore_texture_size = true
+stretch_mode = 0
+script = ExtResource("6_mkpwh")
+
+[node name="Settings" type="TextureButton" parent="."]
+offset_left = -183.0
+offset_top = -26.0
+offset_right = 148.0
+offset_bottom = 108.0
+texture_normal = ExtResource("7_4nkqq")
+ignore_texture_size = true
+stretch_mode = 0
+script = ExtResource("6_mkpwh")
+
+[node name="Exit" type="TextureButton" parent="."]
+offset_left = -179.0
+offset_top = 131.0
+offset_right = 152.0
+offset_bottom = 265.0
+texture_normal = ExtResource("8_ehtkc")
+ignore_texture_size = true
+stretch_mode = 0
+script = ExtResource("6_mkpwh")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("9_6dk6o")
+bus = &"Music"
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -1549.0
+offset_top = -910.0
+offset_right = 1549.0
+offset_bottom = 910.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="JamLogo" type="Sprite2D" parent="."]
+visible = false
+texture = ExtResource("10_jr6u5")
+
+[node name="Gogot_logo" type="Sprite2D" parent="."]
+visible = false
+scale = Vector2(1.3, 1.3)
+texture = ExtResource("11_6m47u")
+
+[node name="Intro" type="VideoStreamPlayer" parent="."]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -960.0
+offset_top = -540.0
+offset_right = 960.0
+offset_bottom = 540.0
+grow_horizontal = 2
+grow_vertical = 2
+stream = ExtResource("12_84iac")
+
+[node name="ColorRect2" type="ColorRect" parent="."]
+visible = false
+material = SubResource("ShaderMaterial_iotk1")
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -1071.5
+offset_top = -580.0
+offset_right = 1071.5
+offset_bottom = 580.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Unreal_fake" type="VideoStreamPlayer" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -960.0
+offset_top = -540.0
+offset_right = 960.0
+offset_bottom = 540.0
+grow_horizontal = 2
+grow_vertical = 2
+stream = ExtResource("14_ne6ao")
+expand = true
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(1, 1)
+
+[connection signal="pressed" from="Play" to="." method="_on_play_pressed"]
+[connection signal="pressed" from="Settings" to="." method="_on_settings_pressed"]
+[connection signal="pressed" from="Exit" to="." method="_on_exit_pressed"]

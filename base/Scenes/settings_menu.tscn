@@ -1,0 +1,84 @@
+[gd_scene load_steps=7 format=3 uid="uid://hyspm5rulkn2"]
+
+[ext_resource type="Script" uid="uid://fx2k2jawj2xt" path="res://Scripts/settings_menu.gd" id="1_rahb6"]
+[ext_resource type="Texture2D" uid="uid://ba63i7le6r7ww" path="res://Assets/UI/Setiings_menu.png" id="2_fe37x"]
+[ext_resource type="Script" uid="uid://d2f88pafu8js6" path="res://Scripts/Button.gd" id="4_fsgis"]
+[ext_resource type="AudioStream" uid="uid://dbgjag1bquglw" path="res://Assets/Sounds/мирцал-пока-пока.ogg" id="6_hmele"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_h2y1r"]
+load_path = "res://.godot/imported/Exit.png-8162b795cd05bd27ec2603853e35d442.ctex"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_3etfd"]
+load_path = "res://.godot/imported/Claider.png-7f99c0c5255565eddcf72251874add1d.ctex"
+
+[node name="Settings_menu" type="Node2D"]
+script = ExtResource("1_rahb6")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(1.255, 1.255)
+texture = ExtResource("2_fe37x")
+
+[node name="Exit" type="TextureButton" parent="."]
+offset_left = -894.0
+offset_top = -443.0
+offset_right = -567.0
+offset_bottom = -290.0
+texture_normal = SubResource("CompressedTexture2D_h2y1r")
+ignore_texture_size = true
+stretch_mode = 0
+script = ExtResource("4_fsgis")
+
+[node name="HSlider" type="HSlider" parent="."]
+offset_left = 174.0
+offset_top = 107.0
+offset_right = 499.0
+offset_bottom = 232.0
+theme_override_icons/grabber = SubResource("CompressedTexture2D_3etfd")
+theme_override_icons/grabber_highlight = SubResource("CompressedTexture2D_3etfd")
+theme_override_icons/grabber_disabled = SubResource("CompressedTexture2D_3etfd")
+min_value = -25.0
+max_value = 20.0
+rounded = true
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("6_hmele")
+bus = &"Music"
+
+[node name="OptionButton" type="OptionButton" parent="."]
+offset_left = 167.0
+offset_top = -46.0
+offset_right = 523.0
+offset_bottom = 60.0
+button_pressed = true
+item_count = 5
+popup/item_0/text = "1920x1080"
+popup/item_0/icon = SubResource("CompressedTexture2D_3etfd")
+popup/item_0/id = 0
+popup/item_1/text = "1366×768"
+popup/item_1/icon = SubResource("CompressedTexture2D_3etfd")
+popup/item_1/id = 1
+popup/item_2/text = "1280×1024"
+popup/item_2/icon = SubResource("CompressedTexture2D_3etfd")
+popup/item_2/id = 2
+popup/item_3/text = "2560×1440"
+popup/item_3/icon = SubResource("CompressedTexture2D_3etfd")
+popup/item_3/id = 3
+popup/item_4/text = "our_based_screen_size"
+popup/item_4/icon = SubResource("CompressedTexture2D_3etfd")
+popup/item_4/id = 4
+
+[node name="Button" type="Button" parent="."]
+offset_left = -535.0
+offset_top = -196.0
+offset_right = -279.0
+offset_bottom = -82.0
+toggle_mode = true
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(1, 1)
+
+[connection signal="pressed" from="Exit" to="." method="_on_exit_pressed"]
+[connection signal="value_changed" from="HSlider" to="." method="_on_h_slider_value_changed"]
+[connection signal="item_selected" from="OptionButton" to="." method="_on_option_button_item_selected"]
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
+[connection signal="toggled" from="Button" to="." method="_on_button_toggled"]

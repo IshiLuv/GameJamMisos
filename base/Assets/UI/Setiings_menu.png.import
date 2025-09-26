@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dgxg5eqmr6p5s"
-path="res://.godot/imported/godotsmart.png-90f01dc209c187fce91ba5639653af38.ctex"
+uid="uid://ba63i7le6r7ww"
+path="res://.godot/imported/Setiings_menu.png-a035f95f995c595ff3c59e1e6c942020.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Texture/godotsmart.png"
-dest_files=["res://.godot/imported/godotsmart.png-90f01dc209c187fce91ba5639653af38.ctex"]
+source_file="res://Assets/UI/Setiings_menu.png"
+dest_files=["res://.godot/imported/Setiings_menu.png-a035f95f995c595ff3c59e1e6c942020.ctex"]
 
 [params]
 

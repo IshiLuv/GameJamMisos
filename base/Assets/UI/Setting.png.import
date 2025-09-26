@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cvpv7finc4w4a"
-path="res://.godot/imported/fold_on.png-52206ca2c7c13bbe339645256dd2ab20.ctex"
+uid="uid://fvngg1twcqg5"
+path="res://.godot/imported/Setting.png-cce2dccbaa1716c4b349d99b6fb035f8.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Texture/fold_on.png"
-dest_files=["res://.godot/imported/fold_on.png-52206ca2c7c13bbe339645256dd2ab20.ctex"]
+source_file="res://Assets/UI/Setting.png"
+dest_files=["res://.godot/imported/Setting.png-cce2dccbaa1716c4b349d99b6fb035f8.ctex"]
 
 [params]
 

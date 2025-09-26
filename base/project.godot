@@ -13,19 +13,33 @@ config_version=5
 config/name="Base"
 run/main_scene="uid://c6m0xrr1juo11"
 config/features=PackedStringArray("4.5", "Forward Plus")
-config/icon="res://Texture/icon.svg"
+config/icon="res://Assets/UI/icon.svg"
+
+[audio]
+
+buses/default_bus_layout="res://Assets/default_bus_layout.tres"
 
 [autoload]
 
-Glo="*res://Scripts/global.gd"
-Animations="*res://animations.gd"
+G="*res://Scripts/global.gd"
+Animations="*res://Scripts/animations.gd"
+Sounds="*res://Scenes/sounds.tscn"
 
 [display]
 
-window/size/viewport_width=2560
-window/size/viewport_height=1600
+window/size/viewport_width=1920
+window/size/viewport_height=1080
+window/size/initial_position_type=4
 window/subwindows/embed_subwindows=false
 window/stretch/mode="canvas_items"
+window/stretch/aspect="keep_height"
+
+[file_customization]
+
+folder_colors={
+"res://Assets/": "yellow",
+"res://Scenes/": "purple"
+}
 
 [rendering]
 

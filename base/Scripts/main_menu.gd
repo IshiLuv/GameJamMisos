@@ -1,13 +1,15 @@
-extends Node
+extends Node2D
+
 var onPause: bool = false
 @export var skipIntro: bool = false
+
 func _ready() -> void:
+	G.main_menu = self
+	
 	for scene in get_tree().get_root().get_children():
 		if scene is Main :
 			scene.queue_free()
 			
-			
-	
 	if !skipIntro:
 		await get_tree().create_timer(1).timeout
 		Animations.appear($Unreal_fake)
@@ -33,24 +35,15 @@ func _ready() -> void:
 		Animations.disappear($Intro)
 		await get_tree().create_timer(1).timeout
 		Animations.disappear($ColorRect)
-	else: $ColorRect.visible = false
+	else: 
+		$ColorRect.visible = false
+		$Unreal_fake.visible = false
 	
-	
-	
-	
-	
-	
-	
-	
-	
-
 func _on_exit_pressed() -> void:
 	get_tree().quit()
 
-
 func _on_settings_pressed() -> void:
-	get_tree().change_scene_to_file("res://settings_menu.tscn")
-
+	get_tree().change_scene_to_file("res://Scenes/settings_menu.tscn")
 
 func _on_play_pressed() -> void:
-	get_tree().change_scene_to_file("res://main.tscn")
+	get_tree().change_scene_to_file("res://Scenes/main.tscn")
