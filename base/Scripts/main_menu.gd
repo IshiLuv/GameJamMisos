@@ -12,18 +12,10 @@ func _ready() -> void:
 			
 	if !skipIntro:
 		await get_tree().create_timer(1).timeout
-		Animations.appear($Unreal_fake)
-		$Unreal_fake.play()
-		await get_tree().create_timer(3).timeout
-		Animations.appear($ColorRect2)
-		await get_tree().create_timer(0.1).timeout
-		Animations.disappear($Unreal_fake)
-		Animations.disappear($ColorRect2)
-		await get_tree().create_timer(0.25).timeout
-		Animations.appear($Gogot_logo)
-		await get_tree().create_timer(2).timeout
-		Animations.disappear($Gogot_logo)
-		await get_tree().create_timer(1).timeout
+		Animations.appear($Fake_unreal)
+		$Fake_unreal.play()
+		await get_tree().create_timer(6.5).timeout
+		Animations.disappear($Fake_unreal)
 		Animations.appear($JamLogo)
 		#$AudioStreamPlayer.play()
 		await get_tree().create_timer(1.5).timeout
@@ -37,7 +29,7 @@ func _ready() -> void:
 		Animations.disappear($ColorRect)
 	else: 
 		$ColorRect.visible = false
-		$Unreal_fake.visible = false
+		$Fake_unreal.visible = false
 	
 func _on_exit_pressed() -> void:
 	get_tree().quit()
