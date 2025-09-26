@@ -16,6 +16,11 @@ func blink(obj: Object, time: float = randf()/10):
 		obj.visible = !obj.visible
 		await get_tree().create_timer(time).timeout
 
+func flash(obj): 
+	obj.modulate = Color(5,5,5)
+	await get_tree().create_timer(0.03).timeout
+	obj.modulate = Color(1,1,1)
+
 func jump(obj: Object, tween_trans: Tween.TransitionType = Tween.TRANS_SINE, 
 scale_1: Array = [Vector2(1.1,1.1), 0.1], 
 scale_2: Array = [Vector2(1.0,1.0), 0.1]):
@@ -32,19 +37,13 @@ func drop(obj: Object, scale: Array = [Vector2(1.0,1.0), 0.1], trans: Tween.Tran
 	tween.tween_property(obj, "scale", scale[0], scale[1])
 
 func shakeCam(cam: Camera2D, power):
-	if G.do_shake:
-		var hurtTween = create_tween().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_BOUNCE).set_parallel(true)
-		hurtTween.tween_property(cam, "zoom", Vector2(1.02,1.02), 0.02)
-		hurtTween.tween_property(cam, "rotation_degrees", power/2, 0.05)
-		hurtTween.set_parallel(false)
-		hurtTween.tween_property(cam, "rotation_degrees", -power, 0.05)
-		hurtTween.set_parallel(true)
-		hurtTween.tween_property(cam, "zoom", Vector2(1.00,1.00), 0.02)
-		hurtTween.tween_property(cam, "rotation_degrees", 0, 0.1)
-		await get_tree().create_timer(0.5).timeout
-		if cam:
-			cam.rotation_degrees = 0
-			cam.zoom = Vector2(1,1)
+	var hurtTween = create_tween().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_BOUNCE).set_parallel(false)
+	hurtTween.tween_property(cam, "rotation_degrees", power/2, 0.05)
+	hurtTween.tween_property(cam, "rotation_degrees", -power, 0.05)
+	hurtTween.tween_property(cam, "rotation_degrees", 0, 0.1)
+	await get_tree().create_timer(0.5).timeout
+	if cam:
+		cam.rotation_degrees = 0
 	
 func shake(obj: Object, power):
 	var hurtTween = create_tween().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_BOUNCE).set_parallel(false)

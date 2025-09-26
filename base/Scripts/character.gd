@@ -1,29 +1,51 @@
 extends CharacterBody2D
 
 @export var speed: float = 200.0
-@export var jump_force: float = 600.0
-@export var jump_duration: float = 0.2
+@export var min_jump_force: float = 300.0
+@export var max_jump_force: float = 800.0
+@export var max_charge_time: float = 1.0
+
+var bullet_scene = preload("res://Scenes/bullet.tscn")
 
 var input_dir: Vector2
 var jump_velocity: Vector2
-var is_jumping: bool = false
-var jump_timer: float
 
-func _process(_delta: float) -> void:
-	input_dir = Input.get_vector("move_left", "move_right", "move_up", "move_down").normalized()
+var charge_timer: float = 0.0
+var jump_timer: float = 0.0
+
+var is_jumping: bool = false
+var is_charging_jump: bool = false
+var is_shaking: bool = false
+var can_move: bool = true
+
+func _ready() -> void:
+	$Sprite/Head.material.set_shader_parameter("dissolve_value", 1.0)
 	
-	if input_dir != Vector2.ZERO:
-		$Sprite/Arrows.visible = true
-		$Sprite/Arrows.position = input_dir*70 + Vector2(0,4)
-		$Sprite/Arrows.rotation = input_dir.angle()
-	else:
-		$Sprite/Arrows.visible = false
-			
-	if Input.is_action_just_pressed("jump") and !is_jumping:
-		is_jumping = true
-		jump()
-		jump_velocity = input_dir * jump_force
-		jump_timer = jump_duration
+func _process(delta: float) -> void:
+	if can_move:
+		input_dir = Input.get_vector("move_left", "move_right", "move_up", "move_down").normalized()
+
+		if input_dir != Vector2.ZERO:
+			$Sprite/Arrows.visible = true
+			$Sprite/Arrows.position = input_dir * 70 + Vector2(0, 4)
+			$Sprite/Arrows.rotation = input_dir.angle()
+		else:
+			$Sprite/Arrows.visible = false
+
+		if Input.is_action_just_pressed("attack"):
+			attack()
+			var bullet = bullet_scene.instantiate()
+			bullet.global_position = $Gun/Bullet_Marker.global_position
+			bullet.direction = $Gun/Bullet_Marker.global_position.direction_to(get_global_mouse_position())
+			G.main.add_child(bullet)
+
+		if Input.is_action_pressed("jump") and !is_jumping:
+			is_charging_jump = true
+			charge_timer = min(charge_timer + delta, max_charge_time)
+			shakeLoop()
+
+		if Input.is_action_just_released("jump") and is_charging_jump and !is_jumping:
+			start_jump()
 
 func _physics_process(delta: float) -> void:
 	if is_jumping:
@@ -33,15 +55,75 @@ func _physics_process(delta: float) -> void:
 			is_jumping = false
 			$Sprite/Arrows.visible = true
 			velocity = Vector2.ZERO
-	
+			$Hurtbox/CollisionShape2D.disabled = false
+			Animations.shakeCam($Camera2D, 0.4)
+
 	move_and_slide()
+
+func start_jump():
+	is_charging_jump = false
+	is_jumping = true
+	$Hurtbox/CollisionShape2D.disabled = true
 	
+	var charge_percent = charge_timer / max_charge_time
+	var force = lerp(min_jump_force, max_jump_force, charge_percent)
+
+	jump()
+
+	jump_velocity = input_dir * force 
+	jump_timer = 0.2
+	charge_timer = 0.0
+
+	
+
 func jump():
+	Animations.shakeCam($Camera2D, 1)
 	$Sprite/Arrows.visible = false
 	var tween = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_BACK).set_parallel(false)
-	tween.tween_property($Sprite/Body, "position", Vector2(0, -50.0), 0.1)
+	tween.tween_property($Sprite/Body, "position", Vector2(0, -50.0-charge_timer*20), 0.05)
+	tween.tween_property($Sprite/Head, "position", Vector2(-2, -66.5-charge_timer*10), 0.1)
+	tween.tween_property($Sprite/Body, "position", Vector2(0, -40.0), 0.1)
+	tween.tween_property($Sprite/Head, "position", Vector2(-2, -60.5), 0.1)
+
+func attack():
+	Animations.shakeCam($Camera2D, 1)
+	$Sprite/Arrows.visible = false
+	var tween = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_BACK).set_parallel(false)
+	tween.tween_property($Sprite/Body, "position", Vector2(0, -50.0), 0.03)
 	tween.tween_property($Sprite/Head, "position", Vector2(-2, -66.5), 0.1)
 	tween.tween_property($Sprite/Body, "position", Vector2(0, -40.0), 0.1)
 	tween.tween_property($Sprite/Head, "position", Vector2(-2, -60.5), 0.1)
+
+func shakeLoop():
+	if !is_shaking:
+		is_shaking=true
+		while is_charging_jump: 
+			$Sprite.scale = Vector2(1-charge_timer/15, 1-charge_timer/10)
+			var hurtTween = create_tween().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_BOUNCE).set_parallel(false)
+			hurtTween.tween_property($Sprite, "rotation", charge_timer/15, 0.05)
+			hurtTween.tween_property($Sprite, "rotation", -charge_timer/15, 0.05)
+			hurtTween.tween_property($Sprite, "rotation", 0, 0.1)
+			await get_tree().create_timer(0.1).timeout
+			$Sprite.rotation = 0
+			Animations.shakeCam($Camera2D, 0.1)
+		is_shaking = false
+		$Sprite.scale = Vector2.ONE
+
+func _on_hurtbox_body_entered(body: Node2D) -> void:
+	if body is Tile:
+		die()
+
+func die():
+	can_move = false
+	$Sprite/Arrows.visible = false
+	$Sprite/Shadow.visible = false
 	
+	await get_tree().create_timer(0.5).timeout
 	
+	var tween = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_EXPO).set_parallel(true)
+	tween.tween_property(self, "position", global_position + Vector2(0, 100.0), 0.5)
+	tween.tween_property($Sprite/Head.material, "shader_parameter/dissolve_value", 0, 2.0)
+
+	
+	await get_tree().create_timer(1.0).timeout
+	get_tree().change_scene_to_file("res://Scenes/main.tscn")

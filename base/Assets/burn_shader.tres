@@ -1,0 +1,18 @@
+[gd_resource type="ShaderMaterial" load_steps=4 format=3 uid="uid://bk4t0524ujx0s"]
+
+[ext_resource type="Shader" uid="uid://biw7j37neki2i" path="res://Assets/burn.gdshader" id="1_g213h"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_g213h"]
+frequency = 0.0033
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_g213h"]
+width = 64
+height = 64
+noise = SubResource("FastNoiseLite_g213h")
+
+[resource]
+shader = ExtResource("1_g213h")
+shader_parameter/dissolve_texture = SubResource("NoiseTexture2D_g213h")
+shader_parameter/dissolve_value = 1.0
+shader_parameter/burn_size = 0.1499999966472
+shader_parameter/burn_color = Color(1, 0.7, 0, 1)

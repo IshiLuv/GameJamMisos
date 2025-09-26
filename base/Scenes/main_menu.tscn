@@ -9,11 +9,12 @@
 [ext_resource type="Texture2D" uid="uid://fvngg1twcqg5" path="res://Assets/UI/Setting.png" id="7_4nkqq"]
 [ext_resource type="AudioStream" uid="uid://dbgjag1bquglw" path="res://Assets/Sounds/мирцал-пока-пока.ogg" id="9_6dk6o"]
 [ext_resource type="Texture2D" uid="uid://bgnxj37l202qm" path="res://Assets/UI/jam_logo.png" id="10_jr6u5"]
-[ext_resource type="VideoStream" uid="uid://sonhxrw1e6tf" path="res://Assets/UI/unreal_fake.ogv" id="11_vr1f0"]
+[ext_resource type="VideoStream" path="res://Assets/UI/unreal_fake.ogv" id="11_vr1f0"]
 [ext_resource type="VideoStream" uid="uid://4w4kjcg0mfud" path="res://Assets/UI/priyatnogo_appetita_intro.ogv" id="12_84iac"]
 
 [node name="MainMenu" type="Node2D"]
 script = ExtResource("1_vtepg")
+skipIntro = true
 
 [node name="back" type="Sprite2D" parent="."]
 scale = Vector2(1.11, 1.11)
