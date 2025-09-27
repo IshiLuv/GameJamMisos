@@ -1,8 +1,9 @@
-[gd_scene load_steps=12 format=3 uid="uid://c6m0xrr1juo11"]
+[gd_scene load_steps=23 format=3 uid="uid://c6m0xrr1juo11"]
 
 [ext_resource type="Script" uid="uid://by07laqkfc42u" path="res://Scripts/main_menu.gd" id="1_vtepg"]
-[ext_resource type="Texture2D" uid="uid://btq0pi55gnuy2" path="res://Assets/UI/Фон.png" id="2_vr1f0"]
+[ext_resource type="Texture2D" uid="uid://dr34po0wrpcga" path="res://Assets/UI/Back_menu.png" id="2_vr1f0"]
 [ext_resource type="Script" uid="uid://cpxtsb14m5i1s" path="res://Scripts/back.gd" id="3_m3bi6"]
+[ext_resource type="Texture2D" uid="uid://bc8ujha1krx03" path="res://Assets/UI/front.png" id="3_t1dhk"]
 [ext_resource type="Texture2D" uid="uid://dgoqsjvkn0s0j" path="res://Assets/UI/Play.png" id="5_ujyyl"]
 [ext_resource type="Script" uid="uid://d2f88pafu8js6" path="res://Scripts/Button.gd" id="6_mkpwh"]
 [ext_resource type="Texture2D" uid="uid://fvngg1twcqg5" path="res://Assets/UI/Setting.png" id="7_4nkqq"]
@@ -11,6 +12,71 @@
 [ext_resource type="Texture2D" uid="uid://bgnxj37l202qm" path="res://Assets/UI/jam_logo.png" id="10_jr6u5"]
 [ext_resource type="VideoStream" uid="uid://sonhxrw1e6tf" path="res://Assets/UI/unreal_fake.ogv" id="11_vr1f0"]
 [ext_resource type="VideoStream" uid="uid://4w4kjcg0mfud" path="res://Assets/UI/priyatnogo_appetita_intro.ogv" id="12_84iac"]
+[ext_resource type="Texture2D" uid="uid://256xipwa1cf5" path="res://Assets/UI/Eye.png" id="14_8dnnj"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5egv6"]
+atlas = ExtResource("14_8dnnj")
+region = Rect2(0, 0, 144, 267)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vtepg"]
+atlas = ExtResource("14_8dnnj")
+region = Rect2(144, 0, 144, 267)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8dnnj"]
+atlas = ExtResource("14_8dnnj")
+region = Rect2(288, 0, 144, 267)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m3bi6"]
+atlas = ExtResource("14_8dnnj")
+region = Rect2(432, 0, 144, 267)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wyh8j"]
+atlas = ExtResource("14_8dnnj")
+region = Rect2(576, 0, 144, 267)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ujyyl"]
+atlas = ExtResource("14_8dnnj")
+region = Rect2(720, 0, 144, 267)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mkpwh"]
+atlas = ExtResource("14_8dnnj")
+region = Rect2(864, 0, 144, 267)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4nkqq"]
+atlas = ExtResource("14_8dnnj")
+region = Rect2(1008, 0, 144, 267)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ehtkc"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5egv6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vtepg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8dnnj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m3bi6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wyh8j")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ujyyl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mkpwh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4nkqq")
+}],
+"loop": true,
+"name": &"Fire",
+"speed": 5.0
+}]
 
 [node name="MainMenu" type="Node2D"]
 script = ExtResource("1_vtepg")
@@ -23,16 +89,22 @@ offset_right = 1215.0
 offset_bottom = 686.0
 color = Color(0.17, 0.11389999, 0.163455, 1)
 
-[node name="back" type="Sprite2D" parent="."]
-scale = Vector2(4.6059895, 4.634259)
+[node name="Front" type="Sprite2D" parent="."]
+position = Vector2(-2.2888184e-05, -3.8146973e-06)
+scale = Vector2(4, 4)
 texture = ExtResource("2_vr1f0")
+
+[node name="back" type="Sprite2D" parent="."]
+position = Vector2(42.000046, 20.999891)
+scale = Vector2(4.341667, 4.6444435)
+texture = ExtResource("3_t1dhk")
 script = ExtResource("3_m3bi6")
 
 [node name="Play" type="TextureButton" parent="."]
-offset_left = -814.0
-offset_top = -32.0
-offset_right = -483.0
-offset_bottom = 102.0
+offset_left = -531.0
+offset_top = -142.0
+offset_right = -200.0
+offset_bottom = -8.0
 texture_normal = ExtResource("5_ujyyl")
 ignore_texture_size = true
 stretch_mode = 0
@@ -40,10 +112,10 @@ script = ExtResource("6_mkpwh")
 metadata/_edit_use_anchors_ = true
 
 [node name="Settings" type="TextureButton" parent="."]
-offset_left = -814.0
-offset_top = 149.0
-offset_right = -483.0
-offset_bottom = 283.0
+offset_left = -531.0
+offset_top = 71.0
+offset_right = -200.0
+offset_bottom = 205.0
 texture_normal = ExtResource("7_4nkqq")
 ignore_texture_size = true
 stretch_mode = 0
@@ -51,10 +123,10 @@ script = ExtResource("6_mkpwh")
 metadata/_edit_use_anchors_ = true
 
 [node name="Exit" type="TextureButton" parent="."]
-offset_left = -807.0
-offset_top = 336.0
-offset_right = -476.0
-offset_bottom = 470.0
+offset_left = -531.0
+offset_top = 298.0
+offset_right = -200.0
+offset_bottom = 432.0
 texture_normal = ExtResource("8_t1dhk")
 ignore_texture_size = true
 stretch_mode = 0
@@ -71,10 +143,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -1582.0
-offset_top = -854.0
-offset_right = 1516.0
-offset_bottom = 966.0
+offset_left = 157.0
+offset_top = 1143.0
+offset_right = 3255.0
+offset_bottom = 2963.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 1)
@@ -117,6 +189,22 @@ expand = true
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(1, 1)
 
+[node name="Control" type="TextureButton" parent="."]
+offset_left = 528.0
+offset_top = 21.0
+offset_right = 817.0
+offset_bottom = 248.0
+mouse_filter = 1
+
+[node name="Eye" type="AnimatedSprite2D" parent="."]
+visible = false
+position = Vector2(673, 30)
+sprite_frames = SubResource("SpriteFrames_ehtkc")
+animation = &"Fire"
+autoplay = "Fire"
+frame_progress = 0.12874019
+
 [connection signal="pressed" from="Play" to="." method="_on_play_pressed"]
 [connection signal="pressed" from="Settings" to="." method="_on_settings_pressed"]
 [connection signal="pressed" from="Exit" to="." method="_on_exit_pressed"]
+[connection signal="pressed" from="Control" to="." method="_on_control_pressed"]
