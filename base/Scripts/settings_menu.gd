@@ -7,7 +7,7 @@ func _ready() -> void:
 	$OptionButton.set_item_text(4, str(G.based_screen[0]) + "×" + str(G.based_screen[1]))
 	
 func _on_exit_pressed() -> void:
-	G.main.skipIntro = true
+	G.main_menu.skipIntro = true
 	get_tree().change_scene_to_file("res://Scenes/main_menu.tscn")
 
 func _on_h_slider_value_changed(value: float) -> void:

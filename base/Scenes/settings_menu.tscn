@@ -1,15 +1,15 @@
-[gd_scene load_steps=7 format=3 uid="uid://hyspm5rulkn2"]
+[gd_scene load_steps=10 format=3 uid="uid://hyspm5rulkn2"]
 
 [ext_resource type="Script" uid="uid://fx2k2jawj2xt" path="res://Scripts/settings_menu.gd" id="1_rahb6"]
 [ext_resource type="Texture2D" uid="uid://ba63i7le6r7ww" path="res://Assets/UI/Setiings_menu.png" id="2_fe37x"]
+[ext_resource type="Texture2D" uid="uid://mggjkym5jlnw" path="res://Assets/UI/menu.png" id="3_3etfd"]
 [ext_resource type="Script" uid="uid://d2f88pafu8js6" path="res://Scripts/Button.gd" id="4_fsgis"]
+[ext_resource type="Texture2D" uid="uid://bknmo8s7np0vv" path="res://Assets/UI/health.png" id="5_fe37x"]
+[ext_resource type="Texture2D" uid="uid://7av46kjxgp51" path="res://Assets/UI/Grabber.png" id="5_jjs6x"]
+[ext_resource type="Texture2D" uid="uid://dq1b5unvyd0kc" path="res://Assets/UI/Grabber_high.png" id="6_fsgis"]
 [ext_resource type="AudioStream" uid="uid://dbgjag1bquglw" path="res://Assets/Sounds/мирцал-пока-пока.ogg" id="6_hmele"]
 
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_h2y1r"]
-load_path = "res://.godot/imported/Exit.png-8162b795cd05bd27ec2603853e35d442.ctex"
-
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_3etfd"]
-load_path = "res://.godot/imported/Claider.png-7f99c0c5255565eddcf72251874add1d.ctex"
 
 [node name="Settings_menu" type="Node2D"]
 script = ExtResource("1_rahb6")
@@ -23,7 +23,7 @@ offset_left = -894.0
 offset_top = -443.0
 offset_right = -567.0
 offset_bottom = -290.0
-texture_normal = SubResource("CompressedTexture2D_h2y1r")
+texture_normal = ExtResource("3_3etfd")
 ignore_texture_size = true
 stretch_mode = 0
 script = ExtResource("4_fsgis")
@@ -33,9 +33,9 @@ offset_left = 174.0
 offset_top = 107.0
 offset_right = 499.0
 offset_bottom = 232.0
-theme_override_icons/grabber = SubResource("CompressedTexture2D_3etfd")
-theme_override_icons/grabber_highlight = SubResource("CompressedTexture2D_3etfd")
-theme_override_icons/grabber_disabled = SubResource("CompressedTexture2D_3etfd")
+theme_override_icons/grabber = ExtResource("5_jjs6x")
+theme_override_icons/grabber_highlight = ExtResource("6_fsgis")
+theme_override_icons/grabber_disabled = ExtResource("5_fe37x")
 min_value = -25.0
 max_value = 20.0
 rounded = true
