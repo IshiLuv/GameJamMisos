@@ -6,7 +6,7 @@ class_name Player
 @export var max_jump_force: float = 800.0
 @export var max_charge_time: float = 1.0
 
-var bullet_scene = preload("res://Scenes/bullet.tscn")
+var bullet_scene = preload("res://Scenes/bullet_player.tscn")
 
 var max_health: int = 3
 var health: int = max_health
@@ -21,6 +21,7 @@ var is_jumping: bool = false
 var is_charging_jump: bool = false
 var is_shaking: bool = false
 var can_move: bool = true
+var can_take_damage: bool = true
 
 func _ready() -> void:
 	$Sprite/Head.material.set_shader_parameter("dissolve_value", 1.0)
@@ -43,7 +44,6 @@ func _process(delta: float) -> void:
 			var bullet = bullet_scene.instantiate()
 			bullet.global_position = $Gun/Bullet_Marker.global_position
 			bullet.direction = $Gun/Bullet_Marker.global_position.direction_to(get_global_mouse_position())
-			bullet.bullet_texture = load("res://Assets/Textures/crow.png")
 			G.main.add_child(bullet)
 
 		# Альтернативная атака (во все стороны)
@@ -123,7 +123,6 @@ func alt_attack():
 		var bullet = bullet_scene.instantiate()
 		bullet.global_position = $Gun/Bullet_Marker.global_position
 		bullet.direction = dir
-		bullet.bullet_texture = load("res://Assets/Textures/crow.png")
 		G.main.add_child(bullet)
 	attack()
 	
@@ -149,25 +148,30 @@ func _on_hurtbox_body_entered(body: Node2D) -> void:
 		die()
 
 func take_damage(dmg):
-	Animations.shakeCam($Camera2D, 3)
-	await Animations.flash(self,5)
-	health -= dmg
-	update_health()
-	if health <= 0:
-		die()
+	if can_take_damage:
+		Animations.shakeCam($Camera2D, 3)
+		await Animations.flash(self,5)
+		health -= dmg
+		update_health()
+		if health <= 0:
+			die()
 		
 func die():
 	can_move = false
+	can_take_damage = false
+	
 	$Sprite/Arrows.visible = false
 	$Sprite/Shadow.visible = false
 	
-	await get_tree().create_timer(0.5).timeout
-	
+	await get_tree().create_timer(0.3).timeout
 	var tween = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_EXPO).set_parallel(true)
-	tween.tween_property(self, "position", global_position + Vector2(0, 100.0), 0.5)
+	tween.tween_property($Camera2D, "zoom", Vector2(2,2), 0.5)
+	
+	await get_tree().create_timer(0.4).timeout
+	tween = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_EXPO).set_parallel(true)
+	tween.tween_property(self, "position", global_position + Vector2(0, 100.0), 0.3)
 	tween.tween_property($Sprite/Head.material, "shader_parameter/dissolve_value", 0, 2.0)
 
-	
 	await get_tree().create_timer(1.0).timeout
 	await Animations.disappear(G.main)
 	get_tree().change_scene_to_file("res://Scenes/main.tscn")

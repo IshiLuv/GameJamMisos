@@ -2,16 +2,16 @@
 
 [ext_resource type="Script" uid="uid://dctgpgp1oste0" path="res://Scripts/character.gd" id="1_owm7s"]
 [ext_resource type="Texture2D" uid="uid://dojux7glgxytm" path="res://Assets/Textures/character1.png" id="1_ushfy"]
-[ext_resource type="Material" uid="uid://bk4t0524ujx0s" path="res://Assets/burn_shader.tres" id="2_ejsiy"]
+[ext_resource type="Material" uid="uid://blwcs65av652f" path="res://Assets/burn_shader.tres" id="2_ejsiy"]
 [ext_resource type="Texture2D" uid="uid://h3l03gbyprwq" path="res://Assets/Textures/character2.png" id="2_owm7s"]
 [ext_resource type="Texture2D" uid="uid://c1vsl7f8k5p26" path="res://Assets/Textures/arrows.png" id="4_nytcm"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ushfy"]
-radius = 9.0
-height = 64.0
+radius = 16.0
+height = 38.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_nytcm"]
-radius = 3.1622777
+radius = 1.0
 
 [node name="Character" type="CharacterBody2D"]
 collision_layer = 9
@@ -53,7 +53,7 @@ position = Vector2(0, -49)
 [node name="Bullet_Marker" type="Marker2D" parent="Gun"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, -22)
+position = Vector2(0, -7)
 shape = SubResource("CapsuleShape2D_ushfy")
 
 [node name="Hurtbox" type="Area2D" parent="."]

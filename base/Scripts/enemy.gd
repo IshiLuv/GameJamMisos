@@ -6,15 +6,21 @@ var bullet_scene = preload("res://Scenes/bullet.tscn")
 var max_health: int = 10
 var health: int = max_health
 
-func _ready() -> void:
-	while true:
-		await get_tree().create_timer(1.6).timeout
+var can_shoot: bool = false
+var target
+
+func _physics_process(_delta: float) -> void:
+	if target != null and can_shoot:
+		can_shoot = false
+		$ShootCD.start()
 		var bullet = bullet_scene.instantiate()
 		bullet.global_position = global_position
-		bullet.direction = global_position.direction_to(G.main.player.global_position)
-		bullet.col_mask = 4
 		G.main.add_child(bullet)
-		
+		bullet.direction = global_position.direction_to(target.global_position)
+
+func _on_shoot_cd_timeout() -> void:
+	can_shoot = true
+
 func take_damage(dmg):
 	await Animations.flash(self,5)
 	health -= dmg
@@ -24,3 +30,11 @@ func take_damage(dmg):
 func die():
 	queue_free()
 	
+func _on_aggro_range_body_entered(body: Node2D) -> void:
+	if body is Player:
+		target = body
+		$ShootCD.start()
+
+func _on_aggro_range_body_exited(body: Node2D) -> void:
+	if body is Player:
+		target = null
