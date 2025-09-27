@@ -14,7 +14,7 @@ radius = 16.0
 height = 38.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_nytcm"]
-radius = 1.0
+radius = 2.0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_wbia7"]
 shader = ExtResource("6_a5ess")
@@ -71,6 +71,7 @@ collision_layer = 4
 collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+position = Vector2(0, 7)
 shape = SubResource("CircleShape2D_nytcm")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
@@ -83,12 +84,19 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer"]
+[node name="Health" type="HBoxContainer" parent="CanvasLayer"]
 offset_left = 228.0
 offset_top = 58.0
 offset_right = 268.0
 offset_bottom = 106.0
 scale = Vector2(3, 1.5)
+theme_override_constants/separation = 4
+
+[node name="Items" type="VBoxContainer" parent="CanvasLayer"]
+offset_left = 1796.0
+offset_top = 60.0
+offset_right = 1836.0
+offset_bottom = 108.0
 theme_override_constants/separation = 4
 
 [node name="SpecialAttack" type="TextureProgressBar" parent="CanvasLayer"]
@@ -101,5 +109,11 @@ fill_mode = 3
 texture_under = ExtResource("6_reotu")
 texture_progress = ExtResource("7_a5ess")
 texture_progress_offset = Vector2(11, 14)
+
+[node name="SpecialAttackIcon" type="TextureRect" parent="CanvasLayer"]
+offset_left = 61.0
+offset_top = 65.0
+offset_right = 171.0
+offset_bottom = 175.0
 
 [connection signal="body_entered" from="Hurtbox" to="." method="_on_hurtbox_body_entered"]

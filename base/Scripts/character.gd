@@ -8,6 +8,8 @@ class_name Player
 
 var bullet_scene = preload("res://Scenes/bullet_player.tscn")
 
+var items: Array = []
+
 var input_dir: Vector2
 var jump_velocity: Vector2
 
@@ -75,7 +77,8 @@ func start_jump():
 	$Hurtbox/CollisionShape2D.disabled = true
 	
 	var charge_percent = charge_timer / max_charge_time
-	var force = lerp(min_jump_force, max_jump_force, charge_percent)
+	var force = lerp(min_jump_force, max_jump_force, charge_percent) + floor(charge_percent)*50
+	print(force," ",floor(charge_percent))
 
 	jump()
 
@@ -84,7 +87,7 @@ func start_jump():
 	charge_timer = 0.0
 
 func jump():
-	Animations.shakeCam($Camera2D, 1)
+	Animations.shakeCam($Camera2D, 0.5)
 	$Sprite/Arrows.visible = false
 	var tween = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_BACK).set_parallel(false)
 	tween.tween_property($Sprite/Body, "position", Vector2(0, -50.0-charge_timer*20), 0.05)
@@ -162,23 +165,41 @@ func on_bullet_land(_bullet):
 	special_attack_charge += 8
 	$CanvasLayer/SpecialAttack.value = special_attack_charge
 	
+func add_item(item_id: String):
+	items.append(item_id)
+	update_items()
+	
+	match item_id:
+		"candy_corn":
+			max_health+=1
+			health+=1
+			update_health()
+	
+func update_items():
+	for i in $CanvasLayer/Items.get_children():
+		i.queue_free()
+	for i in items:
+		var item_icon = load("res://Scenes/item_button.tscn").instantiate()
+		item_icon.item = i
+		$CanvasLayer/Items.add_child(item_icon)
+	
 func update_health():
-	for h in $CanvasLayer/HBoxContainer.get_children():
+	for h in $CanvasLayer/Health.get_children():
 		h.queue_free()
 	for h in health:
 		var health_container = TextureRect.new()
 		health_container.texture = load("res://Assets/UI/health.png")
-		$CanvasLayer/HBoxContainer.add_child(health_container)
+		$CanvasLayer/Health.add_child(health_container)
 
 func _on_hurtbox_body_entered(body: Node2D) -> void:
 	if body is Tile:
 		die()
 
 func take_damage(dmg):
-	Animations.shakeCam($Camera2D, 3)
-	update_health()
-	await Animations.flash(self,5)
 	health -= dmg
+	Animations.shakeCam($Camera2D, 3)
+	await Animations.flash(self,5)
+	update_health()
 	if health <= 0:
 		die()
 		

@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://rjycex753wup"]
 
-[ext_resource type="Script" uid="uid://2f4otxo33vir" path="res://Scripts/enemy.gd" id="1_hghv2"]
+[ext_resource type="Script" uid="uid://2f4otxo33vir" path="res://Scripts/Enemies/enemy.gd" id="1_hghv2"]
 [ext_resource type="Texture2D" uid="uid://dojux7glgxytm" path="res://Assets/Textures/character1.png" id="2_1f0kj"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_afpow"]
@@ -14,10 +14,6 @@ radius = 661.0121
 collision_layer = 3
 script = ExtResource("1_hghv2")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(0, -44)
-texture = ExtResource("2_1f0kj")
-
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(1, -31)
 shape = SubResource("CapsuleShape2D_afpow")
@@ -29,6 +25,10 @@ shape = SubResource("CircleShape2D_1f0kj")
 
 [node name="ShootCD" type="Timer" parent="."]
 one_shot = true
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -44)
+texture = ExtResource("2_1f0kj")
 
 [connection signal="body_entered" from="AggroRange" to="." method="_on_aggro_range_body_entered"]
 [connection signal="body_exited" from="AggroRange" to="." method="_on_aggro_range_body_exited"]

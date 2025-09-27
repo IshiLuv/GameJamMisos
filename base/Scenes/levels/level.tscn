@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=4 uid="uid://3r74sqojsqwy"]
+[gd_scene load_steps=6 format=4 uid="uid://3r74sqojsqwy"]
 
 [ext_resource type="Texture2D" uid="uid://bg3jkb381cdh8" path="res://Assets/Textures/tileset.png" id="1_tumq0"]
-[ext_resource type="Script" uid="uid://dgwkgffdfhg2t" path="res://Scenes/tile_map_layer.gd" id="2_k5f4k"]
+[ext_resource type="Script" uid="uid://dgwkgffdfhg2t" path="res://Scripts/tile_map_layer.gd" id="2_k5f4k"]
+[ext_resource type="PackedScene" uid="uid://dbvifva701q02" path="res://Scenes/Enemies/enemy_double.tscn" id="3_d6e32"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_k5f4k"]
 texture = ExtResource("1_tumq0")
@@ -31,3 +32,6 @@ script = ExtResource("2_k5f4k")
 
 [node name="Level_end" type="Marker2D" parent="."]
 position = Vector2(0, -1344)
+
+[node name="Enemy" parent="." instance=ExtResource("3_d6e32")]
+position = Vector2(1012, -571)
