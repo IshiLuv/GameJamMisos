@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://bl5ctipb3pyty"
+path="res://.godot/imported/aboba (online-audio-converter.com).ogg-11f3dd5ab657f3c75ca3c3eda31a7063.oggvorbisstr"
+
+[deps]
+
+source_file="res://Assets/Sounds/aboba (online-audio-converter.com).ogg"
+dest_files=["res://.godot/imported/aboba (online-audio-converter.com).ogg-11f3dd5ab657f3c75ca3c3eda31a7063.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

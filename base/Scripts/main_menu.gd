@@ -15,7 +15,6 @@ func _ready() -> void:
 		await get_tree().create_timer(6.5).timeout
 		Animations.disappear($Fake_unreal)
 		Animations.appear($JamLogo)
-		#$AudioStreamPlayer.play()
 		await get_tree().create_timer(1.5).timeout
 		Animations.disappear($JamLogo)
 		await get_tree().create_timer(1.5).timeout
@@ -25,9 +24,11 @@ func _ready() -> void:
 		Animations.disappear($Intro)
 		await get_tree().create_timer(1).timeout
 		Animations.disappear($ColorRect)
+		$AudioStreamPlayer.play()
 	else: 
 		$ColorRect.visible = false
 		$Fake_unreal.visible = false
+		$AudioStreamPlayer.play()
 	
 func _on_exit_pressed() -> void:
 	get_tree().quit()
