@@ -8,7 +8,7 @@
 script = ExtResource("1_jjgbg")
 
 [node name="Character" parent="." instance=ExtResource("2_bo1nx")]
-position = Vector2(965, -1325)
+position = Vector2(634, -1574)
 
 [node name="Levels" type="Node2D" parent="."]
 metadata/_edit_lock_ = true

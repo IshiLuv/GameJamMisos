@@ -24,6 +24,7 @@ shader_parameter/inner_radius = 0.5
 shader_parameter/outer_radius = 1.6
 
 [node name="Character" type="CharacterBody2D"]
+z_index = 2
 collision_layer = 9
 script = ExtResource("1_owm7s")
 max_health = 3

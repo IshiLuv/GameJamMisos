@@ -6,7 +6,7 @@
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_afpow"]
 radius = 27.0
-height = 86.0
+height = 60.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_1f0kj"]
 radius = 661.0121
@@ -20,7 +20,7 @@ offsets = PackedFloat32Array(0, 0.68666667, 1)
 colors = PackedColorArray(1, 0.9333334, 0, 1, 0.37, 0.37, 0.37, 0.7058824, 1, 0, 0, 0)
 
 [node name="Enemy" type="CharacterBody2D"]
-collision_layer = 3
+collision_layer = 7
 script = ExtResource("1_hghv2")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -38,6 +38,9 @@ one_shot = true
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(0, -44)
 texture = ExtResource("2_1f0kj")
+
+[node name="Gun_marker" type="Marker2D" parent="Sprite2D"]
+position = Vector2(0, -10)
 
 [node name="BurnParticle" type="CPUParticles2D" parent="."]
 visible = false

@@ -2,8 +2,8 @@
 
 [ext_resource type="Texture2D" uid="uid://bg3jkb381cdh8" path="res://Assets/Textures/tileset.png" id="1_2mbx3"]
 [ext_resource type="Script" uid="uid://dgwkgffdfhg2t" path="res://Scripts/tile_map_layer.gd" id="2_yffda"]
-[ext_resource type="PackedScene" uid="uid://rjycex753wup" path="res://Scenes/Enemies/enemy.tscn" id="3_yffda"]
 [ext_resource type="PackedScene" uid="uid://r8g654relxu7" path="res://Scenes/item.tscn" id="4_cru1l"]
+[ext_resource type="PackedScene" uid="uid://bjpapxo1gx4qd" path="res://Scenes/Enemies/enemy_spitter.tscn" id="5_0lml3"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_k5f4k"]
 texture = ExtResource("1_2mbx3")
@@ -34,9 +34,6 @@ script = ExtResource("2_yffda")
 [node name="Level_end" type="Marker2D" parent="."]
 position = Vector2(0, -1344)
 
-[node name="Enemy" parent="." instance=ExtResource("3_yffda")]
-position = Vector2(222, -519)
-
 [node name="Item" parent="." instance=ExtResource("4_cru1l")]
 position = Vector2(1245, -318)
 
@@ -48,3 +45,6 @@ position = Vector2(1173, -380)
 
 [node name="Item4" parent="." instance=ExtResource("4_cru1l")]
 position = Vector2(1248, -380)
+
+[node name="Enemy2" parent="." instance=ExtResource("5_0lml3")]
+position = Vector2(1221, -940)
