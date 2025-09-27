@@ -4,13 +4,11 @@ var onPause: bool = false
 @export var skipIntro: bool = false
 
 func _ready() -> void:
-	G.main_menu = self
-	
 	for scene in get_tree().get_root().get_children():
 		if scene is Main :
 			scene.queue_free()
 			
-	if !skipIntro:
+	if !skipIntro and !G.watchedIntro:
 		await get_tree().create_timer(1).timeout
 		Animations.appear($Fake_unreal)
 		$Fake_unreal.play()

@@ -78,7 +78,6 @@ func start_jump():
 	
 	var charge_percent = charge_timer / max_charge_time
 	var force = lerp(min_jump_force, max_jump_force, charge_percent) + floor(charge_percent)*50
-	print(force," ",floor(charge_percent))
 
 	jump()
 
