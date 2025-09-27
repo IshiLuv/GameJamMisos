@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://dbvifva701q02"]
+
+[ext_resource type="PackedScene" uid="uid://rjycex753wup" path="res://Scenes/Enemies/enemy.tscn" id="1_shdgs"]
+[ext_resource type="Script" uid="uid://12giu7nfn2e6" path="res://Scripts/Enemies/enemy_double.gd" id="2_ut7gx"]
+
+[node name="Enemy" instance=ExtResource("1_shdgs")]
+script = ExtResource("2_ut7gx")
+
+[node name="ShootCD" parent="." index="2"]
+wait_time = 2.0

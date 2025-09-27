@@ -10,12 +10,12 @@ config_version=5
 
 [application]
 
-config/name="HELLOween"
+config/name="HELLPOT"
 run/main_scene="uid://c6m0xrr1juo11"
 config/features=PackedStringArray("4.5", "Forward Plus")
 boot_splash/bg_color=Color(0, 0, 0, 1)
 boot_splash/show_image=false
-config/icon="res://Assets/UI/icon.svg"
+config/icon="uid://h3l03gbyprwq"
 
 [audio]
 

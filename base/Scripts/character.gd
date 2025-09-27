@@ -77,7 +77,8 @@ func start_jump():
 	$Hurtbox/CollisionShape2D.disabled = true
 	
 	var charge_percent = charge_timer / max_charge_time
-	var force = lerp(min_jump_force, max_jump_force, charge_percent)
+	var force = lerp(min_jump_force, max_jump_force, charge_percent) + floor(charge_percent)*50
+	print(force," ",floor(charge_percent))
 
 	jump()
 
@@ -195,10 +196,10 @@ func _on_hurtbox_body_entered(body: Node2D) -> void:
 		die()
 
 func take_damage(dmg):
-	Animations.shakeCam($Camera2D, 3)
-	update_health()
-	await Animations.flash(self,5)
 	health -= dmg
+	Animations.shakeCam($Camera2D, 3)
+	await Animations.flash(self,5)
+	update_health()
 	if health <= 0:
 		die()
 		
