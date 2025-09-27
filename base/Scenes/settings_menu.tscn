@@ -1,10 +1,9 @@
-[gd_scene load_steps=10 format=3 uid="uid://hyspm5rulkn2"]
+[gd_scene load_steps=9 format=3 uid="uid://hyspm5rulkn2"]
 
 [ext_resource type="Script" uid="uid://fx2k2jawj2xt" path="res://Scripts/settings_menu.gd" id="1_rahb6"]
 [ext_resource type="Texture2D" uid="uid://ba63i7le6r7ww" path="res://Assets/UI/Setiings_menu.png" id="2_fe37x"]
 [ext_resource type="Texture2D" uid="uid://mggjkym5jlnw" path="res://Assets/UI/menu.png" id="3_3etfd"]
 [ext_resource type="Script" uid="uid://d2f88pafu8js6" path="res://Scripts/Button.gd" id="4_fsgis"]
-[ext_resource type="Texture2D" uid="uid://bknmo8s7np0vv" path="res://Assets/UI/health.png" id="5_fe37x"]
 [ext_resource type="Texture2D" uid="uid://7av46kjxgp51" path="res://Assets/UI/Grabber.png" id="5_jjs6x"]
 [ext_resource type="Texture2D" uid="uid://dq1b5unvyd0kc" path="res://Assets/UI/Grabber_high.png" id="6_fsgis"]
 [ext_resource type="AudioStream" uid="uid://dbgjag1bquglw" path="res://Assets/Sounds/мирцал-пока-пока.ogg" id="6_hmele"]
@@ -33,9 +32,10 @@ offset_left = 174.0
 offset_top = 107.0
 offset_right = 499.0
 offset_bottom = 232.0
+focus_mode = 0
 theme_override_icons/grabber = ExtResource("5_jjs6x")
 theme_override_icons/grabber_highlight = ExtResource("6_fsgis")
-theme_override_icons/grabber_disabled = ExtResource("5_fe37x")
+theme_override_icons/grabber_disabled = ExtResource("5_jjs6x")
 min_value = -25.0
 max_value = 20.0
 rounded = true
@@ -78,6 +78,8 @@ toggle_mode = true
 position = Vector2(1, 1)
 
 [connection signal="pressed" from="Exit" to="." method="_on_exit_pressed"]
+[connection signal="mouse_entered" from="HSlider" to="." method="_on_h_slider_mouse_entered"]
+[connection signal="mouse_exited" from="HSlider" to="." method="_on_h_slider_mouse_exited"]
 [connection signal="value_changed" from="HSlider" to="." method="_on_h_slider_value_changed"]
 [connection signal="item_selected" from="OptionButton" to="." method="_on_option_button_item_selected"]
 [connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
