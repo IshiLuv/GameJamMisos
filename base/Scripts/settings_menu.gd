@@ -13,7 +13,13 @@ func _on_exit_pressed() -> void:
 func _on_h_slider_value_changed(value: float) -> void:
 	if value == -25: 
 		AudioServer.set_bus_volume_db(2, -80)
-	else: AudioServer.set_bus_volume_db(2, value)
+	else: 
+		AudioServer.set_bus_volume_db(2, value)
+		var t = float(value +25 ) / float(20 + 25)
+		var frame = int(round(t * (8 - 1)))
+		$AnimatedSprite2D.play("Slaider")
+		$AnimatedSprite2D.set_frame_and_progress(frame,0)
+		$AnimatedSprite2D.pause()
 	
 func _on_option_button_item_selected(index: int) -> void:
 	if index==0:
