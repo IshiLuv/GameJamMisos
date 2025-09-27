@@ -39,3 +39,12 @@ position = Vector2(222, -519)
 
 [node name="Item" parent="." instance=ExtResource("4_cru1l")]
 position = Vector2(1245, -318)
+
+[node name="Item2" parent="." instance=ExtResource("4_cru1l")]
+position = Vector2(1168, -319)
+
+[node name="Item3" parent="." instance=ExtResource("4_cru1l")]
+position = Vector2(1173, -380)
+
+[node name="Item4" parent="." instance=ExtResource("4_cru1l")]
+position = Vector2(1248, -380)

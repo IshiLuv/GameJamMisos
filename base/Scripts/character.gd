@@ -6,9 +6,10 @@ class_name Player
 @export var max_jump_force: float = 800.0
 @export var max_charge_time: float = 1.0
 
-var bullet_scene = preload("res://Scenes/bullet_player.tscn")
+var bullet_scene = preload("res://Scenes/Bullets/bullet_player.tscn")
 
 var items: Array = []
+var active_item: String = ""
 
 var input_dir: Vector2
 var jump_velocity: Vector2
@@ -31,6 +32,7 @@ func _ready() -> void:
 	update_health()
 	
 func _process(delta: float) -> void:
+	
 	if can_move:
 		input_dir = Input.get_vector("move_left", "move_right", "move_up", "move_down").normalized()
 
@@ -42,10 +44,15 @@ func _process(delta: float) -> void:
 			$Sprite/Arrows.visible = false
 
 		if Input.is_action_just_pressed("attack"):
-			attack()
+			if $AttackCD.is_stopped():
+				$AttackCD.start()
+				attack()
 
 		if Input.is_action_just_pressed("alt_attack"):
-			alt_attack()
+			if $AltAttackCD.is_stopped():
+				$AltAttackCD.start()
+				$Sprite/Head.texture = load("res://Assets/Textures/character2.png")
+				alt_attack()
 
 		if Input.is_action_just_pressed("special_attack"):
 			special_attack()
@@ -78,7 +85,6 @@ func start_jump():
 	
 	var charge_percent = charge_timer / max_charge_time
 	var force = lerp(min_jump_force, max_jump_force, charge_percent) + floor(charge_percent)*50
-
 	jump()
 
 	jump_velocity = input_dir * force 
@@ -115,18 +121,26 @@ func alt_attack():
 	tween.tween_property($Sprite/Head, "position", Vector2(-2, -66.5), 0.1)
 	tween.tween_property($Sprite/Body, "position", Vector2(0, -40.0), 0.1)
 	tween.tween_property($Sprite/Head, "position", Vector2(-2, -60.5), 0.1)
-
-	var num_bullets := 8  # сколько пуль выпускаем (8 = полный круг)
-	for i in num_bullets:
-		var angle = deg_to_rad(360.0 / num_bullets * i)
-		var dir = Vector2.RIGHT.rotated(angle)
-		G.spawn_bullet(self, bullet_scene, $Gun/Bullet_Marker.global_position, dir)
+	
+	if items.has("shovel"):
+		var tp_tween = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_EXPO).set_parallel(false)
+		tp_tween.tween_property($Sprite, "scale", Vector2(0, 0), 0.2)
+		tp_tween.tween_property($Sprite, "scale", Vector2(1, 1), 0.2)
+		await get_tree().create_timer(0.2).timeout
+		global_position = get_global_mouse_position()
+		
+	if items.has("nest"):
+		var num_bullets := 8  # сколько пуль выпускаем (8 = полный круг)
+		for i in num_bullets:
+			var angle = deg_to_rad(360.0 / num_bullets * i)
+			var dir = Vector2.RIGHT.rotated(angle)
+			G.spawn_bullet(self, bullet_scene, $Gun/Bullet_Marker.global_position, dir)
 		
 func special_attack():
 	if special_attack_charge >= special_attack_cost:
 		Animations.shakeCam($Camera2D, 3)
 		$Sprite/Arrows.visible = false
-
+		
 		var tween = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_BACK).set_parallel(false)
 		tween.tween_property($Sprite/Body, "position", Vector2(0, -50.0), 0.03)
 		tween.tween_property($Sprite/Head, "position", Vector2(-2, -66.5), 0.1)
@@ -134,12 +148,13 @@ func special_attack():
 		tween.tween_property($Sprite/Head, "position", Vector2(-2, -60.5), 0.1)
 
 		special_attack_charge = 0
+		$CanvasLayer/SpecialAttack.value = special_attack_charge
 
 		var num_bullets := 16  # сколько пуль выпускаем (8 = полный круг)
 		for i in num_bullets:
 			var angle = deg_to_rad(360.0 / num_bullets * i)
 			var dir = Vector2.RIGHT.rotated(angle)
-			G.spawn_bullet(self, bullet_scene, $Gun/Bullet_Marker.global_position, dir)
+			G.spawn_bullet(self, bullet_scene, $Gun/Bullet_Marker.global_position, dir, true)
 			Animations.shakeCam($Camera2D, 2)
 			await get_tree().create_timer(0.05).timeout
 	
@@ -164,15 +179,27 @@ func on_bullet_land(_bullet):
 	special_attack_charge += 8
 	$CanvasLayer/SpecialAttack.value = special_attack_charge
 	
-func add_item(item_id: String):
-	items.append(item_id)
-	update_items()
+func add_item(table, item_id: String):
+	if ["candles",].has(item_id):
+		if active_item == "":
+			table.queue_free()
+		table.setItem(active_item)
+		active_item = item_id
+		$CanvasLayer/SpecialAttackIcon.texture = load("res://Assets/Textures/Items/item_" + item_id + ".png")
+	else:
+		items.append(item_id)
+		update_items()
+		table.queue_free()
 	
 	match item_id:
 		"candy_corn":
 			max_health+=1
 			health+=1
 			update_health()
+		"shovel":
+			$AltAttackCD.wait_time += 2.5
+		"nest":
+			$AltAttackCD.wait_time += 0.5
 	
 func update_items():
 	for i in $CanvasLayer/Items.get_children():
@@ -221,3 +248,10 @@ func die():
 	await get_tree().create_timer(1.0).timeout
 	await Animations.disappear(G.main)
 	get_tree().change_scene_to_file("res://Scenes/main.tscn")
+
+
+func _on_attack_cd_timeout() -> void:
+	pass # Replace with function body.
+
+func _on_alt_attack_cd_timeout() -> void:
+	$Sprite/Head.texture = load("res://Assets/Textures/character2_active.png")

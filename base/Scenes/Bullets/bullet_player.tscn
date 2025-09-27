@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://uet7n5lf7lar"]
 
-[ext_resource type="PackedScene" uid="uid://5xx0wjnb7k6m" path="res://Scenes/bullet.tscn" id="1_s5lyr"]
+[ext_resource type="PackedScene" uid="uid://5xx0wjnb7k6m" path="res://Scenes/Bullets/bullet.tscn" id="1_s5lyr"]
 [ext_resource type="Texture2D" uid="uid://bdi88mnw36tn7" path="res://Assets/Textures/crow.png" id="2_xupnh"]
 
 [sub_resource type="Curve" id="Curve_4qi73"]
@@ -23,10 +23,10 @@ scale_amount_max = 3.0
 scale_amount_curve = SubResource("Curve_4qi73")
 color_ramp = SubResource("Gradient_4qi73")
 
-[node name="Sprite2D" parent="." index="1"]
+[node name="Sprite2D" parent="." index="2"]
 scale = Vector2(2, 2)
 texture = ExtResource("2_xupnh")
 
-[node name="Area2D" parent="." index="2"]
+[node name="Area2D" parent="." index="3"]
 collision_layer = 2
 collision_mask = 2

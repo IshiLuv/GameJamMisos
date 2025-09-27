@@ -1,0 +1,65 @@
+[gd_scene load_steps=9 format=3 uid="uid://5xx0wjnb7k6m"]
+
+[ext_resource type="Script" uid="uid://db021axitc6tb" path="res://Scripts/bullet.gd" id="1_qngn8"]
+[ext_resource type="Texture2D" uid="uid://2ey22dvjsp4" path="res://Assets/Textures/bullet.png" id="2_510l0"]
+[ext_resource type="Texture2D" uid="uid://cbf3yeoadre6l" path="res://Assets/Textures/bullet_fire.png" id="3_510l0"]
+
+[sub_resource type="Curve" id="Curve_oduel"]
+_data = [Vector2(0, 0.8539326), 0.0, 0.0, 0, 0, Vector2(0.07954545, 1), 0.0, 0.0, 0, 0, Vector2(0.9943182, 0), -2.1222255, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Gradient" id="Gradient_oduel"]
+offsets = PackedFloat32Array(0, 0.36, 1)
+colors = PackedColorArray(1, 0, 0, 1, 1, 0.2833333, 0, 1, 1, 0, 0, 0)
+
+[sub_resource type="Curve" id="Curve_uim2h"]
+_data = [Vector2(0, 0.8539326), 0.0, 0.0, 0, 0, Vector2(0.07954545, 1), 0.0, 0.0, 0, 0, Vector2(0.9943182, 0), -2.1222255, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Gradient" id="Gradient_q5pdp"]
+offsets = PackedFloat32Array(0, 0.68666667, 1)
+colors = PackedColorArray(1, 0.9333334, 0, 1, 0.37, 0.37, 0.37, 0.7058824, 1, 0, 0, 0)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_oduel"]
+radius = 8.0
+
+[node name="Bullet" type="Node2D"]
+script = ExtResource("1_qngn8")
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+amount = 16
+texture = ExtResource("2_510l0")
+speed_scale = 3.0
+explosiveness = 0.14
+direction = Vector2(0, -1)
+gravity = Vector2(0, 0)
+angle_min = -28.5
+angle_max = 14.3
+scale_amount_min = 0.2
+scale_amount_curve = SubResource("Curve_oduel")
+color_ramp = SubResource("Gradient_oduel")
+
+[node name="BurnParticle" type="CPUParticles2D" parent="."]
+amount = 16
+texture = ExtResource("3_510l0")
+speed_scale = 3.0
+explosiveness = 0.14
+direction = Vector2(0, -1)
+gravity = Vector2(0, 0)
+angle_min = -28.5
+angle_max = 14.3
+scale_amount_min = 0.2
+scale_amount_curve = SubResource("Curve_uim2h")
+color_ramp = SubResource("Gradient_q5pdp")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_510l0")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 8
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_oduel")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

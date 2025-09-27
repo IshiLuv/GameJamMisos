@@ -1,9 +1,8 @@
-[gd_scene load_steps=13 format=3 uid="uid://dsrflgol3r2e0"]
+[gd_scene load_steps=12 format=3 uid="uid://dsrflgol3r2e0"]
 
 [ext_resource type="Script" uid="uid://dctgpgp1oste0" path="res://Scripts/character.gd" id="1_owm7s"]
 [ext_resource type="Texture2D" uid="uid://dojux7glgxytm" path="res://Assets/Textures/character1.png" id="1_ushfy"]
 [ext_resource type="Material" uid="uid://blwcs65av652f" path="res://Assets/burn_shader.tres" id="2_ejsiy"]
-[ext_resource type="Texture2D" uid="uid://c418abfanxehf" path="res://Assets/Textures/shadow.png" id="2_wbia7"]
 [ext_resource type="Texture2D" uid="uid://c1vsl7f8k5p26" path="res://Assets/Textures/arrows.png" id="4_nytcm"]
 [ext_resource type="Texture2D" uid="uid://bmi84t4fy63bx" path="res://Assets/Textures/character2_active.png" id="5_a5ess"]
 [ext_resource type="Shader" uid="uid://c5rliag6omhl4" path="res://Assets/vignette.gdshader" id="6_a5ess"]
@@ -26,6 +25,10 @@ shader_parameter/outer_radius = 1.6
 [node name="Character" type="CharacterBody2D"]
 collision_layer = 9
 script = ExtResource("1_owm7s")
+speed = null
+min_jump_force = null
+max_jump_force = null
+max_charge_time = null
 max_health = 3
 
 [node name="Camera2D" type="Camera2D" parent="."]
@@ -36,14 +39,12 @@ position_smoothing_speed = 10.0
 
 [node name="Sprite" type="CanvasGroup" parent="."]
 
-[node name="Shadow" type="TextureRect" parent="Sprite"]
+[node name="Shadow" type="ColorRect" parent="Sprite"]
 offset_left = -20.0
-offset_top = 0.9999995
+offset_top = -5.0
 offset_right = 20.0
-offset_bottom = 26.0
-scale = Vector2(1.5, 1.5)
-pivot_offset = Vector2(20, 12.5)
-texture = ExtResource("2_wbia7")
+offset_bottom = 20.0
+color = Color(0, 0, 0, 0.45882353)
 
 [node name="Arrows" type="Sprite2D" parent="Sprite"]
 position = Vector2(70, 0)

@@ -1,7 +1,13 @@
 extends Node
 
 var main: Node2D
-var main_menu: Node2D
+
+var item_pool: Array = [
+	"candy_corn",
+	"shovel",
+	"nest",
+	"candles",
+]
 
 #settings:
 var resolution: int = 0
@@ -11,9 +17,10 @@ var watchedIntro: bool = false
 func _ready() -> void:
 	TranslationServer.set_locale("en")
 
-func spawn_bullet(sender, bullet_scn, pos, dir):
+func spawn_bullet(sender, bullet_scn, pos, dir, is_burning: bool = false):
 	var bullet = bullet_scn.instantiate()
 	bullet.global_position = pos
 	bullet.direction = dir
 	bullet.sender = sender
+	bullet.is_burning = is_burning
 	G.main.add_child(bullet)

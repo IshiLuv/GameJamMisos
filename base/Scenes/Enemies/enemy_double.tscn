@@ -5,6 +5,7 @@
 
 [node name="Enemy" instance=ExtResource("1_shdgs")]
 script = ExtResource("2_ut7gx")
+max_health = 100
 
 [node name="ShootCD" parent="." index="2"]
 wait_time = 2.0

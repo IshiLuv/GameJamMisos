@@ -15,3 +15,4 @@ func generate():
 		$Levels.add_child(new_level)
 		new_level.global_position = last_level.get_node("Level_end").global_position
 		last_level = new_level
+	

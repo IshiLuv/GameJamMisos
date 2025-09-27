@@ -6,7 +6,7 @@ extends Node2D
 var item: String = "candy_corn"
 
 func _ready() -> void:
-	setItem(item)
+	setItem(G.item_pool.pick_random())
 
 var time_passed = 0.0
 func _process(delta: float) -> void:
@@ -20,5 +20,4 @@ func setItem(item_id: String):
 	
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	if body is Player:
-		body.add_item(item)
-		queue_free()
+		body.add_item(self,item)

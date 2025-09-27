@@ -35,6 +35,8 @@ window/size/initial_position_type=4
 window/subwindows/embed_subwindows=false
 window/stretch/mode="canvas_items"
 window/stretch/aspect="keep_height"
+mouse_cursor/custom_image="uid://5bxnytmydwom"
+mouse_cursor/custom_image_hotspot=Vector2(32, 32)
 
 [file_customization]
 
