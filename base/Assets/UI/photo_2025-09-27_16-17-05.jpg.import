@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dchxj5pa10fcn"
-path="res://.godot/imported/Claider.png-7f99c0c5255565eddcf72251874add1d.ctex"
+uid="uid://byducsfkamll3"
+path="res://.godot/imported/photo_2025-09-27_16-17-05.jpg-9e908f7e8ab3ed0eb3a3ef8e53984275.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/UI/Claider.png"
-dest_files=["res://.godot/imported/Claider.png-7f99c0c5255565eddcf72251874add1d.ctex"]
+source_file="res://Assets/UI/photo_2025-09-27_16-17-05.jpg"
+dest_files=["res://.godot/imported/photo_2025-09-27_16-17-05.jpg-9e908f7e8ab3ed0eb3a3ef8e53984275.ctex"]
 
 [params]
 

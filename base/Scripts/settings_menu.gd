@@ -9,17 +9,6 @@ func _ready() -> void:
 func _on_exit_pressed() -> void:
 	G.watchedIntro = true
 	get_tree().change_scene_to_file("res://Scenes/main_menu.tscn")
-
-func _on_h_slider_value_changed(value: float) -> void:
-	if value == -25: 
-		AudioServer.set_bus_volume_db(2, -80)
-	else: 
-		AudioServer.set_bus_volume_db(2, value)
-		var t = float(value +25 ) / float(20 + 25)
-		var frame = int(round(t * (8 - 1)))
-		$AnimatedSprite2D.play("Slaider")
-		$AnimatedSprite2D.set_frame_and_progress(frame,0)
-		$AnimatedSprite2D.pause()
 	
 func _on_option_button_item_selected(index: int) -> void:
 	if index==0:
@@ -46,3 +35,27 @@ func _on_button_toggled(toggled_on: bool) -> void:
 		$Button.text = "Полноэкранный"
 		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
 		
+
+
+func _on_music_value_changed(value: float) -> void:
+	if value == -25: 
+		AudioServer.set_bus_volume_db(2, -80)
+	else: 
+		AudioServer.set_bus_volume_db(2, value)
+		var t = float(value +25 ) / float(20 + 25)
+		var frame = int(round(t * (7 - 1)))
+		$AnimatedSprite2D.play("Slaider")
+		$AnimatedSprite2D.set_frame_and_progress(frame,0)
+		$AnimatedSprite2D.pause()
+
+
+func _on_svx_value_changed(value: float) -> void:
+	if value == -25: 
+		AudioServer.set_bus_volume_db(1, -80)
+	else: 
+		AudioServer.set_bus_volume_db(1, value)
+		var t = float(value + 25 ) / float(20 + 25)
+		var frame = int(round(t * (7 - 1)))
+		$AnimatedSprite2D2.play("Slaider")
+		$AnimatedSprite2D2.set_frame_and_progress(frame,0)
+		$AnimatedSprite2D2.pause()
