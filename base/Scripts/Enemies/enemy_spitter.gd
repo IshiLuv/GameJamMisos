@@ -42,7 +42,7 @@ func _process_walk(_delta: float) -> void:
 		if distance > attack_range:
 			var dir = (target.global_position - global_position).normalized()
 			velocity = dir * move_speed
-			$Sprite2D.scale.x = -1 if dir.x < 0 else 1
+			$Sprite2D.scale.x = - 1.8 if dir.x < 0 else  1.8
 			move_and_slide()
 		else:
 			velocity = Vector2.ZERO
@@ -58,7 +58,7 @@ func _process_walk(_delta: float) -> void:
 		
 		var dir = (wander_target - global_position).normalized()
 		velocity = dir * move_speed * 0.5
-		$Sprite2D.scale.x = -1 if dir.x < 0 else 1
+		$Sprite2D.scale.x = -1.8 if dir.x < 0 else  1.8
 		move_and_slide()
 
 func attack() -> void:

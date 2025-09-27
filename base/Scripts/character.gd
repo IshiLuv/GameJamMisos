@@ -160,7 +160,9 @@ func special_attack():
 		for i in num_bullets:
 			var angle = deg_to_rad(360.0 / num_bullets * i)
 			var dir = Vector2.RIGHT.rotated(angle)
-			G.spawn_bullet(self, bullet_scene, $Gun/Bullet_Marker.global_position, dir, true)
+			G.spawn_bullet(self, bullet_scene, $Gun/Bullet_Marker.global_position, dir)
+			if items.has("candles"):
+				G.spawn_bullet(self, bullet_scene, $Gun/Bullet_Marker.global_position, dir)
 			Animations.shakeCam($Camera2D, 2)
 			await get_tree().create_timer(0.05).timeout
 	

@@ -12,17 +12,24 @@ move_speed = 80.0
 attack_range = 300.0
 max_health = 16
 
-[node name="ShootCD" parent="." index="2"]
-wait_time = 2.5
+[node name="CollisionShape2D" parent="AggroRange" index="0"]
+visible = true
 
-[node name="Sprite2D" parent="." index="3"]
-position = Vector2(0, -32)
+[node name="Sprite2D" parent="." index="1"]
+position = Vector2(0, -54)
+scale = Vector2(1.8, 1.8)
 texture = ExtResource("3_ewunv")
 hframes = 2
 vframes = 2
 
 [node name="Gun_marker" parent="Sprite2D" index="0"]
 position = Vector2(10, -2)
+
+[node name="CollisionShape2D" parent="." index="2"]
+position = Vector2(1, -43)
+
+[node name="ShootCD" parent="." index="3"]
+wait_time = 2.5
 
 [node name="StepTimer" type="Timer" parent="." index="5"]
 wait_time = 0.259
