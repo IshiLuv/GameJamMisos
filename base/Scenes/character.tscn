@@ -83,12 +83,19 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer"]
+[node name="Health" type="HBoxContainer" parent="CanvasLayer"]
 offset_left = 228.0
 offset_top = 58.0
 offset_right = 268.0
 offset_bottom = 106.0
 scale = Vector2(3, 1.5)
+theme_override_constants/separation = 4
+
+[node name="Items" type="VBoxContainer" parent="CanvasLayer"]
+offset_left = 1796.0
+offset_top = 60.0
+offset_right = 1836.0
+offset_bottom = 108.0
 theme_override_constants/separation = 4
 
 [node name="SpecialAttack" type="TextureProgressBar" parent="CanvasLayer"]
@@ -101,5 +108,11 @@ fill_mode = 3
 texture_under = ExtResource("6_reotu")
 texture_progress = ExtResource("7_a5ess")
 texture_progress_offset = Vector2(11, 14)
+
+[node name="SpecialAttackIcon" type="TextureRect" parent="CanvasLayer"]
+offset_left = 61.0
+offset_top = 65.0
+offset_right = 171.0
+offset_bottom = 175.0
 
 [connection signal="body_entered" from="Hurtbox" to="." method="_on_hurtbox_body_entered"]

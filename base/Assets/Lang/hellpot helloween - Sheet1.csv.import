@@ -1,0 +1,17 @@
+[remap]
+
+importer="csv_translation"
+type="Translation"
+uid="uid://ctcdr0btg1hq1"
+
+[deps]
+
+files=["res://Assets/Lang/hellpot helloween - Sheet1.en.translation", "res://Assets/Lang/hellpot helloween - Sheet1.ru.translation"]
+
+source_file="res://Assets/Lang/hellpot helloween - Sheet1.csv"
+dest_files=["res://Assets/Lang/hellpot helloween - Sheet1.en.translation", "res://Assets/Lang/hellpot helloween - Sheet1.ru.translation"]
+
+[params]
+
+compress=true
+delimiter=0

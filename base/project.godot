@@ -86,6 +86,10 @@ special_attack={
 ]
 }
 
+[internationalization]
+
+locale/translations=PackedStringArray("res://Assets/Lang/hellpot helloween - Sheet1.en.translation", "res://Assets/Lang/hellpot helloween - Sheet1.ru.translation")
+
 [rendering]
 
 textures/canvas_textures/default_texture_filter=0
