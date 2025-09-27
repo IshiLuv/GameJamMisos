@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://dbvifva701q02"]
+
+[ext_resource type="PackedScene" uid="uid://rjycex753wup" path="res://Scenes/Enemies/enemy.tscn" id="1_2rg2p"]
+[ext_resource type="Script" uid="uid://r7c4ot4qdfo2" path="res://Scripts/Enemies/enemy_tower.gd" id="2_l2vgy"]
+[ext_resource type="Texture2D" uid="uid://d3ide8ol4wft4" path="res://Assets/Textures/Enemies/tower.png" id="3_ays0e"]
+
+[node name="Enemy" instance=ExtResource("1_2rg2p")]
+script = ExtResource("2_l2vgy")
+max_health = 16
+
+[node name="ShootCD" parent="." index="2"]
+wait_time = 2.5
+
+[node name="Sprite2D" parent="." index="3"]
+texture = ExtResource("3_ays0e")
+hframes = 2
+
+[node name="Gun_marker" parent="Sprite2D" index="0"]
+position = Vector2(-2, -50)

@@ -1,6 +1,6 @@
 extends Node2D
 class_name Main
-
+var onPause: bool = false
 @onready var player = $Character
 
 func _ready() -> void:
@@ -15,4 +15,4 @@ func generate():
 		$Levels.add_child(new_level)
 		new_level.global_position = last_level.get_node("Level_end").global_position
 		last_level = new_level
-	
+		

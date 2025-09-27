@@ -20,6 +20,7 @@ var special_attack_charge: int = 0
 var charge_timer: float = 0.0
 var jump_timer: float = 0.0
 
+var is_fallen: bool = false
 var is_jumping: bool = false
 var is_charging_jump: bool = false
 var is_shaking: bool = false
@@ -75,7 +76,8 @@ func _physics_process(delta: float) -> void:
 			velocity = Vector2.ZERO
 			$Hurtbox/CollisionShape2D.disabled = false
 			Animations.shakeCam($Camera2D, 0.4)
-
+			Sounds.play_sound(global_position,"stick"+str(randi_range(1,5)), -3.0, "SFX", 0.1, 1.0)
+			
 	move_and_slide()
 
 func start_jump():
@@ -92,6 +94,7 @@ func start_jump():
 	charge_timer = 0.0
 
 func jump():
+	Sounds.play_sound(global_position,"stick"+str(randi_range(1,5)), -15.0, "SFX", 0.1, 1.5)
 	Animations.shakeCam($Camera2D, 0.5)
 	$Sprite/Arrows.visible = false
 	var tween = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_BACK).set_parallel(false)
@@ -101,6 +104,7 @@ func jump():
 	tween.tween_property($Sprite/Head, "position", Vector2(-2, -60.5), 0.1)
 
 func attack():
+	Sounds.play_sound(global_position,"gg_attack"+str(randi_range(1,3)), -3.0, "SFX", 0.1, 1.0)
 	Animations.shakeCam($Camera2D, 1)
 	$Sprite/Arrows.visible = false
 	
@@ -130,6 +134,7 @@ func alt_attack():
 		global_position = get_global_mouse_position()
 		
 	if items.has("nest"):
+		Sounds.play_sound(global_position,"gg_attack"+str(randi_range(1,3)), -3.0, "SFX", 0.1, 1.0)
 		var num_bullets := 8  # сколько пуль выпускаем (8 = полный круг)
 		for i in num_bullets:
 			var angle = deg_to_rad(360.0 / num_bullets * i)
@@ -138,6 +143,7 @@ func alt_attack():
 		
 func special_attack():
 	if special_attack_charge >= special_attack_cost:
+		Sounds.play_sound(global_position,"gg_special_attack", -0.0, "SFX", 0.4, 2.0)
 		Animations.shakeCam($Camera2D, 3)
 		$Sprite/Arrows.visible = false
 		
@@ -219,17 +225,21 @@ func update_health():
 
 func _on_hurtbox_body_entered(body: Node2D) -> void:
 	if body is Tile:
+		is_fallen = true
 		die()
 
 func take_damage(dmg):
 	health -= dmg
+	Sounds.play_sound(global_position,"gg_hit", -0.0, "SFX", 0.4, 2.0)
 	Animations.shakeCam($Camera2D, 3)
 	await Animations.flash(self,5)
 	update_health()
 	if health <= 0:
+		is_fallen = false
 		die()
 		
 func die():
+	velocity = Vector2.ZERO
 	can_move = false
 	can_take_damage = false
 	
@@ -242,7 +252,7 @@ func die():
 	
 	await get_tree().create_timer(0.4).timeout
 	tween = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_EXPO).set_parallel(true)
-	tween.tween_property(self, "position", global_position + Vector2(0, 100.0), 0.3)
+	if is_fallen: tween.tween_property(self, "position", global_position + Vector2(0, 100.0), 0.3)
 	tween.tween_property($Sprite/Head.material, "shader_parameter/dissolve_value", 0, 2.0)
 
 	await get_tree().create_timer(1.0).timeout

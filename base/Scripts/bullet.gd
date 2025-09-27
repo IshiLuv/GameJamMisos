@@ -13,8 +13,7 @@ func _ready() -> void:
 		$BurnParticle.emitting = true
 	else:
 		$BurnParticle.emitting = false
-	if direction[0] < 0:
-		$Sprite2D.flip_h = true
+	$Sprite2D.flip_h = direction[0] < 0
 	await get_tree().create_timer(3).timeout
 	queue_free()
 

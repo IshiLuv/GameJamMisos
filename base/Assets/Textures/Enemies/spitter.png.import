@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dchxj5pa10fcn"
-path="res://.godot/imported/Claider.png-7f99c0c5255565eddcf72251874add1d.ctex"
+uid="uid://bc12dj2pbdjmi"
+path="res://.godot/imported/spitter.png-8b3caefcefe230ca6c26ddc187589ae9.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/UI/Claider.png"
-dest_files=["res://.godot/imported/Claider.png-7f99c0c5255565eddcf72251874add1d.ctex"]
+source_file="res://Assets/Textures/Enemies/spitter.png"
+dest_files=["res://.godot/imported/spitter.png-8b3caefcefe230ca6c26ddc187589ae9.ctex"]
 
 [params]
 

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dchxj5pa10fcn"
-path="res://.godot/imported/Claider.png-7f99c0c5255565eddcf72251874add1d.ctex"
+uid="uid://d3ide8ol4wft4"
+path="res://.godot/imported/tower.png-68e24009416fe5e7999900a64a099716.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/UI/Claider.png"
-dest_files=["res://.godot/imported/Claider.png-7f99c0c5255565eddcf72251874add1d.ctex"]
+source_file="res://Assets/Textures/Enemies/tower.png"
+dest_files=["res://.godot/imported/tower.png-68e24009416fe5e7999900a64a099716.ctex"]
 
 [params]
 
