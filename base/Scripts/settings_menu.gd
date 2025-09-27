@@ -2,7 +2,6 @@ extends Node2D
 
 func _ready() -> void:
 	$AudioStreamPlayer2D.play()
-	$Button.text = "Полноэкранный"
 	$OptionButton.select(G.resolution) 
 	$OptionButton.set_item_text(4, str(G.based_screen[0]) + "×" + str(G.based_screen[1]))
 	
@@ -28,11 +27,11 @@ func _on_option_button_item_selected(index: int) -> void:
 	 
 func _on_button_toggled(toggled_on: bool) -> void:
 	if toggled_on == true:
-		$Button.text = "Оконный"
+		$Button.texture_normal = load("res://Assets/UI/WINDOWED.png")
 		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
 	
 	if toggled_on == false:
-		$Button.text = "Полноэкранный"
+		$Button.texture_normal = load("res://Assets/UI/Fullscreen.png")
 		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
 		
 

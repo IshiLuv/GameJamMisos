@@ -143,10 +143,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = 157.0
-offset_top = 1143.0
-offset_right = 3255.0
-offset_bottom = 2963.0
+offset_left = -1401.0
+offset_top = -990.0
+offset_right = 1697.0
+offset_bottom = 830.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 1)
@@ -202,7 +202,7 @@ position = Vector2(673, 30)
 sprite_frames = SubResource("SpriteFrames_ehtkc")
 animation = &"Fire"
 autoplay = "Fire"
-frame_progress = 0.12874019
+frame_progress = 0.11553251
 
 [connection signal="pressed" from="Play" to="." method="_on_play_pressed"]
 [connection signal="pressed" from="Settings" to="." method="_on_settings_pressed"]

@@ -1,0 +1,13 @@
+[gd_resource type="Theme" load_steps=3 format=3 uid="uid://scktlh5526ke"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jjs6x"]
+bg_color = Color(0.08235294, 0.23529412, 0.03137255, 1)
+shadow_color = Color(0, 0, 0, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_y3vsn"]
+bg_color = Color(0.25882354, 1, 0.007843138, 1)
+
+[resource]
+HSlider/styles/grabber_area = SubResource("StyleBoxFlat_jjs6x")
+HSlider/styles/grabber_area_highlight = SubResource("StyleBoxFlat_y3vsn")
+HSlider/styles/slider = null
