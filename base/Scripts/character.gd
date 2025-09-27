@@ -1,4 +1,4 @@
-extends CharacterBody2D
+extends Entity
 class_name Player
 
 @export var speed: float = 200.0
@@ -8,11 +8,11 @@ class_name Player
 
 var bullet_scene = preload("res://Scenes/bullet_player.tscn")
 
-var max_health: int = 3
-var health: int = max_health
-
 var input_dir: Vector2
 var jump_velocity: Vector2
+
+var special_attack_cost: int = 100
+var special_attack_charge: int = 0
 
 var charge_timer: float = 0.0
 var jump_timer: float = 0.0
@@ -25,6 +25,7 @@ var can_take_damage: bool = true
 
 func _ready() -> void:
 	$Sprite/Head.material.set_shader_parameter("dissolve_value", 1.0)
+	health = max_health
 	update_health()
 	
 func _process(delta: float) -> void:
@@ -38,17 +39,14 @@ func _process(delta: float) -> void:
 		else:
 			$Sprite/Arrows.visible = false
 
-		# Обычная атака
 		if Input.is_action_just_pressed("attack"):
 			attack()
-			var bullet = bullet_scene.instantiate()
-			bullet.global_position = $Gun/Bullet_Marker.global_position
-			bullet.direction = $Gun/Bullet_Marker.global_position.direction_to(get_global_mouse_position())
-			G.main.add_child(bullet)
 
-		# Альтернативная атака (во все стороны)
 		if Input.is_action_just_pressed("alt_attack"):
 			alt_attack()
+
+		if Input.is_action_just_pressed("special_attack"):
+			special_attack()
 
 		if Input.is_action_pressed("jump") and !is_jumping:
 			is_charging_jump = true
@@ -70,14 +68,6 @@ func _physics_process(delta: float) -> void:
 			Animations.shakeCam($Camera2D, 0.4)
 
 	move_and_slide()
-
-func update_health():
-	for h in $CanvasLayer/HBoxContainer.get_children():
-		h.queue_free()
-	for h in health:
-		var health_container = TextureRect.new()
-		health_container.texture = load("res://Assets/UI/health.png")
-		$CanvasLayer/HBoxContainer.add_child(health_container)
 
 func start_jump():
 	is_charging_jump = false
@@ -105,26 +95,51 @@ func jump():
 func attack():
 	Animations.shakeCam($Camera2D, 1)
 	$Sprite/Arrows.visible = false
+	
+	var tween = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_BACK).set_parallel(false)
+	tween.tween_property($Sprite/Body, "position", Vector2(0, -50.0), 0.03)
+	tween.tween_property($Sprite/Head, "position", Vector2(-2, -66.5), 0.1)
+	tween.tween_property($Sprite/Body, "position", Vector2(0, -40.0), 0.1)
+	tween.tween_property($Sprite/Head, "position", Vector2(-2, -60.5), 0.1)
+	
+	G.spawn_bullet(self, bullet_scene, $Gun/Bullet_Marker.global_position, $Gun/Bullet_Marker.global_position.direction_to(get_global_mouse_position()))
+
+func alt_attack():
+	Animations.shakeCam($Camera2D, 1.5)
+	$Sprite/Arrows.visible = false
+
 	var tween = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_BACK).set_parallel(false)
 	tween.tween_property($Sprite/Body, "position", Vector2(0, -50.0), 0.03)
 	tween.tween_property($Sprite/Head, "position", Vector2(-2, -66.5), 0.1)
 	tween.tween_property($Sprite/Body, "position", Vector2(0, -40.0), 0.1)
 	tween.tween_property($Sprite/Head, "position", Vector2(-2, -60.5), 0.1)
 
-func alt_attack():
-	Animations.shakeCam($Camera2D, 1.5)
-	$Sprite/Arrows.visible = false
-
 	var num_bullets := 8  # сколько пуль выпускаем (8 = полный круг)
 	for i in num_bullets:
 		var angle = deg_to_rad(360.0 / num_bullets * i)
 		var dir = Vector2.RIGHT.rotated(angle)
+		G.spawn_bullet(self, bullet_scene, $Gun/Bullet_Marker.global_position, dir)
+		
+func special_attack():
+	if special_attack_charge >= special_attack_cost:
+		Animations.shakeCam($Camera2D, 3)
+		$Sprite/Arrows.visible = false
 
-		var bullet = bullet_scene.instantiate()
-		bullet.global_position = $Gun/Bullet_Marker.global_position
-		bullet.direction = dir
-		G.main.add_child(bullet)
-	attack()
+		var tween = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_BACK).set_parallel(false)
+		tween.tween_property($Sprite/Body, "position", Vector2(0, -50.0), 0.03)
+		tween.tween_property($Sprite/Head, "position", Vector2(-2, -66.5), 0.1)
+		tween.tween_property($Sprite/Body, "position", Vector2(0, -40.0), 0.1)
+		tween.tween_property($Sprite/Head, "position", Vector2(-2, -60.5), 0.1)
+
+		special_attack_charge = 0
+
+		var num_bullets := 16  # сколько пуль выпускаем (8 = полный круг)
+		for i in num_bullets:
+			var angle = deg_to_rad(360.0 / num_bullets * i)
+			var dir = Vector2.RIGHT.rotated(angle)
+			G.spawn_bullet(self, bullet_scene, $Gun/Bullet_Marker.global_position, dir)
+			Animations.shakeCam($Camera2D, 2)
+			await get_tree().create_timer(0.05).timeout
 	
 func shakeLoop():
 	if !is_shaking:
@@ -143,18 +158,29 @@ func shakeLoop():
 		is_shaking = false
 		$Sprite.scale = Vector2.ONE
 
+func on_bullet_land(_bullet):
+	special_attack_charge += 8
+	$CanvasLayer/SpecialAttack.value = special_attack_charge
+	
+func update_health():
+	for h in $CanvasLayer/HBoxContainer.get_children():
+		h.queue_free()
+	for h in health:
+		var health_container = TextureRect.new()
+		health_container.texture = load("res://Assets/UI/health.png")
+		$CanvasLayer/HBoxContainer.add_child(health_container)
+
 func _on_hurtbox_body_entered(body: Node2D) -> void:
 	if body is Tile:
 		die()
 
 func take_damage(dmg):
-	if can_take_damage:
-		Animations.shakeCam($Camera2D, 3)
-		await Animations.flash(self,5)
-		health -= dmg
-		update_health()
-		if health <= 0:
-			die()
+	Animations.shakeCam($Camera2D, 3)
+	update_health()
+	await Animations.flash(self,5)
+	health -= dmg
+	if health <= 0:
+		die()
 		
 func die():
 	can_move = false

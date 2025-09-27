@@ -8,8 +8,8 @@ _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.24431817, 0.8089888), 0.0, 0.0
 point_count = 2
 
 [sub_resource type="Gradient" id="Gradient_4qi73"]
-offsets = PackedFloat32Array(0, 0.16666667)
-colors = PackedColorArray(0, 0, 0, 1, 1, 1, 1, 0)
+offsets = PackedFloat32Array(0, 0.07333333, 0.28)
+colors = PackedColorArray(1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1, 0)
 
 [node name="Bullet" instance=ExtResource("1_s5lyr")]
 
@@ -24,6 +24,7 @@ scale_amount_curve = SubResource("Curve_4qi73")
 color_ramp = SubResource("Gradient_4qi73")
 
 [node name="Sprite2D" parent="." index="1"]
+scale = Vector2(2, 2)
 texture = ExtResource("2_xupnh")
 
 [node name="Area2D" parent="." index="2"]

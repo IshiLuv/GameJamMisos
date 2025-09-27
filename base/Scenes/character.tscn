@@ -1,10 +1,13 @@
-[gd_scene load_steps=8 format=3 uid="uid://dsrflgol3r2e0"]
+[gd_scene load_steps=12 format=3 uid="uid://dsrflgol3r2e0"]
 
 [ext_resource type="Script" uid="uid://dctgpgp1oste0" path="res://Scripts/character.gd" id="1_owm7s"]
 [ext_resource type="Texture2D" uid="uid://dojux7glgxytm" path="res://Assets/Textures/character1.png" id="1_ushfy"]
 [ext_resource type="Material" uid="uid://blwcs65av652f" path="res://Assets/burn_shader.tres" id="2_ejsiy"]
 [ext_resource type="Texture2D" uid="uid://h3l03gbyprwq" path="res://Assets/Textures/character2.png" id="2_owm7s"]
 [ext_resource type="Texture2D" uid="uid://c1vsl7f8k5p26" path="res://Assets/Textures/arrows.png" id="4_nytcm"]
+[ext_resource type="Shader" uid="uid://c5rliag6omhl4" path="res://Assets/vignette.gdshader" id="6_a5ess"]
+[ext_resource type="Texture2D" uid="uid://bipy4hprphxee" path="res://Assets/UI/special_charge.png" id="6_reotu"]
+[ext_resource type="Texture2D" uid="uid://pxyl5pvl1v1o" path="res://Assets/UI/special_charge_bar.png" id="7_a5ess"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ushfy"]
 radius = 16.0
@@ -13,9 +16,16 @@ height = 38.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_nytcm"]
 radius = 1.0
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_wbia7"]
+shader = ExtResource("6_a5ess")
+shader_parameter/alpha = 1.2
+shader_parameter/inner_radius = 0.5
+shader_parameter/outer_radius = 1.6
+
 [node name="Character" type="CharacterBody2D"]
 collision_layer = 9
 script = ExtResource("1_owm7s")
+max_health = 3
 
 [node name="Camera2D" type="Camera2D" parent="."]
 ignore_rotation = false
@@ -65,12 +75,31 @@ shape = SubResource("CircleShape2D_nytcm")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+material = SubResource("ShaderMaterial_wbia7")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
 [node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer"]
-offset_left = 69.0
-offset_top = 61.0
-offset_right = 109.0
-offset_bottom = 101.0
-scale = Vector2(2, 1.5)
+offset_left = 228.0
+offset_top = 58.0
+offset_right = 268.0
+offset_bottom = 106.0
+scale = Vector2(3, 1.5)
 theme_override_constants/separation = 4
+
+[node name="SpecialAttack" type="TextureProgressBar" parent="CanvasLayer"]
+offset_left = 20.0
+offset_top = 24.0
+offset_right = 68.0
+offset_bottom = 78.0
+scale = Vector2(4, 4)
+fill_mode = 3
+texture_under = ExtResource("6_reotu")
+texture_progress = ExtResource("7_a5ess")
+texture_progress_offset = Vector2(11, 14)
 
 [connection signal="body_entered" from="Hurtbox" to="." method="_on_hurtbox_body_entered"]

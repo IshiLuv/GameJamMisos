@@ -1,10 +1,7 @@
-extends CharacterBody2D
+extends Entity
 class_name Enemy
 
 var bullet_scene = preload("res://Scenes/bullet.tscn")
-
-var max_health: int = 10
-var health: int = max_health
 
 var can_shoot: bool = false
 var target
@@ -21,15 +18,6 @@ func _physics_process(_delta: float) -> void:
 func _on_shoot_cd_timeout() -> void:
 	can_shoot = true
 
-func take_damage(dmg):
-	await Animations.flash(self,5)
-	health -= dmg
-	if health <= 0:
-		die()
-		
-func die():
-	queue_free()
-	
 func _on_aggro_range_body_entered(body: Node2D) -> void:
 	if body is Player:
 		target = body

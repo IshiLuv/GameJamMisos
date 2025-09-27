@@ -38,10 +38,10 @@ func drop(obj: Object, scale: Array = [Vector2(1.0,1.0), 0.1], trans: Tween.Tran
 
 func shakeCam(cam: Camera2D, power):
 	var hurtTween = create_tween().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_BOUNCE).set_parallel(false)
-	hurtTween.tween_property(cam, "rotation_degrees", power/2, 0.05)
-	hurtTween.tween_property(cam, "rotation_degrees", -power, 0.05)
+	hurtTween.tween_property(cam, "rotation_degrees", power/2, 0.03)
+	hurtTween.tween_property(cam, "rotation_degrees", -power, 0.03)
 	hurtTween.tween_property(cam, "rotation_degrees", 0, 0.1)
-	await get_tree().create_timer(0.5).timeout
+	await get_tree().create_timer(0.2).timeout
 	if cam:
 		cam.rotation_degrees = 0
 	

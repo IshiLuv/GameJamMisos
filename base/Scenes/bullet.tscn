@@ -31,7 +31,6 @@ scale_amount_curve = SubResource("Curve_oduel")
 color_ramp = SubResource("Gradient_oduel")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(2, 2)
 texture = ExtResource("2_oduel")
 
 [node name="Area2D" type="Area2D" parent="."]
