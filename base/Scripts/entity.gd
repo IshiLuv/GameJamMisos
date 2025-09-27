@@ -7,6 +7,9 @@ var health: int = max_health
 var is_burning: bool = false
 
 func take_damage(dmg):
+	if self is Enemy:
+		Sounds.play_sound(global_position,"enemy_hurt", 0.0, "SFX", 0.0, 1.0)
+	
 	await Animations.flash(self,5)
 	health -= dmg
 	await get_tree().create_timer(0.1).timeout

@@ -127,6 +127,7 @@ func alt_attack():
 	tween.tween_property($Sprite/Head, "position", Vector2(-2, -60.5), 0.1)
 	
 	if items.has("shovel"):
+		#Sounds.play_sound(global_position,"gg_digging.ogg", 0.0, "SFX", 0, 1)
 		var tp_tween = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_EXPO).set_parallel(false)
 		tp_tween.tween_property($Sprite, "scale", Vector2(0, 0), 0.2)
 		tp_tween.tween_property($Sprite, "scale", Vector2(1, 1), 0.2)
@@ -232,7 +233,12 @@ func _on_hurtbox_body_entered(body: Node2D) -> void:
 
 func take_damage(dmg):
 	health -= dmg
-	Sounds.play_sound(global_position,"gg_hit", -0.0, "SFX", 0.4, 2.0)
+	
+	if health <= 0:
+		Sounds.play_sound(global_position,"gg_death", -3.0, "SFX", 0, 1)
+	else:
+		Sounds.play_sound(global_position,"gg_hit", -0.0, "SFX", 0.4, 2.0)
+		
 	Animations.shakeCam($Camera2D, 3)
 	await Animations.flash(self,5)
 	update_health()
@@ -248,18 +254,25 @@ func die():
 	$Sprite/Arrows.visible = false
 	$Sprite/Shadow.visible = false
 	
+	
 	await get_tree().create_timer(0.3).timeout
+	if is_fallen:
+		Sounds.play_sound(global_position,"gg_fell_in_lava", -3.0, "SFX", 0, 1)
 	var tween = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_EXPO).set_parallel(true)
 	tween.tween_property($Camera2D, "zoom", Vector2(2,2), 0.5)
 	
 	await get_tree().create_timer(0.4).timeout
 	tween = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_EXPO).set_parallel(true)
-	if is_fallen: tween.tween_property(self, "position", global_position + Vector2(0, 100.0), 0.3)
+	if is_fallen: 
+		tween.tween_property(self, "position", global_position + Vector2(0, 100.0), 0.3)
+		
 	tween.tween_property($Sprite/Head.material, "shader_parameter/dissolve_value", 0, 2.0)
+	
 
 	await get_tree().create_timer(1.0).timeout
 	await Animations.disappear(G.main)
 	get_tree().change_scene_to_file("res://Scenes/main.tscn")
+	
 
 
 func _on_attack_cd_timeout() -> void:

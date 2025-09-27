@@ -10,6 +10,7 @@ var is_burning: bool = false
 
 func _ready() -> void:
 	if is_burning:
+		Sounds.play_sound(global_position,"gg_attack_fire", -0.0, "SFX", 0.4, 2.0)
 		$BurnParticle.emitting = true
 	else:
 		$BurnParticle.emitting = false
