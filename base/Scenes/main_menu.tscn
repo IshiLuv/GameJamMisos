@@ -202,7 +202,7 @@ position = Vector2(673, 30)
 sprite_frames = SubResource("SpriteFrames_ehtkc")
 animation = &"Fire"
 autoplay = "Fire"
-frame_progress = 0.11553251
+frame_progress = 0.36184278
 
 [connection signal="pressed" from="Play" to="." method="_on_play_pressed"]
 [connection signal="pressed" from="Settings" to="." method="_on_settings_pressed"]
