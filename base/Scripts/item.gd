@@ -19,5 +19,5 @@ func setItem(item_id: String):
 	$ItemIcon.texture = load("res://Assets/Textures/Items/item_" + item_id + ".png")
 	
 func _on_area_2d_body_entered(body: Node2D) -> void:
-	if body is Player:
+	if body and body is Player:
 		body.add_item(self,item)

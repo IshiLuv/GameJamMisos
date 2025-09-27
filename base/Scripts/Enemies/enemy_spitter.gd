@@ -25,16 +25,25 @@ func _physics_process(delta: float) -> void:
 			velocity = Vector2.ZERO
 			move_and_slide()
 		State.IDLE:
-			velocity = Vector2.ZERO
-			move_and_slide()
+			_process_idle(delta)
+	if target: $Sprite2D.scale.x = -1.8 if target.global_position[0] < global_position[0] else 1.8
 
-	# управление шагами — только если реально движется
 	if state == State.WALK and velocity.length() > 0.1:
 		if $StepTimer.is_stopped():
 			$StepTimer.start()
 	else:
 		if not $StepTimer.is_stopped():
 			$StepTimer.stop()
+			
+var idle_t: float = 0.0
+func _process_idle(delta: float) -> void:
+	velocity = Vector2.ZERO
+	move_and_slide()
+	
+	idle_t += delta * 2.0
+
+	var scale_y = lerp(scale.y, 1.0 + sin(idle_t) * 0.05, 0.1)
+	scale.y = scale_y
 
 func _process_walk(_delta: float) -> void:
 	if target:
@@ -42,13 +51,14 @@ func _process_walk(_delta: float) -> void:
 		if distance > attack_range:
 			var dir = (target.global_position - global_position).normalized()
 			velocity = dir * move_speed
-			$Sprite2D.scale.x = - 1.8 if dir.x < 0 else  1.8
 			move_and_slide()
 		else:
 			velocity = Vector2.ZERO
 			move_and_slide()
 			if can_shoot:
 				attack()
+			else:
+				_process_idle(_delta)
 	else:
 		# блуждание
 		if global_position.distance_to(wander_target) < 10:
@@ -58,7 +68,6 @@ func _process_walk(_delta: float) -> void:
 		
 		var dir = (wander_target - global_position).normalized()
 		velocity = dir * move_speed * 0.5
-		$Sprite2D.scale.x = -1.8 if dir.x < 0 else  1.8
 		move_and_slide()
 
 func attack() -> void:
@@ -67,7 +76,6 @@ func attack() -> void:
 	velocity = Vector2.ZERO
 	$StepTimer.stop()
 
-	# корутина в Godot 4.5
 	await _do_attack()
 
 func _do_attack() -> void:
@@ -94,7 +102,7 @@ func _on_shoot_cd_timeout() -> void:
 	can_shoot = true
 
 func _on_aggro_range_body_entered(body: Node2D) -> void:
-	if body is Player:
+	if body and body is Player:
 		target = body
 		$ShootCD.start()
 		state = State.WALK
@@ -105,7 +113,7 @@ func _on_aggro_range_body_exited(body: Node2D) -> void:
 		state = State.WALK
 		
 func _on_step_timer_timeout() -> void:
-	# звук шагов только если реально идёт
 	if state == State.WALK and velocity.length() > 0.1:
+		Animations.shakeCam(G.main.player.get_node("Camera2D"), 0.1)
 		Sounds.play_sound(global_position, "stick" + str(randi_range(1, 5)), -12.0, "SFX", 0.1, 0.5)
 		$Sprite2D.frame = 0 if $Sprite2D.frame == 1 else 1

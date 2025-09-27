@@ -1,17 +1,28 @@
-[gd_scene load_steps=4 format=3 uid="uid://k0l5u4k00hgg"]
+[gd_scene load_steps=6 format=3 uid="uid://k0l5u4k00hgg"]
 
 [ext_resource type="Script" uid="uid://d1fpxr52ujblt" path="res://Scripts/main.gd" id="1_jjgbg"]
 [ext_resource type="PackedScene" uid="uid://dsrflgol3r2e0" path="res://Scenes/character.tscn" id="2_bo1nx"]
 [ext_resource type="PackedScene" uid="uid://3r74sqojsqwy" path="res://Scenes/levels/level.tscn" id="4_jjvhh"]
+[ext_resource type="PackedScene" uid="uid://r8g654relxu7" path="res://Scenes/item.tscn" id="4_kry3j"]
+[ext_resource type="PackedScene" uid="uid://bjpapxo1gx4qd" path="res://Scenes/Enemies/enemy_spitter.tscn" id="5_21xkr"]
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_jjgbg")
 
 [node name="Character" parent="." instance=ExtResource("2_bo1nx")]
-position = Vector2(634, -1574)
+position = Vector2(-95, -279)
 
 [node name="Levels" type="Node2D" parent="."]
 metadata/_edit_lock_ = true
 
 [node name="Level" parent="Levels" instance=ExtResource("4_jjvhh")]
 metadata/_edit_lock_ = true
+
+[node name="Level_end" type="Marker2D" parent="Levels/Level"]
+position = Vector2(768, -1488)
+
+[node name="Item" parent="Levels/Level" instance=ExtResource("4_kry3j")]
+position = Vector2(2107, -7)
+
+[node name="Enemy" parent="Levels/Level" instance=ExtResource("5_21xkr")]
+position = Vector2(948, -1164)

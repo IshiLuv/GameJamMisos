@@ -8,10 +8,6 @@ var target
 
 @onready var gun_marker = $Sprite2D/Gun_marker
 
-func die():
-	Sounds.play_sound(global_position,"enemy_died" + str(randf_range(1,3)), 0.0, "SFX", 0.0, 1.0)
-	queue_free()
-
 func _physics_process(_delta: float) -> void:
 	if target != null:
 		$Sprite2D.scale.x = -1 if target.global_position[0] < global_position[0] else 1
@@ -25,10 +21,10 @@ func _on_shoot_cd_timeout() -> void:
 	can_shoot = true
 
 func _on_aggro_range_body_entered(body: Node2D) -> void:
-	if body is Player:
+	if body and body is Player:
 		target = body
 		$ShootCD.start()
 
 func _on_aggro_range_body_exited(body: Node2D) -> void:
-	if body is Player:
+	if body and body is Player:
 		target = null

@@ -19,10 +19,10 @@ func _on_shoot_cd_timeout() -> void:
 	can_shoot = true
 
 func _on_aggro_range_body_entered(body: Node2D) -> void:
-	if body is Player:
+	if body and body is Player:
 		target = body
 		$ShootCD.start()
 
 func _on_aggro_range_body_exited(body: Node2D) -> void:
-	if body is Player:
+	if body and body is Player:
 		target = null

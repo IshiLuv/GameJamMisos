@@ -1,10 +1,12 @@
 extends Entity
 class_name Player
 
-@export var speed: float = 200.0
-@export var min_jump_force: float = 300.0
-@export var max_jump_force: float = 800.0
-@export var max_charge_time: float = 1.0
+var speed: float = 200.0
+var min_jump_force: float = 400.0
+var max_jump_force: float = 900.0
+var max_charge_time: float = 0.5
+var charge_timer: float = 0.0
+var jump_timer: float = 0.0
 
 var bullet_scene = preload("res://Scenes/Bullets/bullet_player.tscn")
 
@@ -16,9 +18,6 @@ var jump_velocity: Vector2
 
 var special_attack_cost: int = 100
 var special_attack_charge: int = 0
-
-var charge_timer: float = 0.0
-var jump_timer: float = 0.0
 
 var is_fallen: bool = false
 var is_jumping: bool = false
@@ -60,14 +59,25 @@ func _process(delta: float) -> void:
 
 		if Input.is_action_pressed("jump") and !is_jumping:
 			is_charging_jump = true
-			charge_timer = min(charge_timer + delta*1.5, max_charge_time)
+			charge_timer = min(charge_timer + delta, max_charge_time)
 			shakeLoop()
 
 		if Input.is_action_just_released("jump") and is_charging_jump and !is_jumping:
 			start_jump()
+		
+		if Input.is_action_pressed("shift") and !is_jumping:
+			min_jump_force = 100.0
+			
+		if Input.is_action_just_released("shift") and is_charging_jump and !is_jumping:
+			min_jump_force = 400.0
 
 func _physics_process(delta: float) -> void:
 	if can_move and is_jumping:
+		# небольшой контроль в воздухе
+		var air_control = Input.get_vector("move_left", "move_right", "move_up", "move_down").normalized()
+		if air_control != Vector2.ZERO:
+			jump_velocity = lerp(jump_velocity, air_control * jump_velocity.length(), 0.1)
+		
 		velocity = jump_velocity
 		jump_timer -= delta
 		if jump_timer <= 0.0:
@@ -77,20 +87,20 @@ func _physics_process(delta: float) -> void:
 			$Hurtbox/CollisionShape2D.disabled = false
 			Animations.shakeCam($Camera2D, 0.4)
 			Sounds.play_sound(global_position,"stick"+str(randi_range(1,5)), -3.0, "SFX", 0.1, 1.0)
-			
-	move_and_slide()
 
+	move_and_slide()
+	
 func start_jump():
 	is_charging_jump = false
 	is_jumping = true
 	$Hurtbox/CollisionShape2D.disabled = true
 	
 	var charge_percent = charge_timer / max_charge_time
-	var force = lerp(min_jump_force, max_jump_force, charge_percent) + floor(charge_percent)*50
+	var force = lerp(min_jump_force, max_jump_force, charge_percent) + int(charge_timer==max_charge_time)*100
 	jump()
 
 	jump_velocity = input_dir * force 
-	jump_timer = 0.2
+	jump_timer = 0.2 + force/17000
 	charge_timer = 0.0
 
 func jump():
@@ -127,7 +137,7 @@ func alt_attack():
 	tween.tween_property($Sprite/Head, "position", Vector2(-2, -60.5), 0.1)
 	
 	if items.has("shovel"):
-		#Sounds.play_sound(global_position,"gg_digging.ogg", 0.0, "SFX", 0, 1)
+		Sounds.play_sound(global_position,"gg_digging", 0.0, "SFX", 0.0, 1.0)
 		var tp_tween = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_EXPO).set_parallel(false)
 		tp_tween.tween_property($Sprite, "scale", Vector2(0, 0), 0.2)
 		tp_tween.tween_property($Sprite, "scale", Vector2(1, 1), 0.2)
@@ -171,7 +181,7 @@ func shakeLoop():
 	if !is_shaking:
 		is_shaking=true
 		while is_charging_jump: 
-			if charge_timer == 1:
+			if charge_timer == max_charge_time:
 				Animations.flash(self,1.2)
 			$Sprite.scale = Vector2(1-charge_timer/15, 1-charge_timer/10)
 			var hurtTween = create_tween().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_BOUNCE).set_parallel(false)
@@ -232,48 +242,50 @@ func _on_hurtbox_body_entered(body: Node2D) -> void:
 		die()
 
 func take_damage(dmg):
-	health -= dmg
-	
-	if health <= 0:
-		Sounds.play_sound(global_position,"gg_death", -3.0, "SFX", 0, 1)
-	else:
-		Sounds.play_sound(global_position,"gg_hit", -0.0, "SFX", 0.4, 2.0)
+	if $HurtCD.is_stopped():
+		$HurtCD.start()
 		
-	Animations.shakeCam($Camera2D, 3)
-	await Animations.flash(self,5)
-	update_health()
-	if health <= 0:
-		is_fallen = false
-		die()
+		health -= dmg
+		
+		if health <= 0:
+			Sounds.play_sound(global_position,"gg_death", -3.0, "SFX", 0, 1)
+		else:
+			Sounds.play_sound(global_position,"gg_hit", -0.0, "SFX", 0.4, 2.0)
+			
+		Animations.shakeCam($Camera2D, 3)
+		await Animations.flash(self,5)
+		update_health()
+		if health <= 0:
+			is_fallen = false
+			die()
 		
 func die():
-	velocity = Vector2.ZERO
-	can_move = false
-	can_take_damage = false
-	
-	$Sprite/Arrows.visible = false
-	$Sprite/Shadow.visible = false
-	
-	
-	await get_tree().create_timer(0.3).timeout
-	if is_fallen:
-		Sounds.play_sound(global_position,"gg_fell_in_lava", -3.0, "SFX", 0, 1)
-	var tween = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_EXPO).set_parallel(true)
-	tween.tween_property($Camera2D, "zoom", Vector2(2,2), 0.5)
-	
-	await get_tree().create_timer(0.4).timeout
-	tween = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_EXPO).set_parallel(true)
-	if is_fallen: 
-		tween.tween_property(self, "position", global_position + Vector2(0, 100.0), 0.3)
+	if can_take_damage:
+		velocity = Vector2.ZERO
+		can_move = false
+		can_take_damage = false
 		
-	tween.tween_property($Sprite/Head.material, "shader_parameter/dissolve_value", 0, 2.0)
+		$Sprite/Arrows.visible = false
+		$Sprite/Shadow.visible = false
+		
+		
+		await get_tree().create_timer(0.3).timeout
+		if is_fallen:
+			Sounds.play_sound(global_position,"gg_fell_in_lava", -3.0, "SFX", 0, 1)
+		var tween = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_EXPO).set_parallel(true)
+		tween.tween_property($Camera2D, "zoom", Vector2(2,2), 0.5)
+		
+		await get_tree().create_timer(0.4).timeout
+		tween = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_EXPO).set_parallel(true)
+		if is_fallen: 
+			tween.tween_property(self, "position", global_position + Vector2(0, 100.0), 0.3)
+			
+		tween.tween_property($Sprite/Head.material, "shader_parameter/dissolve_value", 0, 2.0)
 	
 
 	await get_tree().create_timer(1.0).timeout
 	await Animations.disappear(G.main)
 	get_tree().change_scene_to_file("res://Scenes/main.tscn")
-	
-
 
 func _on_attack_cd_timeout() -> void:
 	pass # Replace with function body.

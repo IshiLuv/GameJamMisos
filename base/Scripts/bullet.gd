@@ -23,9 +23,11 @@ func _process(delta: float) -> void:
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	if body and body is Entity:
-		if sender is Player:
+		if sender and sender is Player:
 			sender.on_bullet_land(self)
 		if is_burning:
 			body.set_burning()
 		body.take_damage(damage)
+		if body and body is Player and !body.can_take_damage:
+			return
 		queue_free()

@@ -15,7 +15,7 @@ radius = 16.0
 height = 38.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_nytcm"]
-radius = 2.0
+radius = 1.0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_wbia7"]
 shader = ExtResource("6_a5ess")
@@ -31,6 +31,7 @@ max_health = 3
 
 [node name="Camera2D" type="Camera2D" parent="."]
 ignore_rotation = false
+zoom = Vector2(1.5, 1.5)
 process_callback = 0
 position_smoothing_enabled = true
 position_smoothing_speed = 10.0
@@ -124,9 +125,13 @@ offset_bottom = 175.0
 wait_time = 0.2
 one_shot = true
 
+[node name="HurtCD" type="Timer" parent="."]
+one_shot = true
+
 [node name="AltAttackCD" type="Timer" parent="."]
 one_shot = true
 
 [connection signal="body_entered" from="Hurtbox" to="." method="_on_hurtbox_body_entered"]
 [connection signal="timeout" from="AttackCD" to="." method="_on_attack_cd_timeout"]
+[connection signal="timeout" from="HurtCD" to="." method="_on_hurt_cd_timeout"]
 [connection signal="timeout" from="AltAttackCD" to="." method="_on_alt_attack_cd_timeout"]

@@ -8,12 +8,15 @@
 script = ExtResource("2_l2vgy")
 max_health = 16
 
-[node name="ShootCD" parent="." index="2"]
-wait_time = 2.5
+[node name="CollisionShape2D" parent="AggroRange" index="0"]
+visible = true
 
-[node name="Sprite2D" parent="." index="3"]
+[node name="Sprite2D" parent="." index="1"]
 texture = ExtResource("3_ays0e")
 hframes = 2
 
 [node name="Gun_marker" parent="Sprite2D" index="0"]
 position = Vector2(-2, -50)
+
+[node name="ShootCD" parent="." index="3"]
+wait_time = 2.5

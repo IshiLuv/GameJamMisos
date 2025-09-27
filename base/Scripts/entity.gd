@@ -17,6 +17,8 @@ func take_damage(dmg):
 		die()
 
 func die():
+	if self is Enemy:
+		await Sounds.play_sound(global_position,"enemy_hurt", 0.0, "SFX", 0.0, 1.0)
 	queue_free()
 
 func set_burning():
