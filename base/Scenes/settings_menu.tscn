@@ -180,6 +180,7 @@ theme_override_icons/grabber_highlight = ExtResource("6_fsgis")
 theme_override_icons/grabber_disabled = ExtResource("5_jjs6x")
 min_value = -25.0
 max_value = 20.0
+value = 20.0
 rounded = true
 
 [node name="Label" type="Label" parent="AnimatedSprite2D2/SVX"]

@@ -9,6 +9,12 @@ func _ready() -> void:
 	$AudioStreamPlayer2D.play()
 	$OptionButton.select(G.resolution) 
 	$OptionButton.set_item_text(4, str(G.based_screen[0]) + "×" + str(G.based_screen[1]))
+	$AnimatedSprite2D.set_frame_and_progress(G.frame_music,0)
+	$AnimatedSprite2D.pause()
+	$AnimatedSprite2D2.set_frame_and_progress(G.frame_svx,0)
+	$AnimatedSprite2D2.pause()
+	$AnimatedSprite2D2/SVX.set_value_no_signal(AudioServer.get_bus_volume_db(1))
+	$AnimatedSprite2D/Music.set_value_no_signal(AudioServer.get_bus_volume_db(2))
 	
 func _on_exit_pressed() -> void:
 	G.watchedIntro = true
@@ -51,9 +57,9 @@ func _on_music_value_changed(value: float) -> void:
 	else: 
 		AudioServer.set_bus_volume_db(2, value)
 		var t = float(value +25 ) / float(20 + 25)
-		var frame = int(round(t * (7 - 1)))
+		G.frame_music = int(round(t * (7 - 1)))
 		$AnimatedSprite2D.play("Slaider")
-		$AnimatedSprite2D.set_frame_and_progress(frame,0)
+		$AnimatedSprite2D.set_frame_and_progress(G.frame_music,0)
 		$AnimatedSprite2D.pause()
 
 
@@ -63,9 +69,9 @@ func _on_svx_value_changed(value: float) -> void:
 	else: 
 		AudioServer.set_bus_volume_db(1, value)
 		var t = float(value + 25 ) / float(20 + 25)
-		var frame = int(round(t * (7 - 1)))
+		G.frame_svx = int(round(t * (7 - 1)))
 		$AnimatedSprite2D2.play("Slaider")
-		$AnimatedSprite2D2.set_frame_and_progress(frame,0)
+		$AnimatedSprite2D2.set_frame_and_progress(G.frame_svx,0)
 		$AnimatedSprite2D2.pause()
 
 
