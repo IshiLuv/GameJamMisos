@@ -1,12 +1,9 @@
 extends Control
-signal resume_requested
-signal exit_requested
 
 func _ready() -> void:
 	self.modulate.a = 0.0
 	var tween = create_tween()
 	tween.tween_property(self, "modulate:a", 1.0, 0.25)
-	$AudioStreamPlayer2D.play()
 	$OptionButton.select(G.resolution) 
 	$OptionButton.set_item_text(4, str(G.based_screen[0]) + "×" + str(G.based_screen[1]))
 	$AnimatedSprite2D.set_frame_and_progress(G.frame_music,0)
@@ -17,8 +14,9 @@ func _ready() -> void:
 	$AnimatedSprite2D/Music.set_value_no_signal(AudioServer.get_bus_volume_db(2))
 	
 func _on_exit_pressed() -> void:
-	G.watchedIntro = true
-	exit_requested.emit()
+	get_tree().paused = false
+	get_tree().change_scene_to_file("res://Scenes/main_menu.tscn")
+	
 	
 func _on_option_button_item_selected(index: int) -> void:
 	if index==0:
@@ -74,6 +72,13 @@ func _on_svx_value_changed(value: float) -> void:
 		$AnimatedSprite2D2.set_frame_and_progress(G.frame_svx,0)
 		$AnimatedSprite2D2.pause()
 
+func _process(delta: float) -> void:
+	if Input.is_action_just_released("pause"):
+		G.watchedIntro = true
+		get_tree().paused = false
+		queue_free()
 
 func _on_return_pressed() -> void:
-	resume_requested.emit()
+	G.watchedIntro = true
+	get_tree().paused = false
+	queue_free()

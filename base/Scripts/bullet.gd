@@ -18,7 +18,7 @@ func _ready() -> void:
 	else:
 		$BurnParticle.emitting = false
 	$Sprite2D.flip_h = direction[0] < 0
-	await get_tree().create_timer(3).timeout
+	await get_tree().create_timer(2).timeout
 	queue_free()
 
 func _process(delta: float) -> void:

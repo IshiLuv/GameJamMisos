@@ -1,5 +1,12 @@
 extends Node2D
 
+func _ready() -> void:
+	$Music.play()
+
+func set_music(sound_name: String):
+	$Music.stream = load("res://Assets/Sounds/" + sound_name + ".ogg")
+	$Music.play()
+	
 func play_sound(pos: Vector2, sound_name: String, volume: float = 0.0, bus: String = "Master", pitch_offset: float = 0.0, pitch: float = 1.0) -> void:
 	sound_name = "res://Assets/Sounds/" + sound_name + ".ogg"
 	var new_audio: AudioStreamPlayer = AudioStreamPlayer.new()

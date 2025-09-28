@@ -19,7 +19,6 @@ var jump_velocity: Vector2
 var special_attack_cost: int = 100
 var special_attack_charge: int = 0
 
-var is_fallen: bool = false
 var is_jumping: bool = false
 var is_charging_jump: bool = false
 var is_shaking: bool = false
@@ -28,6 +27,8 @@ var can_take_damage: bool = true
 
 var bullet_damage_mult: float = 1.0
 var bullet_damage: int = 1
+
+var pre_jump_pos: Vector2
 
 func _ready() -> void:
 	$Sprite/Head.material.set_shader_parameter("dissolve_value", 1.0)
@@ -78,6 +79,12 @@ func _process(delta: float) -> void:
 			
 		if Input.is_action_just_released("shift") and is_charging_jump and !is_jumping:
 			min_jump_force = 400.0 + int(items.has("pogo"))*200
+			
+		if Input.is_action_just_released("pause"):
+			get_tree().paused = true
+			var pause_menu = load("res://Scenes/settings_menu.tscn").instantiate()
+			pause_menu.set_anchors_preset(Control.PRESET_CENTER, false)
+			$CanvasLayer.add_child(pause_menu)
 
 func _physics_process(delta: float) -> void:
 	if can_move and is_jumping:
@@ -99,6 +106,7 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 	
 func start_jump():
+	pre_jump_pos = global_position
 	is_charging_jump = false
 	is_jumping = true
 	$Hurtbox/CollisionShape2D.disabled = true
@@ -250,7 +258,8 @@ func add_item(table, item_id: String):
 			table.queue_free()
 		table.setItem(active_item)
 		active_item = item_id
-		$CanvasLayer/SpecialAttackIcon.texture = load("res://Assets/Textures/Items/item_" + item_id + ".png")
+		$CanvasLayer/SpecialAttackButton.item = item_id
+		$CanvasLayer/SpecialAttackButton._ready()
 	else:
 		items.append(item_id)
 		update_items()
@@ -297,9 +306,40 @@ func update_health():
 
 func _on_hurtbox_body_entered(body: Node2D) -> void:
 	if body is Tile:
-		is_fallen = true
-		die()
+		fall()
 
+func fall():
+	velocity = Vector2.ZERO
+	can_move = false
+	can_take_damage = false
+	
+	$Sprite/Arrows.visible = false
+	$Sprite/Shadow.visible = false
+
+	await get_tree().create_timer(0.3).timeout
+	Sounds.play_sound(global_position,"gg_fell_in_lava", -3.0, "SFX", 0, 1)
+	var tween = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_EXPO).set_parallel(true)
+	tween.tween_property($Camera2D, "zoom", Vector2(2,2), 0.5)
+	
+	
+	
+	await get_tree().create_timer(0.4).timeout
+	take_damage(1)
+	tween = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_EXPO).set_parallel(true)
+	tween.tween_property(self, "position", global_position + Vector2(0, 100.0), 0.3)
+	
+	tween.tween_property($Sprite/Head.material, "shader_parameter/dissolve_value", 0, 1.0)
+	tween.set_parallel(false)
+	tween.tween_property($Sprite/Head.material, "shader_parameter/dissolve_value", 1, 0.4)
+	await get_tree().create_timer(1.0).timeout
+	
+	global_position = pre_jump_pos
+	
+	can_take_damage = true
+	can_move = true
+	$Sprite/Arrows.visible = true
+	$Sprite/Shadow.visible = true
+	
 func take_damage(dmg):
 	if $HurtCD.is_stopped():
 		$HurtCD.start()
@@ -315,7 +355,6 @@ func take_damage(dmg):
 		await Animations.flash(self,5)
 		update_health()
 		if health <= 0:
-			is_fallen = false
 			die()
 		
 func die():
@@ -329,16 +368,13 @@ func die():
 		
 		
 		await get_tree().create_timer(0.3).timeout
-		if is_fallen:
-			Sounds.play_sound(global_position,"gg_fell_in_lava", -3.0, "SFX", 0, 1)
+
 		var tween = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_EXPO).set_parallel(true)
 		tween.tween_property($Camera2D, "zoom", Vector2(2,2), 0.5)
 		
 		await get_tree().create_timer(0.4).timeout
 		tween = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_EXPO).set_parallel(true)
-		if is_fallen: 
-			tween.tween_property(self, "position", global_position + Vector2(0, 100.0), 0.3)
-			
+
 		tween.tween_property($Sprite/Head.material, "shader_parameter/dissolve_value", 0, 2.0)
 	
 

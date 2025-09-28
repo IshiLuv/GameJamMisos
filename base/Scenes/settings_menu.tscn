@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://hyspm5rulkn2"]
+[gd_scene load_steps=23 format=3 uid="uid://hyspm5rulkn2"]
 
 [ext_resource type="Script" uid="uid://fx2k2jawj2xt" path="res://Scripts/settings_menu.gd" id="1_rahb6"]
 [ext_resource type="Texture2D" uid="uid://dbvuxb4mdxhy7" path="res://Assets/UI/Popup_menu.png" id="2_jjs6x"]
@@ -7,8 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://dchxj5pa10fcn" path="res://Assets/UI/Claider.png" id="5_fsgis"]
 [ext_resource type="Texture2D" uid="uid://7av46kjxgp51" path="res://Assets/UI/Grabber.png" id="5_jjs6x"]
 [ext_resource type="Texture2D" uid="uid://dq1b5unvyd0kc" path="res://Assets/UI/Grabber_high.png" id="6_fsgis"]
-[ext_resource type="AudioStream" uid="uid://dbgjag1bquglw" path="res://Assets/Sounds/мирцал-пока-пока.ogg" id="6_hmele"]
-[ext_resource type="Theme" uid="uid://scktlh5526ke" path="res://Scenes/settings_menu.tres" id="6_vv31b"]
+[ext_resource type="Theme" uid="uid://c8tra1y5ejvga" path="res://Scenes/settings_menu.tres" id="6_vv31b"]
 [ext_resource type="Texture2D" uid="uid://bm8u8pbb6fd0y" path="res://Assets/UI/Return.png" id="12_cdah7"]
 [ext_resource type="Texture2D" uid="uid://v3pl8vf86o2d" path="res://Assets/UI/Fullscreen.png" id="12_n0ctm"]
 [ext_resource type="StyleBox" uid="uid://bdbvrw3tb0fnc" path="res://Scenes/Option.tres" id="12_rkth2"]
@@ -193,10 +192,6 @@ theme_override_colors/font_color = Color(0.7764706, 0.38431373, 0.1882353, 1)
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 0)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 text = "Volume of SFX"
-
-[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("6_hmele")
-bus = &"Music"
 
 [node name="OptionButton" type="OptionButton" parent="."]
 layout_mode = 0

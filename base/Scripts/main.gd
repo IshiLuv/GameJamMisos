@@ -7,14 +7,14 @@ func _ready() -> void:
 	G.main = self
 	Animations.appear(self)
 	generate()
-	
+	Sounds.set_music("aboba (online-audio-converter.com)")
 
 func generate():
 	var last_level = $Levels/Level
 	var layers_list = []
 	
 	for i in 10:
-		var new_level = load("res://Scenes/levels/level_1.tscn").instantiate()
+		var new_level = load("res://Scenes/levels/level_" + str(randi_range(1,2)) + ".tscn").instantiate()
 		$Levels.add_child(new_level)
 		new_level.global_position = last_level.get_node("Level_end").global_position
 		layers_list.append([new_level.get_node("TileMapLayer"),Vector2i(new_level.get_node("Level_end").position.x/64,new_level.get_node("Level_end").position.y/48)])

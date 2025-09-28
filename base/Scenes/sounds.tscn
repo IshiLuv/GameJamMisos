@@ -1,6 +1,14 @@
-[gd_scene load_steps=2 format=3 uid="uid://dxlrl78vj7hbc"]
+[gd_scene load_steps=3 format=3 uid="uid://dxlrl78vj7hbc"]
 
 [ext_resource type="Script" uid="uid://isovjqm1y5vm" path="res://Scripts/sound.gd" id="1_df3ut"]
+[ext_resource type="AudioStream" uid="uid://bl5ctipb3pyty" path="res://Assets/Sounds/aboba (online-audio-converter.com).ogg" id="2_em0nx"]
 
 [node name="Sounds" type="Node2D"]
 script = ExtResource("1_df3ut")
+
+[node name="Music" type="AudioStreamPlayer" parent="."]
+process_mode = 3
+stream = ExtResource("2_em0nx")
+volume_db = -11.044
+bus = &"Music"
+parameters/looping = true

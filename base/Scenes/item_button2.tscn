@@ -1,24 +1,26 @@
-[gd_scene load_steps=3 format=3 uid="uid://ce7wjyy2lwr0w"]
+[gd_scene load_steps=3 format=3 uid="uid://hq5tjn60pic5"]
 
-[ext_resource type="Script" uid="uid://ch4pxumkf36u7" path="res://Scripts/item_button.gd" id="1_48l8j"]
-[ext_resource type="Texture2D" uid="uid://2ey22dvjsp4" path="res://Assets/Textures/bullet.png" id="2_48l8j"]
+[ext_resource type="Script" uid="uid://ch4pxumkf36u7" path="res://Scripts/item_button.gd" id="1_ue1c8"]
+[ext_resource type="Texture2D" uid="uid://2ey22dvjsp4" path="res://Assets/Textures/bullet.png" id="2_gesiu"]
 
 [node name="Button" type="Button"]
 custom_minimum_size = Vector2(74, 74)
 offset_right = 74.0
 offset_bottom = 74.0
 focus_mode = 0
-script = ExtResource("1_48l8j")
+flat = true
+script = ExtResource("1_ue1c8")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(37, 35)
-texture = ExtResource("2_48l8j")
+texture = ExtResource("2_gesiu")
 
 [node name="Panel" type="Panel" parent="."]
 layout_mode = 0
-offset_left = -256.0
-offset_right = -3.0
-offset_bottom = 155.0
+offset_left = 8.0
+offset_top = 136.0
+offset_right = 271.0
+offset_bottom = 287.0
 
 [node name="Name" type="Label" parent="Panel"]
 layout_mode = 0
@@ -33,7 +35,7 @@ text = "Candy Corn"
 layout_mode = 0
 offset_left = 8.0
 offset_top = 33.0
-offset_right = 245.0
+offset_right = 248.0
 offset_bottom = 108.0
 text = "Aaaa aaaaaa aaaaaaa aaaaa aaa aaaaa aaaaaa aaaaaa aaaa"
 autowrap_mode = 2

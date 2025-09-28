@@ -9,7 +9,9 @@ func _ready() -> void:
 	for scene in get_tree().get_root().get_children():
 		if scene is Main :
 			scene.queue_free()
-			
+	
+	Sounds.set_music("")
+	
 	if !skipIntro and !G.watchedIntro:
 		await get_tree().create_timer(1).timeout
 		Animations.appear($Fake_unreal)
@@ -26,11 +28,10 @@ func _ready() -> void:
 		Animations.disappear($Intro)
 		await get_tree().create_timer(1).timeout
 		Animations.disappear($ColorRect)
-		$AudioStreamPlayer.play()
 	else: 
 		$ColorRect.visible = false
 		$Fake_unreal.visible = false
-		$AudioStreamPlayer.play()
+	Sounds.set_music("aboba (online-audio-converter.com)")
 	
 func _on_exit_pressed() -> void:
 	get_tree().quit()
@@ -59,8 +60,6 @@ func _pause_game():
 	get_tree().paused = true
 	pause_menu = load("res://Scenes/settings_menu.tscn").instantiate()
 	add_child(pause_menu)
-	pause_menu.resume_requested.connect(_resume_game)
-	pause_menu.exit_requested.connect(_exit_to_main_menu)
 
 func _resume_game():
 	get_tree().paused = false
