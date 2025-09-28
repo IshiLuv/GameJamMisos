@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://dsrflgol3r2e0" path="res://Scenes/character.tscn" id="2_bo1nx"]
 [ext_resource type="PackedScene" uid="uid://3r74sqojsqwy" path="res://Scenes/levels/level.tscn" id="4_jjvhh"]
 [ext_resource type="PackedScene" uid="uid://r8g654relxu7" path="res://Scenes/item.tscn" id="4_kry3j"]
-[ext_resource type="PackedScene" uid="uid://bjpapxo1gx4qd" path="res://Scenes/Enemies/enemy_spitter.tscn" id="5_21xkr"]
+[ext_resource type="PackedScene" path="res://Scenes/Enemies/enemy_spitter.tscn" id="5_21xkr"]
 [ext_resource type="Texture2D" uid="uid://clxipojyem4p" path="res://Assets/Textures/decor1.png" id="6_21xkr"]
 [ext_resource type="Texture2D" uid="uid://doej8703wqxk8" path="res://Assets/Textures/decor2.png" id="7_6bp64"]
 [ext_resource type="PackedScene" uid="uid://rjycex753wup" path="res://Scenes/Enemies/enemy.tscn" id="8_344ge"]

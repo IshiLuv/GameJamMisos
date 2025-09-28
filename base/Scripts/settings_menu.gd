@@ -1,13 +1,18 @@
-extends Node2D
+extends Control
+signal resume_requested
+signal exit_requested
 
 func _ready() -> void:
+	self.modulate.a = 0.0
+	var tween = create_tween()
+	tween.tween_property(self, "modulate:a", 1.0, 0.25)
 	$AudioStreamPlayer2D.play()
 	$OptionButton.select(G.resolution) 
 	$OptionButton.set_item_text(4, str(G.based_screen[0]) + "×" + str(G.based_screen[1]))
 	
 func _on_exit_pressed() -> void:
 	G.watchedIntro = true
-	get_tree().change_scene_to_file("res://Scenes/main_menu.tscn")
+	exit_requested.emit()
 	
 func _on_option_button_item_selected(index: int) -> void:
 	if index==0:
@@ -28,6 +33,10 @@ func _on_option_button_item_selected(index: int) -> void:
 func _on_button_toggled(toggled_on: bool) -> void:
 	if toggled_on == true:
 		$Button.texture_normal = load("res://Assets/UI/WINDOWED.png")
+		DisplayServer.window_set_size(G.based_screen)
+		G.resolution = 4
+		$OptionButton.select(G.resolution)
+		$OptionButton.set_item_text(4, str(G.based_screen[0]) + "×" + str(G.based_screen[1]))
 		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
 	
 	if toggled_on == false:
@@ -58,3 +67,7 @@ func _on_svx_value_changed(value: float) -> void:
 		$AnimatedSprite2D2.play("Slaider")
 		$AnimatedSprite2D2.set_frame_and_progress(frame,0)
 		$AnimatedSprite2D2.pause()
+
+
+func _on_return_pressed() -> void:
+	resume_requested.emit()

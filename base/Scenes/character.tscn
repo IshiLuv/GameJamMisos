@@ -6,7 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://c418abfanxehf" path="res://Assets/Textures/shadow.png" id="2_wbia7"]
 [ext_resource type="Texture2D" uid="uid://c1vsl7f8k5p26" path="res://Assets/Textures/arrows.png" id="4_nytcm"]
 [ext_resource type="Texture2D" uid="uid://bmi84t4fy63bx" path="res://Assets/Textures/character2_active.png" id="5_a5ess"]
-[ext_resource type="Shader" uid="uid://c5rliag6omhl4" path="res://Assets/vignette.gdshader" id="6_a5ess"]
+[ext_resource type="Shader" path="res://Assets/vignette.gdshader" id="6_a5ess"]
 [ext_resource type="Texture2D" uid="uid://bipy4hprphxee" path="res://Assets/UI/special_charge.png" id="6_reotu"]
 [ext_resource type="Texture2D" uid="uid://pxyl5pvl1v1o" path="res://Assets/UI/special_charge_bar.png" id="7_a5ess"]
 
