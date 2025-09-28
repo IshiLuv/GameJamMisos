@@ -258,10 +258,10 @@ position = Vector2(1, 1)
 [node name="Return" type="TextureButton" parent="."]
 process_mode = 2
 layout_mode = 0
-offset_left = -128.0
+offset_left = -141.0
 offset_top = -325.0
-offset_right = 128.0
-offset_bottom = -211.0
+offset_right = 154.0
+offset_bottom = -191.0
 texture_normal = ExtResource("12_cdah7")
 stretch_mode = 0
 script = ExtResource("4_fsgis")

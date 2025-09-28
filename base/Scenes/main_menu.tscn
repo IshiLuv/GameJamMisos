@@ -9,7 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://fvngg1twcqg5" path="res://Assets/UI/Setting.png" id="7_4nkqq"]
 [ext_resource type="Texture2D" uid="uid://oa8d4yqxmeit" path="res://Assets/UI/Exit.png" id="8_t1dhk"]
 [ext_resource type="Texture2D" uid="uid://bgnxj37l202qm" path="res://Assets/UI/jam_logo.png" id="10_jr6u5"]
-[ext_resource type="VideoStream" path="res://Assets/UI/unreal_fake.ogv" id="11_vr1f0"]
+[ext_resource type="VideoStream" uid="uid://sonhxrw1e6tf" path="res://Assets/UI/unreal_fake.ogv" id="11_vr1f0"]
 [ext_resource type="VideoStream" uid="uid://4w4kjcg0mfud" path="res://Assets/UI/priyatnogo_appetita_intro.ogv" id="12_84iac"]
 [ext_resource type="Texture2D" uid="uid://256xipwa1cf5" path="res://Assets/UI/Eye.png" id="14_8dnnj"]
 
