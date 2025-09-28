@@ -2,15 +2,18 @@ extends Node2D
 class_name Bullet
 
 @export var speed: int = 600
-var direction: Vector2 = Vector2.UP 
+var direction: Vector2 = Vector2.ZERO 
 var damage: int = 1
 var sender
 
 var is_burning: bool = false
+var is_spinning: bool = false
 
 func _ready() -> void:
+
+	damage *= sender.bullet_damage_mult
 	if is_burning:
-		Sounds.play_sound(global_position,"gg_attack_fire", -0.0, "SFX", 0.4, 2.0)
+		Sounds.play_sound(global_position,"gg_attack_fire", 0.0, "SFX", 0.4, 2.0)
 		$BurnParticle.emitting = true
 	else:
 		$BurnParticle.emitting = false
@@ -19,6 +22,9 @@ func _ready() -> void:
 	queue_free()
 
 func _process(delta: float) -> void:
+	if is_spinning:
+		rotation += deg_to_rad(360) * delta
+		
 	global_position += direction * delta * speed
 
 func _on_area_2d_body_entered(body: Node2D) -> void:

@@ -13,13 +13,13 @@ func disappear(obj: Object, time: float = 1):
 	
 func blink(obj: Object, time: float = randf()/10):
 	for i in 6:
-		obj.visible = !obj.visible
+		if obj: obj.visible = !obj.visible
 		await get_tree().create_timer(time).timeout
 
 func flash(obj, power: float): 
 	obj.modulate = Color(power,power,power)
 	await get_tree().create_timer(0.03).timeout
-	obj.modulate = Color(1,1,1)
+	if obj: obj.modulate = Color(1,1,1)
 
 func jump(obj: Object, tween_trans: Tween.TransitionType = Tween.TRANS_SINE, 
 scale_1: Array = [Vector2(1.1,1.1), 0.1], 

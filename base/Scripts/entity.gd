@@ -6,6 +6,8 @@ var health: int = max_health
 
 var is_burning: bool = false
 
+var is_dying: bool = false
+
 func take_damage(dmg):
 	if self is Enemy:
 		Sounds.play_sound(global_position,"enemy_hurt", 0.0, "SFX", 0.0, 1.0)
@@ -17,9 +19,12 @@ func take_damage(dmg):
 		die()
 
 func die():
-	if self is Enemy:
-		await Sounds.play_sound(global_position,"enemy_hurt", 0.0, "SFX", 0.0, 1.0)
-	queue_free()
+	if !is_dying:
+		is_dying = true
+		if self is Enemy:
+			Sounds.play_sound(global_position,"enemy_died"+str(randi_range(1,3)), 0.0, "SFX", 0.0, 1.0)
+		await get_tree().create_timer(0.1).timeout
+		queue_free()
 
 func set_burning():
 	$BurnParticle.emitting = true

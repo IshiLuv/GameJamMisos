@@ -98,10 +98,15 @@ scale = Vector2(3, 1.5)
 theme_override_constants/separation = 4
 
 [node name="Items" type="VBoxContainer" parent="CanvasLayer"]
-offset_left = 1796.0
-offset_top = 60.0
-offset_right = 1836.0
-offset_bottom = 108.0
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -106.0
+offset_top = 80.0
+offset_right = -66.0
+offset_bottom = 128.0
+grow_horizontal = 0
+size_flags_horizontal = 8
 theme_override_constants/separation = 4
 
 [node name="SpecialAttack" type="TextureProgressBar" parent="CanvasLayer"]
@@ -120,6 +125,33 @@ offset_left = 61.0
 offset_top = 65.0
 offset_right = 171.0
 offset_bottom = 175.0
+
+[node name="AltAttackCD" type="Label" parent="CanvasLayer"]
+offset_left = 54.0
+offset_top = 405.0
+offset_right = 94.0
+offset_bottom = 428.0
+theme_override_constants/outline_size = 15
+theme_override_font_sizes/font_size = 26
+text = "Alt Attack Cooldown: "
+
+[node name="BulletDamage" type="Label" parent="CanvasLayer"]
+offset_left = 54.0
+offset_top = 452.0
+offset_right = 322.0
+offset_bottom = 488.0
+theme_override_constants/outline_size = 15
+theme_override_font_sizes/font_size = 26
+text = "Bullet damage:"
+
+[node name="DamageMult" type="Label" parent="CanvasLayer"]
+offset_left = 52.0
+offset_top = 500.0
+offset_right = 320.0
+offset_bottom = 536.0
+theme_override_constants/outline_size = 15
+theme_override_font_sizes/font_size = 26
+text = "Damage mult: "
 
 [node name="AttackCD" type="Timer" parent="."]
 wait_time = 0.2

@@ -1,0 +1,35 @@
+[gd_scene load_steps=5 format=3 uid="uid://brcmifud321ng"]
+
+[ext_resource type="PackedScene" uid="uid://5xx0wjnb7k6m" path="res://Scenes/Bullets/bullet.tscn" id="1_umfjq"]
+[ext_resource type="Texture2D" uid="uid://cbf3yeoadre6l" path="res://Assets/Textures/bullet_fire.png" id="2_umfjq"]
+
+[sub_resource type="Curve" id="Curve_4qi73"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.24431817, 0.8089888), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_4qi73"]
+offsets = PackedFloat32Array(0, 0.07333333, 0.28)
+colors = PackedColorArray(1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1, 0)
+
+[node name="Bullet" instance=ExtResource("1_umfjq")]
+
+[node name="CPUParticles2D" parent="." index="0"]
+amount = 4
+texture = ExtResource("2_umfjq")
+lifetime = 0.5
+speed_scale = 1.0
+scale_amount_min = 2.0
+scale_amount_max = 3.0
+scale_amount_curve = SubResource("Curve_4qi73")
+color_ramp = SubResource("Gradient_4qi73")
+
+[node name="BurnParticle" parent="." index="1"]
+emitting = false
+
+[node name="Sprite2D" parent="." index="2"]
+scale = Vector2(2, 2)
+texture = ExtResource("2_umfjq")
+
+[node name="Area2D" parent="." index="3"]
+collision_layer = 2
+collision_mask = 2

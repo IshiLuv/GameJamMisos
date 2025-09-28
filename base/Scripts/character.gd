@@ -26,10 +26,18 @@ var is_shaking: bool = false
 var can_move: bool = true
 var can_take_damage: bool = true
 
+var bullet_damage_mult: float = 1.0
+var bullet_damage: int = 1
+
 func _ready() -> void:
 	$Sprite/Head.material.set_shader_parameter("dissolve_value", 1.0)
 	health = max_health
 	update_health()
+	
+	$CanvasLayer/AltAttackCD.text = "Alt Attack Cooldown: %s" % $AltAttackCD.wait_time
+	$CanvasLayer/BulletDamage.text = "Bullet damage: %s" % bullet_damage
+	$CanvasLayer/BulletDamage.text = "Damage mult: %s" % bullet_damage_mult
+	
 	
 func _process(delta: float) -> void:
 	
@@ -66,10 +74,10 @@ func _process(delta: float) -> void:
 			start_jump()
 		
 		if Input.is_action_pressed("shift") and !is_jumping:
-			min_jump_force = 100.0
+			min_jump_force = 100.0 + int(items.has("pogo"))*200
 			
 		if Input.is_action_just_released("shift") and is_charging_jump and !is_jumping:
-			min_jump_force = 400.0
+			min_jump_force = 400.0 + int(items.has("pogo"))*200
 
 func _physics_process(delta: float) -> void:
 	if can_move and is_jumping:
@@ -100,7 +108,7 @@ func start_jump():
 	jump()
 
 	jump_velocity = input_dir * force 
-	jump_timer = 0.2 + force/17000
+	jump_timer = 0.2 + force/17000 + int(items.has("wings"))/2.0
 	charge_timer = 0.0
 
 func jump():
@@ -124,7 +132,7 @@ func attack():
 	tween.tween_property($Sprite/Body, "position", Vector2(0, -40.0), 0.1)
 	tween.tween_property($Sprite/Head, "position", Vector2(-2, -60.5), 0.1)
 	
-	G.spawn_bullet(self, bullet_scene, $Gun/Bullet_Marker.global_position, $Gun/Bullet_Marker.global_position.direction_to(get_global_mouse_position()))
+	G.spawn_bullet(self, bullet_scene, $Gun/Bullet_Marker.global_position, $Gun/Bullet_Marker.global_position.direction_to(get_global_mouse_position()), bullet_damage, items.has("match"))
 
 func alt_attack():
 	Animations.shakeCam($Camera2D, 1.5)
@@ -150,7 +158,7 @@ func alt_attack():
 		for i in num_bullets:
 			var angle = deg_to_rad(360.0 / num_bullets * i)
 			var dir = Vector2.RIGHT.rotated(angle)
-			G.spawn_bullet(self, bullet_scene, $Gun/Bullet_Marker.global_position, dir)
+			G.spawn_bullet(self, bullet_scene, $Gun/Bullet_Marker.global_position, dir, bullet_damage, items.has("match"))
 		
 func special_attack():
 	if special_attack_charge >= special_attack_cost:
@@ -167,16 +175,54 @@ func special_attack():
 		special_attack_charge = 0
 		$CanvasLayer/SpecialAttack.value = special_attack_charge
 
-		var num_bullets := 16  # сколько пуль выпускаем (8 = полный круг)
-		for i in num_bullets:
-			var angle = deg_to_rad(360.0 / num_bullets * i)
-			var dir = Vector2.RIGHT.rotated(angle)
-			G.spawn_bullet(self, bullet_scene, $Gun/Bullet_Marker.global_position, dir)
-			if items.has("candles"):
-				G.spawn_bullet(self, bullet_scene, $Gun/Bullet_Marker.global_position, dir)
-			Animations.shakeCam($Camera2D, 2)
-			await get_tree().create_timer(0.05).timeout
-	
+		match active_item:
+			"candles":
+				can_take_damage = false
+				
+				var num_bullets := 16  # сколько пуль выпускаем (8 = полный круг)
+				for i in num_bullets:
+					var angle = deg_to_rad(720.0 / num_bullets * i)
+					var dir = Vector2.RIGHT.rotated(angle)
+					
+					G.spawn_bullet(self, bullet_scene, $Gun/Bullet_Marker.global_position, dir, bullet_damage, true)
+
+					Animations.shakeCam($Camera2D, 2)
+					await get_tree().create_timer(0.05).timeout
+					
+				can_take_damage = true
+			"witch_hat":
+				var bullet = load("res://Scenes/Bullets/bullet_witch.tscn").instantiate()
+				bullet.global_position = $Gun/Bullet_Marker.global_position
+				bullet.direction = $Gun/Bullet_Marker.global_position.direction_to(get_global_mouse_position())
+				bullet.sender = self
+				bullet.damage = bullet_damage
+				bullet.is_burning = items.has("match")
+				bullet.is_spinning = true
+				G.main.add_child(bullet)
+
+				var bullet2 = load("res://Scenes/Bullets/bullet_witch.tscn").instantiate()
+				bullet2.sender = self
+				bullet2.damage = bullet_damage
+				bullet2.is_burning = items.has("match")
+				bullet.add_child(bullet2)
+				bullet2.global_position = bullet.global_position + Vector2(40,40)
+				
+				bullet2 = load("res://Scenes/Bullets/bullet_witch.tscn").instantiate()
+				bullet2.sender = self
+				bullet2.damage = bullet_damage
+				bullet2.is_burning = items.has("match")
+				bullet.add_child(bullet2)
+				bullet2.global_position = bullet.global_position + Vector2(-40,-40)
+			"chef_hat":
+				var bullet = load("res://Scenes/Bullets/bullet_knife.tscn").instantiate()
+				bullet.global_position = $Gun/Bullet_Marker.global_position
+				bullet.direction = $Gun/Bullet_Marker.global_position.direction_to(get_global_mouse_position())
+				bullet.sender = self
+				bullet.damage = bullet_damage+1
+				bullet.is_burning = items.has("match")
+				bullet.speed = 400
+				G.main.add_child(bullet)
+		
 func shakeLoop():
 	if !is_shaking:
 		is_shaking=true
@@ -199,7 +245,7 @@ func on_bullet_land(_bullet):
 	$CanvasLayer/SpecialAttack.value = special_attack_charge
 	
 func add_item(table, item_id: String):
-	if ["candles",].has(item_id):
+	if ["candles","chef_hat","witch_hat",].has(item_id):
 		if active_item == "":
 			table.queue_free()
 		table.setItem(active_item)
@@ -217,8 +263,21 @@ func add_item(table, item_id: String):
 			update_health()
 		"shovel":
 			$AltAttackCD.wait_time += 2.5
+			$CanvasLayer/AltAttackCD.text = "Alt Attack Cooldown: %s" % $AltAttackCD.wait_time
 		"nest":
 			$AltAttackCD.wait_time += 0.5
+			$CanvasLayer/AltAttackCD.text = "Alt Attack Cooldown: %s" % $AltAttackCD.wait_time
+		"clock":
+			$AltAttackCD.wait_time /= 1.2
+			$CanvasLayer/AltAttackCD.text = "Alt Attack Cooldown: %s" % $AltAttackCD.wait_time
+		"bird_protein":
+			bullet_damage += 1
+			$CanvasLayer/BulletDamage.text = "Bullet damage: %s" % bullet_damage
+		"":
+			bullet_damage_mult += 0.3
+			$CanvasLayer/BulletDamage.text = "Damage mult: %s" % bullet_damage_mult
+		"pogo":
+			max_jump_force += 100
 	
 func update_items():
 	for i in $CanvasLayer/Items.get_children():

@@ -7,6 +7,13 @@ var item_pool: Array = [
 	"shovel",
 	"nest",
 	"candles",
+	"match",
+	"bird_protein",
+	"clock",
+	"pogo",
+	"wings",
+	"witch_hat",
+	"chef_hat",
 ]
 
 #settings:
@@ -17,10 +24,11 @@ var watchedIntro: bool = false
 func _ready() -> void:
 	TranslationServer.set_locale("en")
 
-func spawn_bullet(sender, bullet_scn, pos, dir, is_burning: bool = false):
+func spawn_bullet(sender, bullet_scn, pos, dir, dmg = 1, is_burning: bool = false):
 	var bullet = bullet_scn.instantiate()
 	bullet.global_position = pos
 	bullet.direction = dir
 	bullet.sender = sender
+	bullet.damage = dmg
 	bullet.is_burning = is_burning
 	G.main.add_child(bullet)

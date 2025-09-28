@@ -1,12 +1,17 @@
 extends Entity
 class_name Enemy
 
+var bullet_damage_mult: float = 1.0
+
 var bullet_scene = preload("res://Scenes/Bullets/bullet.tscn")
 
 var can_shoot: bool = false
 var target
 
 @onready var gun_marker = $Sprite2D/Gun_marker
+
+func _ready() -> void:
+	health = max_health
 
 func _physics_process(_delta: float) -> void:
 	if target != null:

@@ -1,10 +1,13 @@
-[gd_scene load_steps=6 format=3 uid="uid://k0l5u4k00hgg"]
+[gd_scene load_steps=9 format=3 uid="uid://k0l5u4k00hgg"]
 
 [ext_resource type="Script" uid="uid://d1fpxr52ujblt" path="res://Scripts/main.gd" id="1_jjgbg"]
 [ext_resource type="PackedScene" uid="uid://dsrflgol3r2e0" path="res://Scenes/character.tscn" id="2_bo1nx"]
 [ext_resource type="PackedScene" uid="uid://3r74sqojsqwy" path="res://Scenes/levels/level.tscn" id="4_jjvhh"]
 [ext_resource type="PackedScene" uid="uid://r8g654relxu7" path="res://Scenes/item.tscn" id="4_kry3j"]
 [ext_resource type="PackedScene" uid="uid://bjpapxo1gx4qd" path="res://Scenes/Enemies/enemy_spitter.tscn" id="5_21xkr"]
+[ext_resource type="Texture2D" uid="uid://clxipojyem4p" path="res://Assets/Textures/decor1.png" id="6_21xkr"]
+[ext_resource type="Texture2D" uid="uid://doej8703wqxk8" path="res://Assets/Textures/decor2.png" id="7_6bp64"]
+[ext_resource type="PackedScene" uid="uid://rjycex753wup" path="res://Scenes/Enemies/enemy.tscn" id="8_344ge"]
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_jjgbg")
@@ -26,3 +29,65 @@ position = Vector2(2107, -7)
 
 [node name="Enemy" parent="Levels/Level" instance=ExtResource("5_21xkr")]
 position = Vector2(948, -1164)
+
+[node name="Decor1" type="Sprite2D" parent="Levels/Level"]
+z_index = 20
+position = Vector2(-594, -867)
+scale = Vector2(1.7246094, 1.7246094)
+texture = ExtResource("6_21xkr")
+
+[node name="Decor2" type="Sprite2D" parent="Levels/Level"]
+z_index = 20
+position = Vector2(2379, -604)
+scale = Vector2(2.8095703, 2.8095703)
+texture = ExtResource("6_21xkr")
+flip_h = true
+
+[node name="Decor3" type="Sprite2D" parent="Levels/Level"]
+z_index = 20
+position = Vector2(1083, 188)
+scale = Vector2(1.3989258, 1.3989258)
+texture = ExtResource("6_21xkr")
+flip_h = true
+
+[node name="Decor8" type="Sprite2D" parent="Levels/Level"]
+z_index = 20
+position = Vector2(611, -876)
+scale = Vector2(1.3800048, 1.748291)
+texture = ExtResource("6_21xkr")
+flip_h = true
+
+[node name="Decor4" type="Sprite2D" parent="Levels/Level"]
+z_index = 20
+position = Vector2(-470.00003, 112)
+scale = Vector2(1.2285156, 1.2285156)
+texture = ExtResource("7_6bp64")
+
+[node name="Decor5" type="Sprite2D" parent="Levels/Level"]
+z_index = 20
+position = Vector2(547.00006, 149.99994)
+scale = Vector2(0.741211, 0.741211)
+texture = ExtResource("7_6bp64")
+flip_h = true
+
+[node name="Decor6" type="Sprite2D" parent="Levels/Level"]
+z_index = 20
+position = Vector2(2089.0002, 150)
+scale = Vector2(0.741211, 0.741211)
+texture = ExtResource("7_6bp64")
+flip_h = true
+
+[node name="Item2" parent="Levels/Level" instance=ExtResource("4_kry3j")]
+position = Vector2(224, -310)
+
+[node name="Item3" parent="Levels/Level" instance=ExtResource("4_kry3j")]
+position = Vector2(313, -300)
+
+[node name="Item4" parent="Levels/Level" instance=ExtResource("4_kry3j")]
+position = Vector2(305, -231)
+
+[node name="Item5" parent="Levels/Level" instance=ExtResource("4_kry3j")]
+position = Vector2(226, -233)
+
+[node name="Enemy2" parent="Levels/Level" instance=ExtResource("8_344ge")]
+position = Vector2(703, -314)

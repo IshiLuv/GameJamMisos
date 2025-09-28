@@ -13,7 +13,7 @@ func generate():
 	var last_level = $Levels/Level
 	var layers_list = []
 	
-	for i in 3:
+	for i in 10:
 		var new_level = load("res://Scenes/levels/level_1.tscn").instantiate()
 		$Levels.add_child(new_level)
 		new_level.global_position = last_level.get_node("Level_end").global_position
