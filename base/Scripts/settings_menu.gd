@@ -47,7 +47,10 @@ func _on_button_toggled(toggled_on: bool) -> void:
 		$Button.texture_normal = load("res://Assets/UI/Fullscreen.png")
 		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
 		
-
+func _on_language_item_selected(index: int) -> void:
+	G.lang = $Language.selected
+	TranslationServer.set_locale($Language.get_item_text(G.lang))
+	
 
 func _on_music_value_changed(value: float) -> void:
 	if value == -25: 

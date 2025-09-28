@@ -19,9 +19,12 @@ var item_pool: Array = [
 ]
 
 #settings:
+var lang: int
+
 var resolution: int = 0
 var based_screen: Vector2i =  DisplayServer.screen_get_size()
 var watchedIntro: bool = false 
+var watchedCutscene: bool = false
 var frame_music: int=3
 var frame_svx: int=3
 func _ready() -> void:

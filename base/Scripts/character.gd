@@ -79,7 +79,7 @@ func _process(delta: float) -> void:
 			min_jump_force = 100.0 + int(items.has("pogo"))*200
 			$Sprite/Arrows.scale.x = 2
 			
-		if Input.is_action_just_released("shift") and is_charging_jump and !is_jumping:
+		if Input.is_action_just_released("shift"):
 			min_jump_force = 400.0 + int(items.has("pogo"))*200
 			$Sprite/Arrows.scale.x = 2.5
 			
@@ -330,36 +330,53 @@ func _on_hurtbox_body_entered(body: Node2D) -> void:
 		fall()
 
 func fall():
-	velocity = Vector2.ZERO
-	can_move = false
-	can_take_damage = false
 	
-	$Sprite/Arrows.visible = false
-	$Sprite/Shadow.visible = false
+	if !$Hurtbox/CollisionShape2D.disabled:
+		$Hurtbox/CollisionShape2D.disabled = true
+		velocity = Vector2.ZERO
+		can_move = false
+		can_take_damage = false
+		
+		$Sprite/Arrows.visible = false
+		$Sprite/Shadow.visible = false
 
-	await get_tree().create_timer(0.3).timeout
-	Sounds.play_sound(global_position,"gg_fell_in_lava", -3.0, "SFX", 0, 1)
-	var tween = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_EXPO).set_parallel(true)
-	tween.tween_property($Camera2D, "zoom", Vector2(2,2), 0.5)
-	
-	
-	
-	await get_tree().create_timer(0.4).timeout
-	take_damage(1)
-	tween = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_EXPO).set_parallel(true)
-	tween.tween_property(self, "position", global_position + Vector2(0, 100.0), 0.3)
-	
-	tween.tween_property($Sprite/Head.material, "shader_parameter/dissolve_value", 0, 1.0)
-	tween.set_parallel(false)
-	tween.tween_property($Sprite/Head.material, "shader_parameter/dissolve_value", 1, 0.4)
-	await get_tree().create_timer(1.0).timeout
-	
-	global_position = pre_jump_pos
-	
-	can_take_damage = true
-	can_move = true
-	$Sprite/Arrows.visible = true
-	$Sprite/Shadow.visible = true
+		await get_tree().create_timer(0.3).timeout
+		Sounds.play_sound(global_position,"gg_fell_in_lava", -3.0, "SFX", 0, 1)
+		var tween = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_EXPO).set_parallel(true)
+		tween.tween_property($Camera2D, "zoom", Vector2(2,2), 0.5)
+		
+		
+		
+		await get_tree().create_timer(0.4).timeout
+		
+		health -= 1
+		
+		if health <= 0:
+			Sounds.play_sound(global_position,"gg_death", -3.0, "SFX", 0, 1)
+		else:
+			Sounds.play_sound(global_position,"gg_hit", -0.0, "SFX", 0.4, 2.0)
+			
+		Animations.shakeCam($Camera2D, 3)
+		await Animations.flash(self,5)
+		update_health()
+		if health <= 0:
+			die()
+
+		tween = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_EXPO).set_parallel(true)
+		tween.tween_property(self, "position", global_position + Vector2(0, 100.0), 0.3)
+		tween.tween_property($Camera2D, "zoom", Vector2(1.2,1.2), 0.5)
+		tween.tween_property($Sprite/Head.material, "shader_parameter/dissolve_value", 0, 1.0)
+		tween.set_parallel(false)
+		tween.tween_property($Sprite/Head.material, "shader_parameter/dissolve_value", 1, 0.4)
+		await get_tree().create_timer(1.0).timeout
+		
+		global_position = pre_jump_pos
+		
+		can_take_damage = true
+		can_move = true
+		$Sprite/Arrows.visible = true
+		$Sprite/Shadow.visible = true
+		$Hurtbox/CollisionShape2D.disabled = false
 	
 func take_damage(dmg):
 	if $HurtCD.is_stopped() and can_take_damage:
@@ -409,7 +426,7 @@ func _on_attack_cd_timeout() -> void:
 
 func _on_alt_attack_cd_timeout() -> void:
 	$Sprite/Head.texture = load("res://Assets/Textures/character2_active.png")
-
+	Sounds.play_sound(global_position,"altushka", -0.0, "SFX", 0.4, 2.0)
 
 func _on_hurt_cd_timeout() -> void:
 	can_take_damage = true

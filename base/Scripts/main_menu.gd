@@ -13,6 +13,7 @@ func _ready() -> void:
 	Sounds.set_music("")
 	
 	if !skipIntro and !G.watchedIntro:
+		$For_eye.disabled = true
 		await get_tree().create_timer(1).timeout
 		Animations.appear($Fake_unreal)
 		$Fake_unreal.play()
@@ -28,6 +29,8 @@ func _ready() -> void:
 		Animations.disappear($Intro)
 		await get_tree().create_timer(1).timeout
 		Animations.disappear($ColorRect)
+		G.watchedIntro = true
+		$For_eye.disabled = false
 	else: 
 		$ColorRect.visible = false
 		$Fake_unreal.visible = false
@@ -40,6 +43,13 @@ func _on_settings_pressed() -> void:
 	toggle_pause()
 
 func _on_play_pressed() -> void:
+	if !G.watchedCutscene and !skipIntro:
+		$For_eye.disabled = true
+		G.watchedCutscene = true
+		$Cutscene.visible = true
+		$Cutscene.play()
+		Sounds.set_music("")
+		await get_tree().create_timer(25).timeout
 	get_tree().change_scene_to_file("res://Scenes/main.tscn")
 
 func _on_control_pressed() -> void:

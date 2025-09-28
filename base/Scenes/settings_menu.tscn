@@ -83,11 +83,11 @@ OptionButton/colors/icon_hover_color = Color(0.7019608, 0.25490198, 0.14901961, 
 OptionButton/colors/icon_hover_pressed_color = Color(0.7019608, 0.25490198, 0.14901961, 1)
 OptionButton/styles/hover_pressed = null
 
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_3etfd"]
-
 [sub_resource type="LabelSettings" id="LabelSettings_hmele"]
 font_size = 30
 font_color = Color(0.7764706, 0.38431373, 0.1882353, 1)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_3etfd"]
 
 [node name="Settings_menu" type="Control"]
 process_mode = 2
@@ -112,17 +112,17 @@ texture = ExtResource("2_jjs6x")
 
 [node name="Exit" type="TextureButton" parent="."]
 layout_mode = 0
-offset_left = -167.0
-offset_top = 246.0
-offset_right = 160.0
-offset_bottom = 399.0
+offset_left = -418.0
+offset_top = 216.0
+offset_right = -91.0
+offset_bottom = 369.0
 texture_normal = ExtResource("3_3etfd")
 ignore_texture_size = true
 stretch_mode = 0
 script = ExtResource("4_fsgis")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(-222, 130)
+position = Vector2(193.50002, 88)
 scale = Vector2(1.6445314, 2.375)
 sprite_frames = SubResource("SpriteFrames_aun78")
 animation = &"Slaider"
@@ -145,6 +145,7 @@ theme_override_icons/grabber_disabled = ExtResource("5_jjs6x")
 min_value = -25.0
 max_value = 20.0
 rounded = true
+metadata/_edit_use_anchors_ = true
 
 [node name="Label" type="Label" parent="AnimatedSprite2D/Music"]
 layout_mode = 0
@@ -156,9 +157,10 @@ theme_override_colors/font_color = Color(0.7764706, 0.38431373, 0.1882353, 1)
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 0)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 text = "Volume of Music"
+metadata/_edit_use_anchors_ = true
 
 [node name="AnimatedSprite2D2" type="AnimatedSprite2D" parent="."]
-position = Vector2(222, 130)
+position = Vector2(192.50002, 293)
 scale = Vector2(1.6445314, 2.375)
 sprite_frames = SubResource("SpriteFrames_aun78")
 animation = &"Slaider"
@@ -193,11 +195,50 @@ theme_override_colors/font_shadow_color = Color(0, 0, 0, 0)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 text = "Volume of SFX"
 
+[node name="Language" type="OptionButton" parent="."]
+layout_mode = 0
+offset_left = 8.0
+offset_top = -361.0
+offset_right = 363.0
+offset_bottom = -255.0
+theme = SubResource("Theme_fsgis")
+theme_override_font_sizes/font_size = 30
+theme_override_styles/normal = ExtResource("12_rkth2")
+theme_override_styles/normal_mirrored = ExtResource("12_rkth2")
+theme_override_styles/pressed = ExtResource("12_rkth2")
+theme_override_styles/pressed_mirrored = ExtResource("12_rkth2")
+theme_override_styles/hover = ExtResource("12_rkth2")
+theme_override_styles/hover_mirrored = ExtResource("12_rkth2")
+theme_override_styles/disabled = ExtResource("12_rkth2")
+theme_override_styles/disabled_mirrored = ExtResource("12_rkth2")
+theme_override_styles/focus = ExtResource("12_rkth2")
+button_pressed = true
+alignment = 1
+item_count = 2
+popup/item_0/text = "ru"
+popup/item_0/id = 0
+popup/item_1/text = "en"
+popup/item_1/id = 1
+
+[node name="Label" type="Label" parent="Language"]
+layout_mode = 0
+offset_left = 101.0
+offset_top = -51.000004
+offset_right = 255.0
+offset_bottom = -9.000004
+theme_override_colors/font_color = Color(0.7764706, 0.38431373, 0.1882353, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+text = "Language
+"
+label_settings = SubResource("LabelSettings_hmele")
+
 [node name="OptionButton" type="OptionButton" parent="."]
 layout_mode = 0
-offset_left = -396.0
-offset_top = -106.0
-offset_right = -41.0
+offset_left = 11.0
+offset_top = -179.0
+offset_right = 366.0
+offset_bottom = -73.0
 theme = SubResource("Theme_fsgis")
 theme_override_font_sizes/font_size = 30
 theme_override_styles/normal = ExtResource("12_rkth2")
@@ -243,10 +284,10 @@ label_settings = SubResource("LabelSettings_hmele")
 [node name="Button" type="TextureButton" parent="."]
 process_mode = 2
 layout_mode = 0
-offset_left = 85.0
-offset_top = -115.0
-offset_right = 341.0
-offset_bottom = -1.0
+offset_left = -381.0
+offset_top = -59.0
+offset_right = -125.0
+offset_bottom = 55.0
 toggle_mode = true
 texture_normal = ExtResource("12_n0ctm")
 stretch_mode = 0
@@ -258,10 +299,10 @@ position = Vector2(1, 1)
 [node name="Return" type="TextureButton" parent="."]
 process_mode = 2
 layout_mode = 0
-offset_left = -141.0
-offset_top = -325.0
-offset_right = 154.0
-offset_bottom = -191.0
+offset_left = -407.0
+offset_top = -392.0
+offset_right = -112.0
+offset_bottom = -258.0
 texture_normal = ExtResource("12_cdah7")
 stretch_mode = 0
 script = ExtResource("4_fsgis")
@@ -269,6 +310,7 @@ script = ExtResource("4_fsgis")
 [connection signal="pressed" from="Exit" to="." method="_on_exit_pressed"]
 [connection signal="value_changed" from="AnimatedSprite2D/Music" to="." method="_on_music_value_changed"]
 [connection signal="value_changed" from="AnimatedSprite2D2/SVX" to="." method="_on_svx_value_changed"]
+[connection signal="item_selected" from="Language" to="." method="_on_language_item_selected"]
 [connection signal="item_selected" from="OptionButton" to="." method="_on_option_button_item_selected"]
 [connection signal="toggled" from="Button" to="." method="_on_button_toggled"]
 [connection signal="pressed" from="Return" to="." method="_on_return_pressed"]
