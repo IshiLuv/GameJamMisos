@@ -9,7 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://fvngg1twcqg5" path="res://Assets/UI/Setting.png" id="7_4nkqq"]
 [ext_resource type="Texture2D" uid="uid://oa8d4yqxmeit" path="res://Assets/UI/Exit.png" id="8_t1dhk"]
 [ext_resource type="Texture2D" uid="uid://bgnxj37l202qm" path="res://Assets/UI/jam_logo.png" id="10_jr6u5"]
-[ext_resource type="VideoStream" uid="uid://sonhxrw1e6tf" path="res://Assets/UI/unreal_fake.ogv" id="11_vr1f0"]
+[ext_resource type="VideoStream" path="res://Assets/UI/unreal_fake.ogv" id="11_vr1f0"]
 [ext_resource type="VideoStream" uid="uid://4w4kjcg0mfud" path="res://Assets/UI/priyatnogo_appetita_intro.ogv" id="12_84iac"]
 [ext_resource type="Texture2D" uid="uid://256xipwa1cf5" path="res://Assets/UI/Eye.png" id="14_8dnnj"]
 
@@ -79,7 +79,6 @@ animations = [{
 
 [node name="MainMenu" type="Node2D"]
 script = ExtResource("1_vtepg")
-skipIntro = true
 
 [node name="Control" type="Control" parent="."]
 process_mode = 3
@@ -95,22 +94,22 @@ offset_right = 1215.0
 offset_bottom = 686.0
 color = Color(0.17, 0.11389999, 0.163455, 1)
 
-[node name="Front" type="Sprite2D" parent="."]
-position = Vector2(-2.2888184e-05, -3.8146973e-06)
-scale = Vector2(4, 4)
-texture = ExtResource("2_vr1f0")
-
 [node name="back" type="Sprite2D" parent="."]
-position = Vector2(79.00009, -9.500027)
-scale = Vector2(4.733333, 4.8703704)
+position = Vector2(80, -18.000006)
+scale = Vector2(4.945703, 5.088889)
 texture = ExtResource("3_t1dhk")
 script = ExtResource("3_m3bi6")
 
+[node name="Front" type="Sprite2D" parent="."]
+position = Vector2(-2.2888184e-05, -11.500004)
+scale = Vector2(4, 4.085185)
+texture = ExtResource("2_vr1f0")
+
 [node name="Play" type="TextureButton" parent="."]
-offset_left = -531.0
-offset_top = -142.0
-offset_right = -200.0
-offset_bottom = -8.0
+offset_left = -634.0
+offset_top = -230.0
+offset_right = -303.0
+offset_bottom = -96.0
 texture_normal = ExtResource("5_ujyyl")
 ignore_texture_size = true
 stretch_mode = 0
@@ -118,10 +117,10 @@ script = ExtResource("6_mkpwh")
 metadata/_edit_use_anchors_ = true
 
 [node name="Settings" type="TextureButton" parent="."]
-offset_left = -531.0
-offset_top = 71.0
-offset_right = -200.0
-offset_bottom = 205.0
+offset_left = -634.0
+offset_top = -60.0
+offset_right = -303.0
+offset_bottom = 74.0
 texture_normal = ExtResource("7_4nkqq")
 ignore_texture_size = true
 stretch_mode = 0
@@ -129,10 +128,10 @@ script = ExtResource("6_mkpwh")
 metadata/_edit_use_anchors_ = true
 
 [node name="Exit" type="TextureButton" parent="."]
-offset_left = -531.0
-offset_top = 298.0
-offset_right = -200.0
-offset_bottom = 432.0
+offset_left = -631.0
+offset_top = 110.0
+offset_right = -300.0
+offset_bottom = 244.0
 texture_normal = ExtResource("8_t1dhk")
 ignore_texture_size = true
 stretch_mode = 0
@@ -192,15 +191,15 @@ expand = true
 position = Vector2(1, 1)
 
 [node name="For_eye" type="TextureButton" parent="."]
-offset_left = 528.0
-offset_top = 21.0
-offset_right = 817.0
-offset_bottom = 248.0
+offset_left = 54.0
+offset_top = -44.5
+offset_right = 343.0
+offset_bottom = 182.5
 mouse_filter = 1
 
 [node name="Eye" type="AnimatedSprite2D" parent="."]
 visible = false
-position = Vector2(673, 30)
+position = Vector2(199, -35.5)
 sprite_frames = SubResource("SpriteFrames_ehtkc")
 animation = &"Fire"
 autoplay = "Fire"

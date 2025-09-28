@@ -1,0 +1,39 @@
+[gd_scene load_steps=4 format=3 uid="uid://dqfr6866igvmk"]
+
+[ext_resource type="PackedScene" uid="uid://rjycex753wup" path="res://Scenes/Enemies/enemy.tscn" id="1_7awkk"]
+[ext_resource type="Script" uid="uid://o7qdntr2kncc" path="res://Scripts/Enemies/enemy_skele.gd" id="2_7awkk"]
+[ext_resource type="Texture2D" uid="uid://ujptaf0rddsq" path="res://Assets/Textures/Enemies/skele.png" id="3_7awkk"]
+
+[node name="Enemy" instance=ExtResource("1_7awkk")]
+collision_layer = 6
+collision_mask = 0
+script = ExtResource("2_7awkk")
+wander_radius = 50.0
+move_speed = 80.0
+attack_range = 200.0
+dash_speed = 400.0
+dash_duration = 0.6
+max_health = 6
+
+[node name="Shadow" parent="." index="1"]
+offset_left = -36.0
+offset_top = -21.0
+offset_right = 25.333336
+offset_bottom = 30.500004
+
+[node name="Sprite2D" parent="." index="2"]
+position = Vector2(-0.054164886, -32.05417)
+scale = Vector2(1.4416667, 1.4416667)
+texture = ExtResource("3_7awkk")
+
+[node name="Gun_marker" parent="Sprite2D" index="0"]
+position = Vector2(-1.1920929e-07, 2.7745667)
+
+[node name="CollisionShape2D" parent="." index="3"]
+position = Vector2(-0.054164886, -29.054169)
+
+[node name="StepTimer" type="Timer" parent="." index="6"]
+wait_time = 0.259
+
+[node name="CollisionShape2D" parent="TouchBox" index="0"]
+position = Vector2(0, -17)

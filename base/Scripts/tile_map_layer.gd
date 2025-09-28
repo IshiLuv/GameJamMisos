@@ -8,7 +8,7 @@ func merge_layers(source_layers):
 		if entry.size() < 2:
 			continue
 		var layer: TileMapLayer = entry[0]
-		offset += entry[1]
+		offset += entry[1] + Vector2i(0,0)
 
 		if layer == null:
 			continue

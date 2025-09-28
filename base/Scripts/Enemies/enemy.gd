@@ -11,6 +11,7 @@ var target
 @onready var gun_marker = $Sprite2D/Gun_marker
 
 func _ready() -> void:
+	max_health += G.spawned_items
 	health = max_health
 
 func _physics_process(_delta: float) -> void:
@@ -33,3 +34,8 @@ func _on_aggro_range_body_entered(body: Node2D) -> void:
 func _on_aggro_range_body_exited(body: Node2D) -> void:
 	if body and body is Player:
 		target = null
+
+
+func _on_touch_box_body_entered(body: Node2D) -> void:
+	if body and body is Player:
+		body.take_damage(1)

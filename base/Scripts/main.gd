@@ -6,11 +6,10 @@ var onPause: bool = false
 func _ready() -> void:
 	G.main = self
 	Animations.appear(self)
-	generate()
-	Sounds.set_music("aboba (online-audio-converter.com)")
+	generate($Levels/Level)
+	Sounds.set_music("main_song")
 
-func generate():
-	var last_level = $Levels/Level
+func generate(last_level):
 	var layers_list = []
 	
 	for i in 10:

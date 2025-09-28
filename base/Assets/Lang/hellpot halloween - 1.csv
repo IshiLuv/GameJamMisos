@@ -8,8 +8,8 @@ item_bird_protein_name,Bird Protein,Птичий Корм
 item_clock_name,Clock,Часы
 item_wings_name,Wings,Крылья
 item_pogo_name,Pogo,Пого
-item_chef_hat_name,,
-item_witch_hat_name,,
+item_chef_hat_name,Chef Hat,Поварский Колпак
+item_witch_hat_name,Witch Hat,Шляпа Ведьмы
 ,,
 ,,
 ,,
@@ -23,5 +23,20 @@ item_bird_protein_desc,Increase bullet damage by 1,Увеличивает уро
 item_clock_desc,Reduces the reload time of alternative attack by 1.2 times,Уменьшает время перезарядки альтернативной атаки в 1.2 раза
 item_wings_desc,Allows you to stay in the air for a short time,Позволяет ненадолго задержаться в воздухе
 item_pogo_desc,Increases jump distance,Увеличивает дальность прыжка
-item_chef_hat_desc,,
-item_witch_hat_desc,,
+item_chef_hat_desc,Throws a knife,Запускает нож
+item_witch_hat_desc,Launches a spinning projectile ,Запускает крутящийся снаряд
+,,
+,,
+tutorial,"[LMB] - attack
+[RMB] - alt attack
+[Q] - special attack
+[WASD] - choose direction
+[Space] - hold to jump
+[Shift] + [Space] - precise jump","[ЛКМ] - атака
+[ПКМ] - альт. атака
+[Q] - специальная атака
+[WASD] - выбор направления
+[Space] - удерживай чтобы прыгнуть
+[Shift] + [Space] - точный прыжок"
+,,
+final_text,Win,Дело в шляпе

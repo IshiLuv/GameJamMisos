@@ -6,7 +6,11 @@ extends Node2D
 var item: String = "candy_corn"
 
 func _ready() -> void:
-	setItem(G.item_pool.pick_random())
+	G.spawned_items += 1
+	if G.spawned_items==10:
+		setItem("hat")
+	else:
+		setItem(G.item_pool.pick_random())
 
 var time_passed = 0.0
 func _process(delta: float) -> void:

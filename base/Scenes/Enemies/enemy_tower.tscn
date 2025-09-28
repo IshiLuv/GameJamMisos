@@ -25,3 +25,6 @@ position = Vector2(-1.3872833, -51.32947)
 
 [node name="CollisionShape2D" parent="." index="3"]
 position = Vector2(-3, -38)
+
+[node name="ShootCD" parent="." index="4"]
+wait_time = 1.4979999999999998

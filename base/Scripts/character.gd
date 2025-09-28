@@ -27,6 +27,7 @@ var can_take_damage: bool = true
 
 var bullet_damage_mult: float = 1.0
 var bullet_damage: int = 1
+var bullets_count: int = 1
 
 var pre_jump_pos: Vector2
 
@@ -76,9 +77,11 @@ func _process(delta: float) -> void:
 		
 		if Input.is_action_pressed("shift") and !is_jumping:
 			min_jump_force = 100.0 + int(items.has("pogo"))*200
+			$Sprite/Arrows.scale.x = 2
 			
 		if Input.is_action_just_released("shift") and is_charging_jump and !is_jumping:
 			min_jump_force = 400.0 + int(items.has("pogo"))*200
+			$Sprite/Arrows.scale.x = 2.5
 			
 		if Input.is_action_just_released("pause"):
 			get_tree().paused = true
@@ -140,8 +143,11 @@ func attack():
 	tween.tween_property($Sprite/Body, "position", Vector2(0, -40.0), 0.1)
 	tween.tween_property($Sprite/Head, "position", Vector2(-2, -60.5), 0.1)
 	
-	G.spawn_bullet(self, bullet_scene, $Gun/Bullet_Marker.global_position, $Gun/Bullet_Marker.global_position.direction_to(get_global_mouse_position()), bullet_damage, items.has("match"))
-
+	for i in bullets_count:
+		Sounds.play_sound(global_position,"gg_attack"+str(randi_range(1,3)), -4.0, "SFX", 0.1, 1.0)
+		G.spawn_bullet(self, bullet_scene, $Gun/Bullet_Marker.global_position, $Gun/Bullet_Marker.global_position.direction_to(get_global_mouse_position()), bullet_damage, items.has("match"))
+		await get_tree().create_timer(0.2).timeout
+			
 func alt_attack():
 	Animations.shakeCam($Camera2D, 1.5)
 	$Sprite/Arrows.visible = false
@@ -167,7 +173,13 @@ func alt_attack():
 			var angle = deg_to_rad(360.0 / num_bullets * i)
 			var dir = Vector2.RIGHT.rotated(angle)
 			G.spawn_bullet(self, bullet_scene, $Gun/Bullet_Marker.global_position, dir, bullet_damage, items.has("match"))
-		
+	else:
+		var num_bullets := 3  # сколько пуль выпускаем (8 = полный круг)
+		for i in num_bullets:
+			Sounds.play_sound(global_position,"gg_attack"+str(randi_range(1,3)), -4.0, "SFX", 0.1, 1.0)
+			G.spawn_bullet(self, bullet_scene, $Gun/Bullet_Marker.global_position, $Gun/Bullet_Marker.global_position.direction_to(get_global_mouse_position()), bullet_damage, items.has("match"))
+			await get_tree().create_timer(0.2).timeout
+			
 func special_attack():
 	if special_attack_charge >= special_attack_cost:
 		Sounds.play_sound(global_position,"gg_special_attack", -0.0, "SFX", 0.4, 2.0)
@@ -274,6 +286,7 @@ func add_item(table, item_id: String):
 			$AltAttackCD.wait_time += 2.5
 			$CanvasLayer/AltAttackCD.text = "Alt Attack Cooldown: %s" % $AltAttackCD.wait_time
 		"nest":
+			bullets_count+=1
 			$AltAttackCD.wait_time += 0.5
 			$CanvasLayer/AltAttackCD.text = "Alt Attack Cooldown: %s" % $AltAttackCD.wait_time
 		"clock":
@@ -282,11 +295,19 @@ func add_item(table, item_id: String):
 		"bird_protein":
 			bullet_damage += 1
 			$CanvasLayer/BulletDamage.text = "Bullet damage: %s" % bullet_damage
-		"":
+		"lamp":
 			bullet_damage_mult += 0.3
 			$CanvasLayer/BulletDamage.text = "Damage mult: %s" % bullet_damage_mult
 		"pogo":
 			max_jump_force += 100
+		"hat":
+			can_take_damage = false
+			var hat_tween = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_EXPO).set_parallel(true)
+			hat_tween.tween_property($Camera2D, "zoom", Vector2(2,2), 0.5)
+			
+			await get_tree().create_timer(0.6).timeout
+			await Animations.disappear(G.main)
+			get_tree().change_scene_to_file("res://Scenes/final.tscn")
 	
 func update_items():
 	for i in $CanvasLayer/Items.get_children():
@@ -341,8 +362,9 @@ func fall():
 	$Sprite/Shadow.visible = true
 	
 func take_damage(dmg):
-	if $HurtCD.is_stopped():
+	if $HurtCD.is_stopped() and can_take_damage:
 		$HurtCD.start()
+		can_take_damage = false
 		
 		health -= dmg
 		
@@ -387,3 +409,7 @@ func _on_attack_cd_timeout() -> void:
 
 func _on_alt_attack_cd_timeout() -> void:
 	$Sprite/Head.texture = load("res://Assets/Textures/character2_active.png")
+
+
+func _on_hurt_cd_timeout() -> void:
+	can_take_damage = true
