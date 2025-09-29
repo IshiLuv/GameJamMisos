@@ -211,28 +211,13 @@ func special_attack():
 					
 				can_take_damage = true
 			"witch_hat":
-				var bullet = load("res://Scenes/Bullets/bullet_witch.tscn").instantiate()
-				bullet.global_position = $Gun/Bullet_Marker.global_position
-				bullet.direction = $Gun/Bullet_Marker.global_position.direction_to(get_global_mouse_position())
-				bullet.sender = self
-				bullet.damage = bullet_damage
-				bullet.is_burning = items.has("match")
-				bullet.is_spinning = true
-				G.main.add_child(bullet)
-
-				var bullet2 = load("res://Scenes/Bullets/bullet_witch.tscn").instantiate()
-				bullet2.sender = self
-				bullet2.damage = bullet_damage
-				bullet2.is_burning = items.has("match")
-				bullet.add_child(bullet2)
-				bullet2.global_position = bullet.global_position + Vector2(40,40)
+				if health<max_health:
+					health += 1
+				Sounds.play_sound(global_position,"altushka", -1.0, "SFX", 0.4, 3.0)
+				Animations.shakeCam($Camera2D, 3)
+				await Animations.flash(self,5)
+				update_health()
 				
-				bullet2 = load("res://Scenes/Bullets/bullet_witch.tscn").instantiate()
-				bullet2.sender = self
-				bullet2.damage = bullet_damage
-				bullet2.is_burning = items.has("match")
-				bullet.add_child(bullet2)
-				bullet2.global_position = bullet.global_position + Vector2(-40,-40)
 			"chef_hat":
 				var bullet = load("res://Scenes/Bullets/bullet_knife.tscn").instantiate()
 				bullet.global_position = $Gun/Bullet_Marker.global_position
@@ -242,6 +227,32 @@ func special_attack():
 				bullet.is_burning = items.has("match")
 				bullet.speed = 400
 				G.main.add_child(bullet)
+			_:
+				var bullet = load("res://Scenes/Bullets/bullet_witch.tscn").instantiate()
+				bullet.global_position = $Gun/Bullet_Marker.global_position
+				bullet.direction = $Gun/Bullet_Marker.global_position.direction_to(get_global_mouse_position())
+				bullet.sender = self
+				bullet.damage = bullet_damage
+				bullet.is_burning = items.has("match")
+				bullet.is_spinning = true
+				bullet.damage = 2
+				G.main.add_child(bullet)
+
+				var bullet2 = load("res://Scenes/Bullets/bullet_witch.tscn").instantiate()
+				bullet2.sender = self
+				bullet2.damage = bullet_damage
+				bullet2.is_burning = items.has("match")
+				bullet.damage = 2
+				bullet.add_child(bullet2)
+				bullet2.global_position = bullet.global_position + Vector2(40,40)
+				
+				bullet2 = load("res://Scenes/Bullets/bullet_witch.tscn").instantiate()
+				bullet2.sender = self
+				bullet2.damage = bullet_damage
+				bullet2.is_burning = items.has("match")
+				bullet.damage = 2
+				bullet.add_child(bullet2)
+				bullet2.global_position = bullet.global_position + Vector2(-40,-40)
 		
 func shakeLoop():
 	if !is_shaking:
@@ -261,7 +272,7 @@ func shakeLoop():
 		$Sprite.scale = Vector2.ONE
 
 func on_bullet_land(_bullet):
-	special_attack_charge += 8
+	special_attack_charge += 8/(int(items.has("witch_hat"))+1)
 	$CanvasLayer/SpecialAttack.value = special_attack_charge
 	
 func add_item(table, item_id: String):
@@ -290,7 +301,7 @@ func add_item(table, item_id: String):
 			$AltAttackCD.wait_time += 0.5
 			$CanvasLayer/AltAttackCD.text = "Alt Attack Cooldown: %s" % $AltAttackCD.wait_time
 		"clock":
-			$AltAttackCD.wait_time /= 1.2
+			$AltAttackCD.wait_time /= 2.0
 			$CanvasLayer/AltAttackCD.text = "Alt Attack Cooldown: %s" % $AltAttackCD.wait_time
 		"bird_protein":
 			bullet_damage += 1
@@ -308,6 +319,7 @@ func add_item(table, item_id: String):
 			await get_tree().create_timer(0.6).timeout
 			await Animations.disappear(G.main)
 			get_tree().change_scene_to_file("res://Scenes/final.tscn")
+			
 	
 func update_items():
 	for i in $CanvasLayer/Items.get_children():
@@ -344,18 +356,15 @@ func fall():
 		Sounds.play_sound(global_position,"gg_fell_in_lava", -3.0, "SFX", 0, 1)
 		var tween = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_EXPO).set_parallel(true)
 		tween.tween_property($Camera2D, "zoom", Vector2(2,2), 0.5)
-		
-		
-		
+
 		await get_tree().create_timer(0.4).timeout
 		
+		$HurtCD.start()
 		health -= 1
-		
 		if health <= 0:
 			Sounds.play_sound(global_position,"gg_death", -3.0, "SFX", 0, 1)
 		else:
 			Sounds.play_sound(global_position,"gg_hit", -0.0, "SFX", 0.4, 2.0)
-			
 		Animations.shakeCam($Camera2D, 3)
 		await Animations.flash(self,5)
 		update_health()

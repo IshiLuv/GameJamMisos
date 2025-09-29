@@ -11,7 +11,8 @@ var target
 @onready var gun_marker = $Sprite2D/Gun_marker
 
 func _ready() -> void:
-	max_health += G.spawned_items
+	G.spawned_enemies += 1
+	max_health += G.spawned_enemies
 	health = max_health
 
 func _physics_process(_delta: float) -> void:

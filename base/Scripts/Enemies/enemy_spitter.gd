@@ -11,7 +11,8 @@ enum State { IDLE, WALK, SHOOT }
 var state: State = State.IDLE
 
 func _ready() -> void:
-	max_health += G.spawned_items
+	G.spawned_enemies += 1
+	max_health += G.spawned_enemies
 	health = max_health
 	spawn_position = global_position
 	wander_target = global_position

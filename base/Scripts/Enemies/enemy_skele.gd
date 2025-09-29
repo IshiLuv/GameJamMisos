@@ -13,7 +13,8 @@ enum State { IDLE, WALK, DASH }
 var state: State = State.IDLE
 
 func _ready() -> void:
-	max_health += G.spawned_items
+	G.spawned_enemies += 1
+	max_health += G.spawned_enemies
 	health = max_health
 	spawn_position = global_position
 	wander_target = global_position
@@ -123,7 +124,7 @@ func _on_step_timer_timeout() -> void:
 		
 func take_damage(dmg):
 	if self is Enemy:
-		Sounds.play_sound(global_position,"enemy_hurt", 0.0, "SFX", 0.0, 1.0)
+		Sounds.play_sound(global_position,"enemy_hurt", -6.0, "SFX", 0.0, 1.0)
 	
 	await Animations.flash(self,-10)
 	health -= dmg

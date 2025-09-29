@@ -44,6 +44,7 @@ func _on_settings_pressed() -> void:
 
 func _on_play_pressed() -> void:
 	if !G.watchedCutscene and !skipIntro:
+		$Eye.visible = false
 		$For_eye.disabled = true
 		G.watchedCutscene = true
 		$Cutscene.visible = true
@@ -58,8 +59,13 @@ func _on_control_pressed() -> void:
 	
 func _input(event):
 	if event.is_action_pressed("ui_cancel"):
-		toggle_pause()
-		
+		if !$Fake_unreal.visible and !$Cutscene.visible:
+			toggle_pause()
+		else:
+			G.watchedIntro = true
+			G.watchedCutscene = true
+			get_tree().change_scene_to_file("res://Scenes/main.tscn")
+			
 func toggle_pause():
 	if get_tree().paused:
 		_resume_game()

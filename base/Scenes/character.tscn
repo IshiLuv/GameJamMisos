@@ -163,6 +163,7 @@ wait_time = 0.7
 one_shot = true
 
 [node name="HurtCD" type="Timer" parent="."]
+wait_time = 2.0
 one_shot = true
 
 [node name="AltAttackCD" type="Timer" parent="."]

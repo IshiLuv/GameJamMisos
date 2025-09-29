@@ -2,7 +2,7 @@ extends Node
 
 var main: Node2D
 
-var spawned_items: int = 0
+var spawned_enemies: int = 0
 
 var item_pool: Array = [
 	"candy_corn",

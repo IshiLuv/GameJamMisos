@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=4 uid="uid://ba62p86vaulhd"]
+[gd_scene load_steps=8 format=4 uid="uid://ba62p86vaulhd"]
 
 [ext_resource type="PackedScene" uid="uid://3r74sqojsqwy" path="res://Scenes/levels/level.tscn" id="1_rsv82"]
 [ext_resource type="PackedScene" uid="uid://r8g654relxu7" path="res://Scenes/item.tscn" id="2_8j7el"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://bjpapxo1gx4qd" path="res://Scenes/Enemies/enemy_spitter.tscn" id="4_fh68y"]
 [ext_resource type="Texture2D" uid="uid://clxipojyem4p" path="res://Assets/Textures/decor1.png" id="5_ym5bi"]
 [ext_resource type="Texture2D" uid="uid://doej8703wqxk8" path="res://Assets/Textures/decor2.png" id="6_yuh2w"]
+[ext_resource type="PackedScene" uid="uid://dqfr6866igvmk" path="res://Scenes/Enemies/enemy_skele.tscn" id="7_8j7el"]
 
 [node name="Level" instance=ExtResource("1_rsv82")]
 
@@ -15,17 +16,17 @@ tile_map_data = PackedByteArray("AAAAAPj/AAAAAAEAAAAAAPn/AAACAAEAAAAAAPr/AAACAAE
 [node name="Level_end" type="Marker2D" parent="." index="1"]
 position = Vector2(704, -1584)
 
-[node name="Enemy" parent="." index="2" instance=ExtResource("4_fh68y")]
+[node name="Enemy5" parent="." index="2" instance=ExtResource("4_fh68y")]
+position = Vector2(974, -1451)
+
+[node name="Enemy" parent="." index="3" instance=ExtResource("4_fh68y")]
 position = Vector2(784, -311)
 
-[node name="Enemy2" parent="." index="3" instance=ExtResource("4_fh68y")]
-position = Vector2(1099, -307)
+[node name="Enemy2" parent="." index="4" instance=ExtResource("4_fh68y")]
+position = Vector2(-827, -1073)
 
-[node name="Enemy3" parent="." index="4" instance=ExtResource("3_dspjw")]
+[node name="Enemy3" parent="." index="5" instance=ExtResource("3_dspjw")]
 position = Vector2(150, -797)
-
-[node name="Enemy4" parent="." index="5" instance=ExtResource("3_dspjw")]
-position = Vector2(-511, -1025)
 
 [node name="Item" parent="." index="6" instance=ExtResource("2_8j7el")]
 position = Vector2(-864, -872)
@@ -61,3 +62,6 @@ z_index = 20
 position = Vector2(2476, -376)
 scale = Vector2(2.4414063, 2.4414063)
 texture = ExtResource("5_ym5bi")
+
+[node name="Enemy4" parent="." index="12" instance=ExtResource("7_8j7el")]
+position = Vector2(1356, -597)

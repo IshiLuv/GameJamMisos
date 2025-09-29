@@ -100,7 +100,7 @@ pause={
 
 [internationalization]
 
-locale/translations=PackedStringArray("res://Assets/Lang/hellpot halloween - 1 (2).en.translation", "res://Assets/Lang/hellpot halloween - 1 (2).ru.translation")
+locale/translations=PackedStringArray("res://Assets/Lang/hellpot halloween - 1 (3).en.translation", "res://Assets/Lang/hellpot halloween - 1 (3).ru.translation")
 
 [rendering]
 
