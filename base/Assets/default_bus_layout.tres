@@ -1,6 +1,11 @@
-[gd_resource type="AudioBusLayout" format=3 uid="uid://bixkicrktccdm"]
+[gd_resource type="AudioBusLayout" load_steps=2 format=3 uid="uid://bixkicrktccdm"]
+
+[sub_resource type="AudioEffectLimiter" id="AudioEffectLimiter_56jw5"]
+resource_name = "Limiter"
 
 [resource]
+bus/0/effect/0/effect = SubResource("AudioEffectLimiter_56jw5")
+bus/0/effect/0/enabled = true
 bus/1/name = &"SFX"
 bus/1/solo = false
 bus/1/mute = false

@@ -1,5 +1,7 @@
 extends Control
 
+@export var isWebBuild: bool = false
+
 func _ready() -> void:
 	self.modulate.a = 0.0
 	var tween = create_tween()
@@ -12,6 +14,12 @@ func _ready() -> void:
 	$AnimatedSprite2D2.pause()
 	$AnimatedSprite2D2/SVX.set_value_no_signal(AudioServer.get_bus_volume_db(1))
 	$AnimatedSprite2D/Music.set_value_no_signal(AudioServer.get_bus_volume_db(2))
+	$Language.select(G.lang)
+	$Button2/Label.text = "Grid jumps: " + str(G.isGridMove)
+	$Button3/Label.text = "Show landing: " + str(G.showLand)
+	
+	$Button.visible = !isWebBuild
+	$OptionButton.visible = !isWebBuild
 	
 func _on_exit_pressed() -> void:
 	get_tree().paused = false
@@ -50,7 +58,6 @@ func _on_button_toggled(toggled_on: bool) -> void:
 func _on_language_item_selected(index: int) -> void:
 	G.lang = $Language.selected
 	TranslationServer.set_locale($Language.get_item_text(G.lang))
-	
 
 func _on_music_value_changed(value: float) -> void:
 	if value == -25: 
@@ -85,3 +92,14 @@ func _on_return_pressed() -> void:
 	G.watchedIntro = true
 	get_tree().paused = false
 	queue_free()
+
+
+func _on_button_2_toggled(toggled_on: bool) -> void:
+	G.isGridMove = toggled_on
+	$Button2/Label.text = "Grid jumps: " + str(G.isGridMove)
+
+
+
+func _on_button_3_toggled(toggled_on: bool) -> void:
+	G.showLand = toggled_on
+	$Button3/Label.text = "Show landing: " + str(G.showLand)

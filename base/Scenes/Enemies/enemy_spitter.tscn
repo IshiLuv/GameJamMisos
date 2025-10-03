@@ -1,15 +1,19 @@
-[gd_scene load_steps=4 format=3 uid="uid://bjpapxo1gx4qd"]
+[gd_scene load_steps=5 format=3 uid="uid://bjpapxo1gx4qd"]
 
 [ext_resource type="PackedScene" uid="uid://rjycex753wup" path="res://Scenes/Enemies/enemy.tscn" id="1_ewunv"]
 [ext_resource type="Script" uid="uid://ffrsq6px7jkj" path="res://Scripts/Enemies/enemy_spitter.gd" id="2_ewunv"]
 [ext_resource type="Texture2D" uid="uid://bc12dj2pbdjmi" path="res://Assets/Textures/Enemies/spitter.png" id="3_ewunv"]
 
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ewunv"]
+radius = 47.0
+height = 114.0
+
 [node name="Enemy" instance=ExtResource("1_ewunv")]
-collision_mask = 5
+collision_layer = 3
 script = ExtResource("2_ewunv")
 wander_radius = 50.0
 move_speed = 80.0
-attack_range = 300.0
+attack_range = 380.0
 
 [node name="Shadow" parent="." index="1"]
 offset_left = -50.0
@@ -29,6 +33,7 @@ position = Vector2(10, -2)
 
 [node name="CollisionShape2D" parent="." index="3"]
 position = Vector2(1, -43)
+shape = SubResource("CapsuleShape2D_ewunv")
 
 [node name="ShootCD" parent="." index="4"]
 wait_time = 1.5
@@ -38,5 +43,17 @@ wait_time = 0.259
 
 [node name="BurnParticle" parent="." index="6"]
 position = Vector2(-3, -97)
+
+[node name="LookAtPlayer" type="Node2D" parent="." index="7"]
+
+[node name="RayCast2D" type="RayCast2D" parent="LookAtPlayer" index="0"]
+position = Vector2(26, 0)
+target_position = Vector2(0, 0)
+collision_mask = 4
+hit_from_inside = true
+
+[node name="DeathParticle" parent="." index="9"]
+speed_scale = 4.0
+color_ramp = null
 
 [connection signal="timeout" from="StepTimer" to="." method="_on_step_timer_timeout"]

@@ -16,25 +16,30 @@ texture = ExtResource("2_48l8j")
 
 [node name="Panel" type="Panel" parent="."]
 layout_mode = 0
-offset_left = -256.0
-offset_right = -3.0
-offset_bottom = 155.0
+offset_left = -356.0
+offset_top = 1.0
+offset_right = -8.0
+offset_bottom = 246.0
 
-[node name="Name" type="Label" parent="Panel"]
-layout_mode = 0
-offset_left = 9.0
-offset_top = 7.0
-offset_right = 241.0
-offset_bottom = 30.0
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel"]
+custom_minimum_size = Vector2(265, 0)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Name" type="Label" parent="Panel/VBoxContainer"]
+layout_mode = 2
 theme_override_colors/font_color = Color(1, 0.95, 0, 1)
+theme_override_font_sizes/font_size = 20
 text = "Candy Corn"
 
-[node name="Description" type="Label" parent="Panel"]
-layout_mode = 0
-offset_left = 8.0
-offset_top = 33.0
-offset_right = 245.0
-offset_bottom = 108.0
+[node name="Description" type="Label" parent="Panel/VBoxContainer"]
+custom_minimum_size = Vector2(40, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
 text = "Aaaa aaaaaa aaaaaaa aaaaa aaa aaaaa aaaaaa aaaaaa aaaa"
 autowrap_mode = 2
 

@@ -1,20 +1,41 @@
-[gd_scene load_steps=9 format=3 uid="uid://k0l5u4k00hgg"]
+[gd_scene load_steps=12 format=3 uid="uid://k0l5u4k00hgg"]
 
 [ext_resource type="Script" uid="uid://d1fpxr52ujblt" path="res://Scripts/main.gd" id="1_jjgbg"]
 [ext_resource type="PackedScene" uid="uid://dsrflgol3r2e0" path="res://Scenes/character.tscn" id="2_bo1nx"]
+[ext_resource type="Shader" uid="uid://eduqrip2q53w" path="res://Assets/lava.gdshader" id="2_ynf5e"]
+[ext_resource type="Texture2D" uid="uid://dnlahf8cr7ipu" path="res://Assets/lava.png" id="3_ynf5e"]
 [ext_resource type="PackedScene" uid="uid://3r74sqojsqwy" path="res://Scenes/levels/level.tscn" id="4_jjvhh"]
 [ext_resource type="PackedScene" uid="uid://r8g654relxu7" path="res://Scenes/item.tscn" id="4_kry3j"]
 [ext_resource type="PackedScene" uid="uid://bjpapxo1gx4qd" path="res://Scenes/Enemies/enemy_spitter.tscn" id="5_21xkr"]
 [ext_resource type="Texture2D" uid="uid://clxipojyem4p" path="res://Assets/Textures/decor1.png" id="6_21xkr"]
 [ext_resource type="Texture2D" uid="uid://doej8703wqxk8" path="res://Assets/Textures/decor2.png" id="7_6bp64"]
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ynf5e"]
+shader = ExtResource("2_ynf5e")
+shader_parameter/sway_speed = 2.00000009174012
+shader_parameter/sway_strength = 0.05000000074506
+shader_parameter/noise_scale = 1.0
+shader_parameter/time_offset = 0.0
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_344ge"]
-size = Vector2(343.5, 282)
+size = Vector2(394.5, 282)
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_jjgbg")
 
+[node name="Lava" type="TextureRect" parent="."]
+z_index = -25
+material = SubResource("ShaderMaterial_ynf5e")
+offset_left = -2680.0
+offset_top = -30755.0
+offset_right = 17421.0
+offset_bottom = 3549.0
+texture = ExtResource("3_ynf5e")
+stretch_mode = 1
+metadata/_edit_lock_ = true
+
 [node name="Levels" type="Node2D" parent="."]
+position = Vector2(32, 24)
 metadata/_edit_lock_ = true
 
 [node name="Level" parent="Levels" instance=ExtResource("4_jjvhh")]
@@ -77,24 +98,24 @@ texture = ExtResource("7_6bp64")
 flip_h = true
 
 [node name="ColorRect" type="ColorRect" parent="."]
-offset_left = -189.0
-offset_top = -811.0
-offset_right = 232.0
-offset_bottom = -539.0
+offset_left = -186.0
+offset_top = -792.0
+offset_right = 235.0
+offset_bottom = -520.0
 color = Color(0.32156864, 0, 0, 1)
 
 [node name="ColorRect2" type="ColorRect" parent="."]
-offset_left = -187.0
-offset_top = -834.0
-offset_right = 231.0
-offset_bottom = -805.0
+offset_left = -184.0
+offset_top = -815.0
+offset_right = 234.0
+offset_bottom = -786.0
 color = Color(0.55, 0.15730001, 0.088000014, 1)
 
 [node name="Label" type="Label" parent="."]
-offset_left = -164.0
-offset_top = -795.0
-offset_right = 218.0
-offset_bottom = -558.0
+offset_left = -161.0
+offset_top = -776.0
+offset_right = 221.0
+offset_bottom = -539.0
 theme_override_constants/outline_size = 15
 theme_override_font_sizes/font_size = 20
 text = "tutorial"
@@ -103,10 +124,10 @@ text = "tutorial"
 position = Vector2(-3.75, -705.75)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
-position = Vector2(0, 17.75)
+position = Vector2(27.75, 43.75)
 shape = SubResource("RectangleShape2D_344ge")
 
 [node name="Character" parent="." instance=ExtResource("2_bo1nx")]
-position = Vector2(-119, -401)
+position = Vector2(-64, -384)
 
 [editable path="Levels/Level/Enemy"]

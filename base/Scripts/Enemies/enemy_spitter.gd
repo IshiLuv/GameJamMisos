@@ -2,7 +2,8 @@ extends Enemy
 
 @export var wander_radius: float = 50.0
 @export var move_speed: float = 80.0
-@export var attack_range: float = 300.0
+@export var attack_range: float = 380.0
+@export var bullet_count: int = 1
 
 var spawn_position: Vector2
 var wander_target: Vector2
@@ -29,7 +30,9 @@ func _physics_process(delta: float) -> void:
 			move_and_slide()
 		State.IDLE:
 			_process_idle(delta)
-	if target: $Sprite2D.scale.x = -1.8 if target.global_position[0] < global_position[0] else 1.8
+	if target: 
+		$LookAtPlayer.look_at(target.global_position)
+		$Sprite2D.scale.x = -1.8 if target.global_position[0] < global_position[0] else 1.8
 
 	if state == State.WALK and velocity.length() > 0.1:
 		if $StepTimer.is_stopped():
@@ -51,20 +54,35 @@ func _process_idle(delta: float) -> void:
 func _process_walk(_delta: float) -> void:
 	if target:
 		var distance = global_position.distance_to(target.global_position)
+
+		# Если игрок далеко
 		if distance > attack_range:
+			# Проверяем край
+			if not $LookAtPlayer/RayCast2D.is_colliding():
+				# на краю — не двигаемся
+				velocity = Vector2.ZERO
+				move_and_slide()
+				return
+
+			# идём к игроку
 			var dir = (target.global_position - global_position).normalized()
 			velocity = dir * move_speed
 			move_and_slide()
+
 		else:
+			# Игрок в зоне атаки
 			velocity = Vector2.ZERO
 			move_and_slide()
+
+			# даже если на краю — атакуем!
 			if can_shoot:
 				attack()
 			else:
 				_process_idle(_delta)
+
 	else:
 		# блуждание
-		if global_position.distance_to(wander_target) < 10:
+		if global_position.distance_to(wander_target) < 10 or not $LookAtPlayer/RayCast2D.is_colliding():
 			var angle = randf_range(0, TAU)
 			var offset = Vector2.RIGHT.rotated(angle) * randf_range(20, wander_radius)
 			wander_target = spawn_position + offset
@@ -72,6 +90,7 @@ func _process_walk(_delta: float) -> void:
 		var dir = (wander_target - global_position).normalized()
 		velocity = dir * move_speed * 0.5
 		move_and_slide()
+
 
 func attack() -> void:
 	can_shoot = false
@@ -95,9 +114,11 @@ func _do_attack() -> void:
 	await get_tree().create_timer(0.1).timeout
 	
 	$ShootCD.start()
-	Sounds.play_sound(global_position, "enemy_attack", -2.0, "SFX", 0.2, 1.0)
-	G.spawn_bullet(self, bullet_scene, gun_marker.global_position, gun_marker.global_position.direction_to(target.global_position))
-	
+	for i in bullet_count:
+		Sounds.play_sound(global_position, "enemy_attack", -2.0, "SFX", 0.2, 1.0)
+		G.spawn_bullet(self, bullet_scene, gun_marker.global_position, gun_marker.global_position.direction_to(target.global_position))
+		await get_tree().create_timer(0.1).timeout
+		
 	$Sprite2D.frame = 0
 	state = State.WALK
 

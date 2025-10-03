@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://5xx0wjnb7k6m"]
+[gd_scene load_steps=10 format=3 uid="uid://5xx0wjnb7k6m"]
 
 [ext_resource type="Script" uid="uid://db021axitc6tb" path="res://Scripts/bullet.gd" id="1_qngn8"]
 [ext_resource type="Texture2D" uid="uid://2ey22dvjsp4" path="res://Assets/Textures/bullet.png" id="2_510l0"]
@@ -21,7 +21,11 @@ offsets = PackedFloat32Array(0, 0.68666667, 1)
 colors = PackedColorArray(1, 0.9333334, 0, 1, 0.37, 0.37, 0.37, 0.7058824, 1, 0, 0, 0)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_oduel"]
-radius = 8.0
+radius = 8.062258
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_510l0"]
+radius = 106.0
+height = 306.0
 
 [node name="Bullet" type="Node2D"]
 script = ExtResource("1_qngn8")
@@ -62,4 +66,14 @@ collision_mask = 8
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource("CircleShape2D_oduel")
 
+[node name="Aim" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 2
+monitoring = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Aim"]
+position = Vector2(106, 0)
+shape = SubResource("CapsuleShape2D_510l0")
+
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_entered" from="Aim" to="." method="_on_aim_body_entered"]

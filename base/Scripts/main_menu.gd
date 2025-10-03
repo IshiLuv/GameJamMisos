@@ -2,6 +2,7 @@ extends Node2D
 
 var onPause: bool = false
 @export var skipIntro: bool = false
+@export var isWebBuild: bool = false
 var pause_menu: Control
 signal pause_pressed
 
@@ -9,8 +10,8 @@ func _ready() -> void:
 	for scene in get_tree().get_root().get_children():
 		if scene is Main :
 			scene.queue_free()
-	
-	Sounds.set_music("")
+	$VBoxContainer/Exit.visible = !isWebBuild
+	Sounds.stop_music()
 	
 	if !skipIntro and !G.watchedIntro:
 		$For_eye.disabled = true

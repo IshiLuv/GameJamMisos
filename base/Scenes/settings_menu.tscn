@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://hyspm5rulkn2"]
+[gd_scene load_steps=24 format=3 uid="uid://hyspm5rulkn2"]
 
 [ext_resource type="Script" uid="uid://fx2k2jawj2xt" path="res://Scripts/settings_menu.gd" id="1_rahb6"]
 [ext_resource type="Texture2D" uid="uid://dbvuxb4mdxhy7" path="res://Assets/UI/Popup_menu.png" id="2_jjs6x"]
@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://7av46kjxgp51" path="res://Assets/UI/Grabber.png" id="5_jjs6x"]
 [ext_resource type="Texture2D" uid="uid://dq1b5unvyd0kc" path="res://Assets/UI/Grabber_high.png" id="6_fsgis"]
 [ext_resource type="Theme" uid="uid://c8tra1y5ejvga" path="res://Scenes/settings_menu.tres" id="6_vv31b"]
+[ext_resource type="Texture2D" uid="uid://d1hat05p6ffys" path="res://Assets/UI/Option.png" id="11_n0ctm"]
 [ext_resource type="Texture2D" uid="uid://bm8u8pbb6fd0y" path="res://Assets/UI/Return.png" id="12_cdah7"]
 [ext_resource type="Texture2D" uid="uid://v3pl8vf86o2d" path="res://Assets/UI/Fullscreen.png" id="12_n0ctm"]
 [ext_resource type="StyleBox" uid="uid://bdbvrw3tb0fnc" path="res://Scenes/Option.tres" id="12_rkth2"]
@@ -214,6 +215,7 @@ theme_override_styles/disabled_mirrored = ExtResource("12_rkth2")
 theme_override_styles/focus = ExtResource("12_rkth2")
 button_pressed = true
 alignment = 1
+selected = 0
 item_count = 2
 popup/item_0/text = "ru"
 popup/item_0/id = 0
@@ -284,14 +286,64 @@ label_settings = SubResource("LabelSettings_hmele")
 [node name="Button" type="TextureButton" parent="."]
 process_mode = 2
 layout_mode = 0
-offset_left = -381.0
-offset_top = -59.0
-offset_right = -125.0
-offset_bottom = 55.0
+offset_left = -386.0
+offset_top = -220.0
+offset_right = -130.0
+offset_bottom = -106.0
 toggle_mode = true
 texture_normal = ExtResource("12_n0ctm")
 stretch_mode = 0
 script = ExtResource("4_fsgis")
+
+[node name="Button2" type="TextureButton" parent="."]
+process_mode = 2
+layout_mode = 0
+offset_left = -389.0
+offset_top = -84.0
+offset_right = -133.0
+offset_bottom = 30.0
+toggle_mode = true
+texture_normal = ExtResource("11_n0ctm")
+stretch_mode = 0
+script = ExtResource("4_fsgis")
+
+[node name="Label" type="Label" parent="Button2"]
+layout_mode = 0
+offset_left = 18.0
+offset_top = 30.0
+offset_right = 238.0
+offset_bottom = 72.0
+theme_override_colors/font_color = Color(0.7764706, 0.38431373, 0.1882353, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+text = "Grid jumps: Off"
+label_settings = SubResource("LabelSettings_hmele")
+horizontal_alignment = 1
+
+[node name="Button3" type="TextureButton" parent="."]
+process_mode = 2
+layout_mode = 0
+offset_left = -388.0
+offset_top = 55.0
+offset_right = -132.0
+offset_bottom = 169.0
+toggle_mode = true
+texture_normal = ExtResource("11_n0ctm")
+stretch_mode = 0
+script = ExtResource("4_fsgis")
+
+[node name="Label" type="Label" parent="Button3"]
+layout_mode = 0
+offset_left = -1.0
+offset_top = 34.999996
+offset_right = 254.0
+offset_bottom = 77.0
+theme_override_colors/font_color = Color(0.7764706, 0.38431373, 0.1882353, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 24
+text = "Show landing: Off"
+horizontal_alignment = 1
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(1, 1)
@@ -313,4 +365,6 @@ script = ExtResource("4_fsgis")
 [connection signal="item_selected" from="Language" to="." method="_on_language_item_selected"]
 [connection signal="item_selected" from="OptionButton" to="." method="_on_option_button_item_selected"]
 [connection signal="toggled" from="Button" to="." method="_on_button_toggled"]
+[connection signal="toggled" from="Button2" to="." method="_on_button_2_toggled"]
+[connection signal="toggled" from="Button3" to="." method="_on_button_3_toggled"]
 [connection signal="pressed" from="Return" to="." method="_on_return_pressed"]

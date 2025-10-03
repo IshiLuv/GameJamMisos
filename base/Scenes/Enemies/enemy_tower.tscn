@@ -1,8 +1,12 @@
-[gd_scene load_steps=4 format=3 uid="uid://dbvifva701q02"]
+[gd_scene load_steps=5 format=3 uid="uid://dbvifva701q02"]
 
 [ext_resource type="PackedScene" uid="uid://rjycex753wup" path="res://Scenes/Enemies/enemy.tscn" id="1_2rg2p"]
 [ext_resource type="Script" uid="uid://r7c4ot4qdfo2" path="res://Scripts/Enemies/enemy_tower.gd" id="2_l2vgy"]
 [ext_resource type="Texture2D" uid="uid://d3ide8ol4wft4" path="res://Assets/Textures/Enemies/tower.png" id="3_ays0e"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_2rg2p"]
+radius = 35.0
+height = 132.0
 
 [node name="Enemy" instance=ExtResource("1_2rg2p")]
 script = ExtResource("2_l2vgy")
@@ -24,7 +28,8 @@ hframes = 2
 position = Vector2(-1.3872833, -51.32947)
 
 [node name="CollisionShape2D" parent="." index="3"]
-position = Vector2(-3, -38)
+position = Vector2(0, -54)
+shape = SubResource("CapsuleShape2D_2rg2p")
 
 [node name="ShootCD" parent="." index="4"]
-wait_time = 1.4979999999999998
+wait_time = 2.0

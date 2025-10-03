@@ -1,0 +1,70 @@
+[gd_scene load_steps=10 format=3 uid="uid://d2qy24elt81fx"]
+
+[ext_resource type="Texture2D" uid="uid://wglu4w6myxat" path="res://Assets/Textures/royal.png" id="1_qgls1"]
+[ext_resource type="Script" uid="uid://df1tt86b4u1lk" path="res://Scripts/royal.gd" id="1_w42j8"]
+[ext_resource type="Texture2D" uid="uid://2ey22dvjsp4" path="res://Assets/Textures/bullet.png" id="3_jmls1"]
+[ext_resource type="Texture2D" uid="uid://cbf3yeoadre6l" path="res://Assets/Textures/bullet_fire.png" id="4_utr6e"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_w42j8"]
+radius = 92.00543
+
+[sub_resource type="Curve" id="Curve_usqh3"]
+_data = [Vector2(0, 0.8539326), 0.0, 0.0, 0, 0, Vector2(0.07954545, 1), 0.0, 0.0, 0, 0, Vector2(0.9943182, 0), -2.1222255, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Gradient" id="Gradient_w7j7g"]
+offsets = PackedFloat32Array(0, 0.36, 1)
+colors = PackedColorArray(1, 0, 0, 1, 1, 0.2833333, 0, 1, 1, 0, 0, 0)
+
+[sub_resource type="Curve" id="Curve_lfxmt"]
+_data = [Vector2(0, 0.8539326), 0.0, 0.0, 0, 0, Vector2(0.07954545, 1), 0.0, 0.0, 0, 0, Vector2(0.9943182, 0), -2.1222255, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Gradient" id="Gradient_tf2al"]
+offsets = PackedFloat32Array(0, 0.68666667, 1)
+colors = PackedColorArray(1, 0.9333334, 0, 1, 0.37, 0.37, 0.37, 0.7058824, 1, 0, 0, 0)
+
+[node name="Royal" type="Node2D"]
+script = ExtResource("1_w42j8")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(2, -37)
+texture = ExtResource("1_qgls1")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 6
+collision_mask = 6
+monitoring = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_w42j8")
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+position = Vector2(-8, -42)
+amount = 16
+texture = ExtResource("3_jmls1")
+speed_scale = 3.0
+explosiveness = 0.14
+direction = Vector2(0, -1)
+gravity = Vector2(0, 0)
+angle_min = -28.5
+angle_max = 14.3
+scale_amount_min = 0.2
+scale_amount_curve = SubResource("Curve_usqh3")
+color_ramp = SubResource("Gradient_w7j7g")
+
+[node name="BurnParticle" type="CPUParticles2D" parent="."]
+position = Vector2(-8, -42)
+amount = 16
+texture = ExtResource("4_utr6e")
+speed_scale = 3.0
+explosiveness = 0.14
+direction = Vector2(0, -1)
+gravity = Vector2(0, 0)
+angle_min = -28.5
+angle_max = 14.3
+scale_amount_min = 0.2
+scale_amount_curve = SubResource("Curve_lfxmt")
+color_ramp = SubResource("Gradient_tf2al")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

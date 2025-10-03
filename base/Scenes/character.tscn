@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://dsrflgol3r2e0"]
+[gd_scene load_steps=15 format=3 uid="uid://dsrflgol3r2e0"]
 
 [ext_resource type="Script" uid="uid://dctgpgp1oste0" path="res://Scripts/character.gd" id="1_owm7s"]
 [ext_resource type="Texture2D" uid="uid://dojux7glgxytm" path="res://Assets/Textures/character1.png" id="1_ushfy"]
@@ -15,8 +15,9 @@
 radius = 16.0
 height = 38.0
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_nytcm"]
-radius = 1.0
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_kq7hj"]
+radius = 6.0
+height = 16.0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_wbia7"]
 shader = ExtResource("6_a5ess")
@@ -24,11 +25,14 @@ shader_parameter/alpha = 1.2
 shader_parameter/inner_radius = 0.5
 shader_parameter/outer_radius = 1.6
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_kq7hj"]
+radius = 263.0019
+
 [node name="Character" type="CharacterBody2D"]
 z_index = 2
 collision_layer = 9
 script = ExtResource("1_owm7s")
-max_health = 3
+max_health = 4
 
 [node name="Camera2D" type="Camera2D" parent="."]
 ignore_rotation = false
@@ -37,7 +41,16 @@ process_callback = 0
 position_smoothing_enabled = true
 position_smoothing_speed = 10.0
 
+[node name="ArrowsMarker" type="Marker2D" parent="."]
+position = Vector2(0, -7)
+
+[node name="Arrows" type="Sprite2D" parent="ArrowsMarker"]
+position = Vector2(21, 0)
+texture = ExtResource("4_nytcm")
+offset = Vector2(16, 0)
+
 [node name="Sprite" type="CanvasGroup" parent="."]
+position = Vector2(0, -7)
 
 [node name="Shadow" type="TextureRect" parent="Sprite"]
 offset_left = -20.0
@@ -47,11 +60,7 @@ offset_bottom = 26.0
 scale = Vector2(1.5, 1.5)
 pivot_offset = Vector2(20, 12.5)
 texture = ExtResource("2_wbia7")
-
-[node name="Arrows" type="Sprite2D" parent="Sprite"]
-position = Vector2(70, 0)
-scale = Vector2(2.5, 1.5)
-texture = ExtResource("4_nytcm")
+metadata/_edit_use_anchors_ = true
 
 [node name="Body" type="Sprite2D" parent="Sprite"]
 material = ExtResource("2_ejsiy")
@@ -64,21 +73,23 @@ position = Vector2(-2, -60.5)
 texture = ExtResource("5_a5ess")
 
 [node name="Gun" type="Node2D" parent="."]
-position = Vector2(0, -49)
+position = Vector2(0, -56)
 
 [node name="Bullet_Marker" type="Marker2D" parent="Gun"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, -7)
+position = Vector2(0, -14)
 shape = SubResource("CapsuleShape2D_ushfy")
 
 [node name="Hurtbox" type="Area2D" parent="."]
+position = Vector2(0, -7)
 collision_layer = 4
 collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
-position = Vector2(0, 7)
-shape = SubResource("CircleShape2D_nytcm")
+position = Vector2(0, 5)
+rotation = 1.5707964
+shape = SubResource("CapsuleShape2D_kq7hj")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 process_mode = 3
@@ -90,6 +101,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+metadata/_edit_use_anchors_ = true
 
 [node name="Health" type="HBoxContainer" parent="CanvasLayer"]
 offset_left = 228.0
@@ -98,6 +110,7 @@ offset_right = 268.0
 offset_bottom = 106.0
 scale = Vector2(3, 1.5)
 theme_override_constants/separation = 4
+metadata/_edit_use_anchors_ = true
 
 [node name="Items" type="VBoxContainer" parent="CanvasLayer"]
 anchors_preset = 1
@@ -110,6 +123,7 @@ offset_bottom = 128.0
 grow_horizontal = 0
 size_flags_horizontal = 8
 theme_override_constants/separation = 4
+metadata/_edit_use_anchors_ = true
 
 [node name="SpecialAttack" type="TextureProgressBar" parent="CanvasLayer"]
 offset_left = 20.0
@@ -121,22 +135,36 @@ fill_mode = 3
 texture_under = ExtResource("6_reotu")
 texture_progress = ExtResource("7_a5ess")
 texture_progress_offset = Vector2(11, 14)
+metadata/_edit_use_anchors_ = true
 
 [node name="SpecialAttackButton" parent="CanvasLayer" instance=ExtResource("10_kq7hj")]
 offset_left = 80.0
 offset_top = 84.0
 offset_right = 154.0
 offset_bottom = 158.0
+metadata/_edit_use_anchors_ = true
+
+[node name="AttackCD" type="Label" parent="CanvasLayer"]
+modulate = Color(1, 1, 1, 0.07058824)
+offset_left = 36.0
+offset_top = 867.0
+offset_right = 304.0
+offset_bottom = 903.0
+theme_override_constants/outline_size = 15
+theme_override_font_sizes/font_size = 26
+text = "Attack Cooldown: "
+metadata/_edit_use_anchors_ = true
 
 [node name="AltAttackCD" type="Label" parent="CanvasLayer"]
 modulate = Color(1, 1, 1, 0.07058824)
 offset_left = 35.0
-offset_top = 909.0
+offset_top = 910.0
 offset_right = 303.0
-offset_bottom = 945.0
+offset_bottom = 946.0
 theme_override_constants/outline_size = 15
 theme_override_font_sizes/font_size = 26
 text = "Alt Attack Cooldown: "
+metadata/_edit_use_anchors_ = true
 
 [node name="BulletDamage" type="Label" parent="CanvasLayer"]
 modulate = Color(1, 1, 1, 0.07058824)
@@ -147,19 +175,21 @@ offset_bottom = 992.0
 theme_override_constants/outline_size = 15
 theme_override_font_sizes/font_size = 26
 text = "Bullet damage:"
+metadata/_edit_use_anchors_ = true
 
 [node name="DamageMult" type="Label" parent="CanvasLayer"]
 modulate = Color(1, 1, 1, 0.07058824)
-offset_left = 33.0
-offset_top = 1004.0
-offset_right = 301.0
-offset_bottom = 1040.0
+offset_left = 36.0
+offset_top = 999.0
+offset_right = 304.0
+offset_bottom = 1035.0
 theme_override_constants/outline_size = 15
 theme_override_font_sizes/font_size = 26
 text = "Damage mult: "
+metadata/_edit_use_anchors_ = true
 
 [node name="AttackCD" type="Timer" parent="."]
-wait_time = 0.7
+wait_time = 0.5
 one_shot = true
 
 [node name="HurtCD" type="Timer" parent="."]
@@ -167,9 +197,19 @@ wait_time = 2.0
 one_shot = true
 
 [node name="AltAttackCD" type="Timer" parent="."]
+wait_time = 2.0
 one_shot = true
+
+[node name="MouseArea" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MouseArea"]
+shape = SubResource("CircleShape2D_kq7hj")
 
 [connection signal="body_entered" from="Hurtbox" to="." method="_on_hurtbox_body_entered"]
 [connection signal="timeout" from="AttackCD" to="." method="_on_attack_cd_timeout"]
 [connection signal="timeout" from="HurtCD" to="." method="_on_hurt_cd_timeout"]
 [connection signal="timeout" from="AltAttackCD" to="." method="_on_alt_attack_cd_timeout"]
+[connection signal="body_entered" from="MouseArea" to="." method="_on_mouse_area_body_entered"]
+[connection signal="body_exited" from="MouseArea" to="." method="_on_mouse_area_body_exited"]

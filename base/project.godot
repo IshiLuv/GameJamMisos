@@ -31,6 +31,7 @@ Sounds="*res://Scenes/sounds.tscn"
 
 window/size/viewport_width=1920
 window/size/viewport_height=1080
+window/size/mode=3
 window/size/initial_position_type=4
 window/subwindows/embed_subwindows=false
 window/stretch/mode="canvas_items"
@@ -79,7 +80,7 @@ attack={
 }
 alt_attack={
 "deadzone": 0.2,
-"events": [Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"button_mask":2,"position":Vector2(282, 22),"global_position":Vector2(289, 65),"factor":1.0,"button_index":2,"canceled":false,"pressed":true,"double_click":false,"script":null)
+"events": [Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"button_mask":2,"position":Vector2(213, 5),"global_position":Vector2(220, 48),"factor":1.0,"button_index":2,"canceled":false,"pressed":true,"double_click":false,"script":null)
 ]
 }
 special_attack={
@@ -100,7 +101,7 @@ pause={
 
 [internationalization]
 
-locale/translations=PackedStringArray("res://Assets/Lang/hellpot halloween - 1 (3).en.translation", "res://Assets/Lang/hellpot halloween - 1 (3).ru.translation")
+locale/translations=PackedStringArray("res://Assets/Lang/hellpot halloween - 1 (8).en.translation", "res://Assets/Lang/hellpot halloween - 1 (8).ru.translation")
 
 [rendering]
 

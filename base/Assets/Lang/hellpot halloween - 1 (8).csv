@@ -1,0 +1,50 @@
+DEFAULT,en,ru
+item_candy_corn_name,Candy Corn ,Кэнди Корн
+item_candles_name,Candles,Свечи
+item_shovel_name,Showel,Лопата
+item_nest_name,Nest,Гнездо
+item_match_name,Match,Коробок Спичек
+item_bird_protein_name,Bird Protein,Птичий Корм
+item_clock_name,Clock,Часы
+item_wings_name,Wings,Крылья
+item_pogo_name,Pogo,Пого
+item_chef_hat_name,Chef Hat,Поварский Колпак
+item_witch_hat_name,Witch Hat,Шляпа Ведьмы
+item_lamp_name,Lamp,Фонарь
+item_staff_name,Staff,Легендарный посох волшебника
+item_bird_amulet_name,Bird Amulet,Птичий Амулет
+item_spring_name,Spring,Пружина
+item_blood_name,Blood,Кровь
+item__name, , 
+,,
+item__desc,Fires 3 charged bullets [Q],Запускает 3 заряженные пули [Q]
+item_candy_corn_desc,Increase max health by 1,Повышает максимальное здоровье на 1
+item_candles_desc,"Circular attack, launches 16 burning bullets in all directions [Q]","Круговая атака, запускает 16 горящих пуль во все стороны при использовании [Q]"
+item_shovel_desc,"Alternative attack, allows to move quickly, increases recharging time by 2.5 seconds","Альтернативная атака позволяет быстро перемещаться, увеличивает время перезарядки на 2.5 секунды"
+item_nest_desc,"Alternative attack, launches 8 bullets on all directions, decreases reload time by 1.5 times","Альтернативная атака выпускает 8 пуль во все стороны, уменьшает время перезарядки в 1.5 раз"
+item_match_desc,Sets your bullets on fire,Позволяет выпускать огненные заряды
+item_bird_protein_desc,Increase bullet damage by 1,Увеличивает урон от пуль на 1
+item_clock_desc,Reduces the reload time of alternative attack by 2 times,Уменьшает время перезарядки альтернативной атаки в 2 раза
+item_wings_desc,Allows you to stay in the air for a short time,Позволяет ненадолго задержаться в воздухе
+item_pogo_desc,Increases jump distance,Увеличивает дальность прыжка
+item_chef_hat_desc,Throws a knife [Q],Запускает нож при использовании [Q]
+item_witch_hat_desc,Heals upon a use [Q],Лечит здоровье при использовании [Q]
+item_lamp_desc,Increase bullet damage mult by 0.3,Увеличивает мультипликатор урона на 0.3
+item_staff_desc,"The main attack deals melee strikes, drops a piano on the enemy [Q]","Основная атака наносит ближние удары, сбрасывает на врага рояль [Q]"
+item_bird_amulet_desc,Bullets aim for neares target,Пули самонаводятся на врагов
+item_spring_desc,Invincibility during jump. Increases jump charge time by 0.8s,Неуязвимость в прыжке. Увеличивает скорость зарядки прыжка на 0.8 сек
+item_blood_desc,5% chance to heal upon a landed bullet ,5% шанс восстановить 1 здоровье при попадании по врагу
+,,
+tutorial,"[LMB] - attack
+[RMB] - alt attack
+[Q] - special attack
+[WASD] - choose direction
+[Space] - hold to jump
+[Shift] + [Space] - precise jump","[ЛКМ] - атака
+[ПКМ] - альт. атака
+[Q] - специальная атака
+[WASD] - выбор направления
+[Space] - удерживай чтобы прыгнуть
+[Shift] + [Space] - точный прыжок"
+,,
+final_text,Win,Дело в шляпе

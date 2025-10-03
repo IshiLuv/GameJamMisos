@@ -124,7 +124,7 @@ func _on_step_timer_timeout() -> void:
 		
 func take_damage(dmg):
 	if self is Enemy:
-		Sounds.play_sound(global_position,"enemy_hurt", -6.0, "SFX", 0.0, 1.0)
+		Sounds.play_sound(global_position,"enemy_hurt", -13.0, "SFX", 0.0, 0.7)
 	
 	await Animations.flash(self,-10)
 	health -= dmg

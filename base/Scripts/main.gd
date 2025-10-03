@@ -18,6 +18,8 @@ func generate(last_level):
 	
 	for i in 10:
 		var id = str(randi_range(1,2))
+		if i>3:
+			id = str(randi_range(1,4))
 		if i == 9:
 			id = str(0)
 		var new_level = load("res://Scenes/levels/level_" + id + ".tscn").instantiate()

@@ -23,9 +23,9 @@ func merge_layers(source_layers):
 			
 	for cell_pos in get_used_cells():
 		if get_cell_atlas_coords(cell_pos)[1] == 0 and get_cell_atlas_coords(cell_pos) != Vector2i(4,0):
-			if get_cell_atlas_coords(cell_pos+Vector2i(0,1)) == Vector2i(4,0):
+			if get_cell_atlas_coords(cell_pos+Vector2i(0,1))[0] == -1:
 				set_cell(cell_pos+Vector2i(0,1),0,Vector2i(4,1))
-			if get_cell_atlas_coords(cell_pos+Vector2i(0,2)) == Vector2i(4,0):
+			if get_cell_atlas_coords(cell_pos+Vector2i(0,2))[0] == -1:
 				set_cell(cell_pos+Vector2i(0,2),0,Vector2i(2,1))
-			if get_cell_atlas_coords(cell_pos+Vector2i(0,3)) == Vector2i(4,0):
+			if get_cell_atlas_coords(cell_pos+Vector2i(0,3))[0] == -1:
 				set_cell(cell_pos+Vector2i(0,3),0,Vector2i(2,1))
