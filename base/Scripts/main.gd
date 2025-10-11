@@ -11,7 +11,7 @@ func _ready() -> void:
 	$Levels/Level/Enemy.max_health = 10
 	$Levels/Level/Enemy.health = $Levels/Level/Enemy.max_health
 	generate($Levels/Level)
-	Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
+	
 	await get_tree().create_timer(0.6).timeout
 	if !G.watchedCutscene2:
 		var hat_tween = create_tween().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_CUBIC).set_parallel(false)
@@ -23,6 +23,7 @@ func _ready() -> void:
 		hat_tween.tween_property($Camera2D, "zoom", Vector2(1.2,1.2), 1.5)
 		await get_tree().create_timer(10.5).timeout
 		G.watchedCutscene2 = true
+	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	$Camera2D.enabled = false
 	
 func generate(last_level):

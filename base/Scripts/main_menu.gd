@@ -7,6 +7,7 @@ var pause_menu: Control
 signal pause_pressed
 
 func _ready() -> void:
+	Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
 	for scene in get_tree().get_root().get_children():
 		if scene is Main :
 			scene.queue_free()
@@ -35,6 +36,7 @@ func _ready() -> void:
 	else: 
 		$ColorRect.visible = false
 		$Fake_unreal.visible = false
+	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	Sounds.set_music("aboba (online-audio-converter.com)")
 	
 func _on_exit_pressed() -> void:
@@ -45,6 +47,7 @@ func _on_settings_pressed() -> void:
 
 func _on_play_pressed() -> void:
 	if !G.watchedCutscene and !skipIntro:
+		Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
 		$Eye.visible = false
 		$For_eye.disabled = true
 		G.watchedCutscene = true

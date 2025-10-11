@@ -54,6 +54,7 @@ func _ready() -> void:
 	if !G.watchedCutscene2:
 		await get_tree().create_timer(10.5).timeout
 	$Camera2D.enabled = true
+	$ArrowsMarker/Arrows.visible = true
 	can_move = true
 	
 func _process(delta: float) -> void:
