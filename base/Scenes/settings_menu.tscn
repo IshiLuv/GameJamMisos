@@ -1,142 +1,370 @@
-[gd_scene load_steps=13 format=3 uid="uid://hyspm5rulkn2"]
+[gd_scene load_steps=24 format=3 uid="uid://hyspm5rulkn2"]
 
-[ext_resource type="Script" uid="uid://d1fpxr52ujblt" path="res://Scripts/main.gd" id="1_vv31b"]
-[ext_resource type="Shader" uid="uid://eduqrip2q53w" path="res://Assets/lava.gdshader" id="2_hmele"]
-[ext_resource type="Texture2D" uid="uid://dnlahf8cr7ipu" path="res://Assets/lava.png" id="3_n0ctm"]
-[ext_resource type="PackedScene" uid="uid://3r74sqojsqwy" path="res://Scenes/levels/level.tscn" id="4_rkth2"]
-[ext_resource type="PackedScene" uid="uid://r8g654relxu7" path="res://Scenes/item.tscn" id="5_cdah7"]
-[ext_resource type="PackedScene" uid="uid://bjpapxo1gx4qd" path="res://Scenes/Enemies/enemy_spitter.tscn" id="6_ssx55"]
-[ext_resource type="Texture2D" uid="uid://clxipojyem4p" path="res://Assets/Textures/decor1.png" id="7_aun78"]
-[ext_resource type="Texture2D" uid="uid://doej8703wqxk8" path="res://Assets/Textures/decor2.png" id="8_7e6fq"]
-[ext_resource type="PackedScene" uid="uid://dsrflgol3r2e0" path="res://Scenes/character.tscn" id="9_5aygq"]
-[ext_resource type="PackedScene" uid="uid://bc8na73pad60t" path="res://Scenes/item_shower.tscn" id="10_xcxc4"]
+[ext_resource type="Script" uid="uid://fx2k2jawj2xt" path="res://Scripts/settings_menu.gd" id="1_rahb6"]
+[ext_resource type="Texture2D" uid="uid://dbvuxb4mdxhy7" path="res://Assets/UI/Popup_menu.png" id="2_jjs6x"]
+[ext_resource type="Texture2D" uid="uid://mggjkym5jlnw" path="res://Assets/UI/menu.png" id="3_3etfd"]
+[ext_resource type="Script" uid="uid://d2f88pafu8js6" path="res://Scripts/Button.gd" id="4_fsgis"]
+[ext_resource type="Texture2D" uid="uid://dchxj5pa10fcn" path="res://Assets/UI/Claider.png" id="5_fsgis"]
+[ext_resource type="Texture2D" uid="uid://7av46kjxgp51" path="res://Assets/UI/Grabber.png" id="5_jjs6x"]
+[ext_resource type="Texture2D" uid="uid://dq1b5unvyd0kc" path="res://Assets/UI/Grabber_high.png" id="6_fsgis"]
+[ext_resource type="Theme" uid="uid://c8tra1y5ejvga" path="res://Scenes/settings_menu.tres" id="6_vv31b"]
+[ext_resource type="Texture2D" uid="uid://d1hat05p6ffys" path="res://Assets/UI/Option.png" id="11_n0ctm"]
+[ext_resource type="Texture2D" uid="uid://bm8u8pbb6fd0y" path="res://Assets/UI/Return.png" id="12_cdah7"]
+[ext_resource type="Texture2D" uid="uid://v3pl8vf86o2d" path="res://Assets/UI/Fullscreen.png" id="12_n0ctm"]
+[ext_resource type="StyleBox" uid="uid://bdbvrw3tb0fnc" path="res://Scenes/Option.tres" id="12_rkth2"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_ynf5e"]
-shader = ExtResource("2_hmele")
-shader_parameter/sway_speed = 2.00000009174012
-shader_parameter/sway_strength = 0.05000000074506
-shader_parameter/noise_scale = 1.0
-shader_parameter/time_offset = 0.0
+[sub_resource type="AtlasTexture" id="AtlasTexture_jjs6x"]
+atlas = ExtResource("5_fsgis")
+region = Rect2(0, 0, 256, 64)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_344ge"]
-size = Vector2(394.5, 282)
+[sub_resource type="AtlasTexture" id="AtlasTexture_fsgis"]
+atlas = ExtResource("5_fsgis")
+region = Rect2(0, 64, 256, 64)
 
-[node name="Main" type="Node2D"]
-script = ExtResource("1_vv31b")
+[sub_resource type="AtlasTexture" id="AtlasTexture_vv31b"]
+atlas = ExtResource("5_fsgis")
+region = Rect2(0, 128, 256, 64)
 
-[node name="Lava" type="TextureRect" parent="."]
-z_index = -25
-material = SubResource("ShaderMaterial_ynf5e")
-offset_left = -5238.0
-offset_top = -30755.0
-offset_right = 17421.0
-offset_bottom = 3549.0
-texture = ExtResource("3_n0ctm")
-stretch_mode = 1
-metadata/_edit_lock_ = true
+[sub_resource type="AtlasTexture" id="AtlasTexture_hmele"]
+atlas = ExtResource("5_fsgis")
+region = Rect2(0, 192, 256, 64)
 
-[node name="Levels" type="Node2D" parent="."]
-position = Vector2(32, 24)
-metadata/_edit_lock_ = true
+[sub_resource type="AtlasTexture" id="AtlasTexture_n0ctm"]
+atlas = ExtResource("5_fsgis")
+region = Rect2(0, 256, 256, 64)
 
-[node name="Level" parent="Levels" instance=ExtResource("4_rkth2")]
-metadata/_edit_lock_ = true
+[sub_resource type="AtlasTexture" id="AtlasTexture_rkth2"]
+atlas = ExtResource("5_fsgis")
+region = Rect2(0, 320, 256, 64)
 
-[node name="Level_end" type="Marker2D" parent="Levels/Level"]
-position = Vector2(768, -1488)
+[sub_resource type="AtlasTexture" id="AtlasTexture_cdah7"]
+atlas = ExtResource("5_fsgis")
+region = Rect2(0, 384, 256, 64)
 
-[node name="Item" parent="Levels/Level" instance=ExtResource("5_cdah7")]
-position = Vector2(2107, -7)
+[sub_resource type="SpriteFrames" id="SpriteFrames_aun78"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jjs6x")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fsgis")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vv31b")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hmele")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_n0ctm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rkth2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cdah7")
+}],
+"loop": false,
+"name": &"Slaider",
+"speed": 5.0
+}]
 
-[node name="Enemy" parent="Levels/Level" instance=ExtResource("6_ssx55")]
-position = Vector2(1532, -1271)
+[sub_resource type="Theme" id="Theme_fsgis"]
+OptionButton/colors/font_color = Color(0.7764706, 0.38431373, 0.1882353, 1)
+OptionButton/colors/font_disabled_color = Color(0.7764706, 0.38431373, 0.1882353, 1)
+OptionButton/colors/font_focus_color = Color(0.7764706, 0.38431373, 0.1882353, 1)
+OptionButton/colors/font_hover_color = Color(0.7764706, 0.38431373, 0.1882353, 1)
+OptionButton/colors/font_hover_pressed_color = Color(0.7764706, 0.38431373, 0.1882353, 1)
+OptionButton/colors/font_outline_color = Color(0.7764706, 0.38431373, 0.1882353, 1)
+OptionButton/colors/font_pressed_color = Color(0.7764706, 0.38431373, 0.1882353, 1)
+OptionButton/colors/icon_disabled_color = Color(0.7019608, 0.25490198, 0.14901961, 1)
+OptionButton/colors/icon_focus_color = Color(0.7019608, 0.25490198, 0.14901961, 1)
+OptionButton/colors/icon_hover_color = Color(0.7019608, 0.25490198, 0.14901961, 1)
+OptionButton/colors/icon_hover_pressed_color = Color(0.7019608, 0.25490198, 0.14901961, 1)
+OptionButton/styles/hover_pressed = null
 
-[node name="Decor1" type="Sprite2D" parent="Levels/Level"]
-z_index = 5
-position = Vector2(-610, -886)
-scale = Vector2(1.7246094, 1.7246094)
-texture = ExtResource("7_aun78")
+[sub_resource type="LabelSettings" id="LabelSettings_hmele"]
+font_size = 30
+font_color = Color(0.7764706, 0.38431373, 0.1882353, 1)
 
-[node name="Decor2" type="Sprite2D" parent="Levels/Level"]
-z_index = 5
-position = Vector2(2379, -604)
-scale = Vector2(2.8095703, 2.8095703)
-texture = ExtResource("7_aun78")
-flip_h = true
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_3etfd"]
 
-[node name="Decor3" type="Sprite2D" parent="Levels/Level"]
-z_index = 20
-position = Vector2(1083, 188)
-scale = Vector2(1.3989258, 1.3989258)
-texture = ExtResource("7_aun78")
-flip_h = true
+[node name="Settings_menu" type="Control"]
+process_mode = 2
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_rahb6")
 
-[node name="Decor8" type="Sprite2D" parent="Levels/Level"]
-z_index = 20
-position = Vector2(611, -876)
-scale = Vector2(1.3800048, 1.748291)
-texture = ExtResource("7_aun78")
-flip_h = true
-
-[node name="Decor4" type="Sprite2D" parent="Levels/Level"]
-z_index = 20
-position = Vector2(-470.00003, 112)
-scale = Vector2(1.2285156, 1.2285156)
-texture = ExtResource("8_7e6fq")
-
-[node name="Decor5" type="Sprite2D" parent="Levels/Level"]
-z_index = 20
-position = Vector2(547.00006, 149.99994)
-scale = Vector2(0.741211, 0.741211)
-texture = ExtResource("8_7e6fq")
-flip_h = true
-
-[node name="Decor6" type="Sprite2D" parent="Levels/Level"]
-z_index = 20
-position = Vector2(2089.0002, 150)
-scale = Vector2(0.741211, 0.741211)
-texture = ExtResource("8_7e6fq")
-flip_h = true
+[node name="Fon" type="Sprite2D" parent="."]
+texture = ExtResource("2_jjs6x")
 
 [node name="ColorRect" type="ColorRect" parent="."]
-offset_left = -186.0
-offset_top = -792.0
-offset_right = 235.0
-offset_bottom = -520.0
-color = Color(0.32156864, 0, 0, 1)
+layout_mode = 0
+offset_left = -1275.0
+offset_top = -760.0
+offset_right = 1292.0
+offset_bottom = 748.0
+color = Color(1, 0.87, 0.91116667, 0.03529412)
 
-[node name="ColorRect2" type="ColorRect" parent="."]
-offset_left = -184.0
-offset_top = -815.0
-offset_right = 234.0
-offset_bottom = -786.0
-color = Color(0.55, 0.15730001, 0.088000014, 1)
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(2.2, 2.2)
+texture = ExtResource("2_jjs6x")
 
-[node name="Label" type="Label" parent="."]
-offset_left = -161.0
-offset_top = -776.0
-offset_right = 221.0
-offset_bottom = -539.0
-theme_override_constants/outline_size = 15
-theme_override_font_sizes/font_size = 20
-text = "tutorial"
+[node name="Exit" type="TextureButton" parent="."]
+layout_mode = 0
+offset_left = -418.0
+offset_top = 216.0
+offset_right = -91.0
+offset_bottom = 369.0
+texture_normal = ExtResource("3_3etfd")
+ignore_texture_size = true
+stretch_mode = 0
+script = ExtResource("4_fsgis")
 
-[node name="StaticBody2D" type="StaticBody2D" parent="."]
-position = Vector2(-3.75, -705.75)
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(193.50002, 88)
+scale = Vector2(1.6445314, 2.375)
+sprite_frames = SubResource("SpriteFrames_aun78")
+animation = &"Slaider"
+frame = 3
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
-position = Vector2(27.75, 43.75)
-shape = SubResource("RectangleShape2D_344ge")
+[node name="Music" type="HSlider" parent="AnimatedSprite2D"]
+self_modulate = Color(0.772247, 0.7722471, 0.772247, 1)
+texture_filter = 2
+offset_left = -115.53444
+offset_top = -26.526316
+offset_right = 116.75058
+offset_bottom = 37.473686
+scale = Vector2(1, 0.8)
+focus_mode = 0
+theme = ExtResource("6_vv31b")
+theme_override_constants/grabber_offset = 0
+theme_override_icons/grabber = ExtResource("5_jjs6x")
+theme_override_icons/grabber_highlight = ExtResource("6_fsgis")
+theme_override_icons/grabber_disabled = ExtResource("5_jjs6x")
+min_value = -25.0
+max_value = 20.0
+rounded = true
+metadata/_edit_use_anchors_ = true
 
-[node name="Character" parent="." instance=ExtResource("9_5aygq")]
-position = Vector2(8, -344)
+[node name="Label" type="Label" parent="AnimatedSprite2D/Music"]
+layout_mode = 0
+offset_left = 58.37529
+offset_top = -29.473682
+offset_right = 186.37529
+offset_bottom = -2.396759
+theme_override_colors/font_color = Color(0.7764706, 0.38431373, 0.1882353, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+text = "Volume of Music"
+metadata/_edit_use_anchors_ = true
+
+[node name="AnimatedSprite2D2" type="AnimatedSprite2D" parent="."]
+position = Vector2(192.50002, 293)
+scale = Vector2(1.6445314, 2.375)
+sprite_frames = SubResource("SpriteFrames_aun78")
+animation = &"Slaider"
+frame = 3
+
+[node name="SVX" type="HSlider" parent="AnimatedSprite2D2"]
+self_modulate = Color(0.772247, 0.7722471, 0.772247, 1)
+texture_filter = 2
+offset_left = -115.53444
+offset_top = -26.526316
+offset_right = 116.75058
+offset_bottom = 37.473686
+scale = Vector2(1, 0.8)
+focus_mode = 0
+theme = ExtResource("6_vv31b")
+theme_override_icons/grabber = ExtResource("5_jjs6x")
+theme_override_icons/grabber_highlight = ExtResource("6_fsgis")
+theme_override_icons/grabber_disabled = ExtResource("5_jjs6x")
+min_value = -25.0
+max_value = 20.0
+value = 20.0
+rounded = true
+
+[node name="Label" type="Label" parent="AnimatedSprite2D2/SVX"]
+layout_mode = 0
+offset_left = 58.37529
+offset_top = -29.473682
+offset_right = 186.37529
+offset_bottom = -2.396759
+theme_override_colors/font_color = Color(0.7764706, 0.38431373, 0.1882353, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+text = "Volume of SFX"
+
+[node name="Language" type="OptionButton" parent="."]
+layout_mode = 0
+offset_left = 8.0
+offset_top = -361.0
+offset_right = 363.0
+offset_bottom = -255.0
+theme = SubResource("Theme_fsgis")
+theme_override_font_sizes/font_size = 30
+theme_override_styles/normal = ExtResource("12_rkth2")
+theme_override_styles/normal_mirrored = ExtResource("12_rkth2")
+theme_override_styles/pressed = ExtResource("12_rkth2")
+theme_override_styles/pressed_mirrored = ExtResource("12_rkth2")
+theme_override_styles/hover = ExtResource("12_rkth2")
+theme_override_styles/hover_mirrored = ExtResource("12_rkth2")
+theme_override_styles/disabled = ExtResource("12_rkth2")
+theme_override_styles/disabled_mirrored = ExtResource("12_rkth2")
+theme_override_styles/focus = ExtResource("12_rkth2")
+button_pressed = true
+alignment = 1
+selected = 0
+item_count = 2
+popup/item_0/text = "ru"
+popup/item_0/id = 0
+popup/item_1/text = "en"
+popup/item_1/id = 1
+
+[node name="Label" type="Label" parent="Language"]
+layout_mode = 0
+offset_left = 101.0
+offset_top = -51.000004
+offset_right = 255.0
+offset_bottom = -9.000004
+theme_override_colors/font_color = Color(0.7764706, 0.38431373, 0.1882353, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+text = "Language
+"
+label_settings = SubResource("LabelSettings_hmele")
+
+[node name="OptionButton" type="OptionButton" parent="."]
+layout_mode = 0
+offset_left = 11.0
+offset_top = -179.0
+offset_right = 366.0
+offset_bottom = -73.0
+theme = SubResource("Theme_fsgis")
+theme_override_font_sizes/font_size = 30
+theme_override_styles/normal = ExtResource("12_rkth2")
+theme_override_styles/normal_mirrored = ExtResource("12_rkth2")
+theme_override_styles/pressed = ExtResource("12_rkth2")
+theme_override_styles/pressed_mirrored = ExtResource("12_rkth2")
+theme_override_styles/hover = ExtResource("12_rkth2")
+theme_override_styles/hover_mirrored = ExtResource("12_rkth2")
+theme_override_styles/disabled = ExtResource("12_rkth2")
+theme_override_styles/disabled_mirrored = ExtResource("12_rkth2")
+theme_override_styles/focus = ExtResource("12_rkth2")
+button_pressed = true
+alignment = 1
+item_count = 5
+popup/item_0/text = "1920x1080"
+popup/item_0/icon = SubResource("CompressedTexture2D_3etfd")
+popup/item_0/id = 0
+popup/item_1/text = "1366×768"
+popup/item_1/icon = SubResource("CompressedTexture2D_3etfd")
+popup/item_1/id = 1
+popup/item_2/text = "1280×1024"
+popup/item_2/icon = SubResource("CompressedTexture2D_3etfd")
+popup/item_2/id = 2
+popup/item_3/text = "2560×1440"
+popup/item_3/icon = SubResource("CompressedTexture2D_3etfd")
+popup/item_3/id = 3
+popup/item_4/text = "our_based_screen_size"
+popup/item_4/icon = SubResource("CompressedTexture2D_3etfd")
+popup/item_4/id = 4
+
+[node name="Label" type="Label" parent="OptionButton"]
+layout_mode = 0
+offset_left = 101.0
+offset_top = -51.000004
+offset_right = 255.0
+offset_bottom = -9.000004
+theme_override_colors/font_color = Color(0.7764706, 0.38431373, 0.1882353, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+text = "Resolution"
+label_settings = SubResource("LabelSettings_hmele")
+
+[node name="Button" type="TextureButton" parent="."]
+process_mode = 2
+layout_mode = 0
+offset_left = -386.0
+offset_top = -220.0
+offset_right = -130.0
+offset_bottom = -106.0
+toggle_mode = true
+texture_normal = ExtResource("12_n0ctm")
+stretch_mode = 0
+script = ExtResource("4_fsgis")
+
+[node name="Button2" type="TextureButton" parent="."]
+process_mode = 2
+layout_mode = 0
+offset_left = -389.0
+offset_top = -84.0
+offset_right = -133.0
+offset_bottom = 30.0
+toggle_mode = true
+texture_normal = ExtResource("11_n0ctm")
+stretch_mode = 0
+script = ExtResource("4_fsgis")
+
+[node name="Label" type="Label" parent="Button2"]
+layout_mode = 0
+offset_left = 18.0
+offset_top = 30.0
+offset_right = 238.0
+offset_bottom = 72.0
+theme_override_colors/font_color = Color(0.7764706, 0.38431373, 0.1882353, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+text = "Grid jumps: Off"
+label_settings = SubResource("LabelSettings_hmele")
+horizontal_alignment = 1
+
+[node name="Button3" type="TextureButton" parent="."]
+process_mode = 2
+layout_mode = 0
+offset_left = -388.0
+offset_top = 55.0
+offset_right = -132.0
+offset_bottom = 169.0
+toggle_mode = true
+texture_normal = ExtResource("11_n0ctm")
+stretch_mode = 0
+script = ExtResource("4_fsgis")
+
+[node name="Label" type="Label" parent="Button3"]
+layout_mode = 0
+offset_left = -1.0
+offset_top = 34.999996
+offset_right = 254.0
+offset_bottom = 77.0
+theme_override_colors/font_color = Color(0.7764706, 0.38431373, 0.1882353, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 24
+text = "Show landing: Off"
+horizontal_alignment = 1
 
 [node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(7725, -17020)
-zoom = Vector2(0.5, 0.5)
+position = Vector2(1, 1)
 
-[node name="ItemShower" parent="." instance=ExtResource("10_xcxc4")]
-position = Vector2(1663, -217)
-frame = 1
+[node name="Return" type="TextureButton" parent="."]
+process_mode = 2
+layout_mode = 0
+offset_left = -407.0
+offset_top = -392.0
+offset_right = -112.0
+offset_bottom = -258.0
+texture_normal = ExtResource("12_cdah7")
+stretch_mode = 0
+script = ExtResource("4_fsgis")
 
-[editable path="Levels/Level/Enemy"]
+[connection signal="pressed" from="Exit" to="." method="_on_exit_pressed"]
+[connection signal="value_changed" from="AnimatedSprite2D/Music" to="." method="_on_music_value_changed"]
+[connection signal="value_changed" from="AnimatedSprite2D2/SVX" to="." method="_on_svx_value_changed"]
+[connection signal="item_selected" from="Language" to="." method="_on_language_item_selected"]
+[connection signal="item_selected" from="OptionButton" to="." method="_on_option_button_item_selected"]
+[connection signal="toggled" from="Button" to="." method="_on_button_toggled"]
+[connection signal="toggled" from="Button2" to="." method="_on_button_2_toggled"]
+[connection signal="toggled" from="Button3" to="." method="_on_button_3_toggled"]
+[connection signal="pressed" from="Return" to="." method="_on_return_pressed"]
