@@ -1,7 +1,16 @@
-[gd_resource type="AudioBusLayout" load_steps=2 format=3 uid="uid://bixkicrktccdm"]
+[gd_resource type="AudioBusLayout" load_steps=3 format=3 uid="uid://bixkicrktccdm"]
 
 [sub_resource type="AudioEffectLimiter" id="AudioEffectLimiter_56jw5"]
 resource_name = "Limiter"
+
+[sub_resource type="AudioEffectReverb" id="AudioEffectReverb_56jw5"]
+resource_name = "Reverb"
+room_size = 0.9
+damping = 0.25
+spread = 0.1
+hipass = 0.55
+dry = 0.66
+wet = 0.35
 
 [resource]
 bus/0/effect/0/effect = SubResource("AudioEffectLimiter_56jw5")
@@ -18,3 +27,5 @@ bus/2/mute = false
 bus/2/bypass_fx = false
 bus/2/volume_db = 0.0
 bus/2/send = &""
+bus/2/effect/0/effect = SubResource("AudioEffectReverb_56jw5")
+bus/2/effect/0/enabled = true

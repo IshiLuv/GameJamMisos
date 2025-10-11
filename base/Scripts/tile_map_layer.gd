@@ -20,12 +20,14 @@ func merge_layers(source_layers):
 			var alternative_tile = layer.get_cell_alternative_tile(cell)
 
 			set_cell(cell + offset, tile_id, atlas_coords, alternative_tile)
-			
+	
 	for cell_pos in get_used_cells():
 		if get_cell_atlas_coords(cell_pos)[1] == 0 and get_cell_atlas_coords(cell_pos) != Vector2i(4,0):
 			if get_cell_atlas_coords(cell_pos+Vector2i(0,1))[0] == -1:
 				set_cell(cell_pos+Vector2i(0,1),0,Vector2i(4,1))
-			if get_cell_atlas_coords(cell_pos+Vector2i(0,2))[0] == -1:
-				set_cell(cell_pos+Vector2i(0,2),0,Vector2i(2,1))
-			if get_cell_atlas_coords(cell_pos+Vector2i(0,3))[0] == -1:
-				set_cell(cell_pos+Vector2i(0,3),0,Vector2i(2,1))
+				if get_cell_atlas_coords(cell_pos+Vector2i(0,2))[0] == -1:
+					set_cell(cell_pos+Vector2i(0,2),0,Vector2i(2,1))
+					if get_cell_atlas_coords(cell_pos+Vector2i(0,3))[0] == -1:
+						set_cell(cell_pos+Vector2i(0,3),0,Vector2i(7,1))
+					else:
+						set_cell(cell_pos+Vector2i(0,2),0,Vector2i(6,0))

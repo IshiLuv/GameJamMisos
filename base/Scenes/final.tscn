@@ -1,40 +1,54 @@
 [gd_scene load_steps=4 format=3 uid="uid://dhh1upkyn7emn"]
 
 [ext_resource type="Script" uid="uid://c4fyl2eftbf5q" path="res://Scripts/final.gd" id="1_61mla"]
-[ext_resource type="Texture2D" uid="uid://bmi84t4fy63bx" path="res://Assets/Textures/character2_active.png" id="1_adj38"]
 [ext_resource type="Texture2D" uid="uid://cugjmb8jegtow" path="res://Assets/Textures/Items/item_hat.png" id="2_61mla"]
+[ext_resource type="Texture2D" uid="uid://cm38b4ifyogmu" path="res://Assets/Textures/ending.png" id="2_wgkft"]
 
 [node name="Node2D" type="Node2D"]
 script = ExtResource("1_61mla")
 
-[node name="Character2Active" type="Sprite2D" parent="."]
-position = Vector2(928, 703)
-scale = Vector2(9.425374, 9.425373)
-texture = ExtResource("1_adj38")
+[node name="Ending" type="Sprite2D" parent="."]
+scale = Vector2(2, 2)
+texture = ExtResource("2_wgkft")
+centered = false
+metadata/_edit_lock_ = true
 
 [node name="Hat" type="Sprite2D" parent="."]
-position = Vector2(908, 472.00006)
-scale = Vector2(11.729731, 11.729731)
+modulate = Color(0.88164634, 0.88164634, 0.88164634, 1)
+position = Vector2(969, -120)
+scale = Vector2(3.8986478, 3.3665535)
 texture = ExtResource("2_61mla")
 
-[node name="Label" type="Label" parent="."]
-offset_left = 200.0
-offset_top = 97.0
-offset_right = 1657.0
-offset_bottom = 592.0
+[node name="ColorRect" type="ColorRect" parent="."]
+visible = false
+offset_left = -125.0
+offset_top = -125.0
+offset_right = 2129.0
+offset_bottom = 1168.0
+color = Color(0, 0, 0, 1)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Label" type="Label" parent="CanvasLayer"]
+offset_left = 40.0
+offset_top = 916.0
+offset_right = 716.0
+offset_bottom = 1123.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
-theme_override_constants/outline_size = 35
-theme_override_font_sizes/font_size = 151
+theme_override_constants/outline_size = 20
+theme_override_font_sizes/font_size = 81
 text = "final_text"
-horizontal_alignment = 1
 
-[node name="Button" type="Button" parent="."]
-offset_left = 1594.0
-offset_top = 910.0
-offset_right = 1847.0
-offset_bottom = 1012.0
+[node name="Button" type="Button" parent="CanvasLayer"]
+offset_left = 1553.0686
+offset_top = 907.0
+offset_right = 1878.0
+offset_bottom = 1038.0
 theme_override_font_sizes/font_size = 66
 text = "Menu"
 
-[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(960, 540)
+
+[connection signal="pressed" from="CanvasLayer/Button" to="." method="_on_button_pressed"]

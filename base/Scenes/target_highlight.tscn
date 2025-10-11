@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://b1fviv411jfil"]
+
+[ext_resource type="Texture2D" uid="uid://746i7kvi5r7n" path="res://Assets/Textures/target_highlight.png" id="1_ut5ri"]
+[ext_resource type="Script" uid="uid://cew84whnx8fd" path="res://Scripts/target_highlight.gd" id="2_gv6xv"]
+
+[node name="TargetHighlight" type="Sprite2D"]
+texture = ExtResource("1_ut5ri")
+script = ExtResource("2_gv6xv")

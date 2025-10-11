@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://k0l5u4k00hgg"]
+[gd_scene load_steps=13 format=3 uid="uid://k0l5u4k00hgg"]
 
 [ext_resource type="Script" uid="uid://d1fpxr52ujblt" path="res://Scripts/main.gd" id="1_jjgbg"]
 [ext_resource type="PackedScene" uid="uid://dsrflgol3r2e0" path="res://Scenes/character.tscn" id="2_bo1nx"]
@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://bjpapxo1gx4qd" path="res://Scenes/Enemies/enemy_spitter.tscn" id="5_21xkr"]
 [ext_resource type="Texture2D" uid="uid://clxipojyem4p" path="res://Assets/Textures/decor1.png" id="6_21xkr"]
 [ext_resource type="Texture2D" uid="uid://doej8703wqxk8" path="res://Assets/Textures/decor2.png" id="7_6bp64"]
+[ext_resource type="PackedScene" uid="uid://bc8na73pad60t" path="res://Scenes/item_shower.tscn" id="10_hptm8"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ynf5e"]
 shader = ExtResource("2_ynf5e")
@@ -26,7 +27,7 @@ script = ExtResource("1_jjgbg")
 [node name="Lava" type="TextureRect" parent="."]
 z_index = -25
 material = SubResource("ShaderMaterial_ynf5e")
-offset_left = -2680.0
+offset_left = -5238.0
 offset_top = -30755.0
 offset_right = 17421.0
 offset_bottom = 3549.0
@@ -128,6 +129,14 @@ position = Vector2(27.75, 43.75)
 shape = SubResource("RectangleShape2D_344ge")
 
 [node name="Character" parent="." instance=ExtResource("2_bo1nx")]
-position = Vector2(-64, -384)
+position = Vector2(8, -344)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(7725, -17020)
+zoom = Vector2(0.5, 0.5)
+
+[node name="ItemShower" parent="." instance=ExtResource("10_hptm8")]
+position = Vector2(1663, -217)
+frame = 1
 
 [editable path="Levels/Level/Enemy"]

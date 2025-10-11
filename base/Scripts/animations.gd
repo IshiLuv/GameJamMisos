@@ -36,14 +36,19 @@ func drop(obj: Object, scale: Array = [Vector2(1.0,1.0), 0.1], trans: Tween.Tran
 	tween.set_parallel(true)
 	tween.tween_property(obj, "scale", scale[0], scale[1])
 
-func shakeCam(cam: Camera2D, power):
-	var hurtTween = create_tween().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_BOUNCE).set_parallel(false)
-	hurtTween.tween_property(cam, "rotation_degrees", power/2, 0.03)
-	hurtTween.tween_property(cam, "rotation_degrees", -power, 0.03)
-	hurtTween.tween_property(cam, "rotation_degrees", 0, 0.1)
-	await get_tree().create_timer(0.2).timeout
-	if cam:
-		cam.rotation_degrees = 0
+func shakeCam(cam: Camera2D, power: float = 0.5, duration: float = 0.05, shakes: int = 2):
+	if not cam: return
+
+	var original_offset = cam.offset
+	var tween = create_tween().set_parallel(false)
+	
+	for i in range(shakes):
+		var random_offset := Vector2(randf_range(-power*10, power*10),randf_range(-power*10, power*10))
+		tween.tween_property(cam, "offset", random_offset, duration / (shakes * 2))
+		tween.tween_property(cam, "offset", original_offset, duration / (shakes * 2))
+		
+	await get_tree().create_timer(shakes*duration).timeout
+	if cam: cam.offset = original_offset
 	
 func shake(obj: Object, power):
 	var hurtTween = create_tween().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_BOUNCE).set_parallel(false)

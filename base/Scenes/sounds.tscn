@@ -9,6 +9,8 @@ script = ExtResource("1_df3ut")
 [node name="Music" type="AudioStreamPlayer" parent="."]
 process_mode = 3
 stream = ExtResource("2_em0nx")
-volume_db = -11.044
+volume_db = -15.646
 bus = &"Music"
 parameters/looping = true
+
+[connection signal="finished" from="Music" to="." method="_on_music_finished"]

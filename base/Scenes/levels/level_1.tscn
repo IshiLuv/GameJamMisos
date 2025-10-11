@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=4 uid="uid://b0shcqeubdnk2"]
+[gd_scene load_steps=9 format=4 uid="uid://b0shcqeubdnk2"]
 
 [ext_resource type="PackedScene" uid="uid://3r74sqojsqwy" path="res://Scenes/levels/level.tscn" id="1_mkwgf"]
 [ext_resource type="PackedScene" uid="uid://dbvifva701q02" path="res://Scenes/Enemies/enemy_tower.tscn" id="3_yffda"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://clxipojyem4p" path="res://Assets/Textures/decor1.png" id="5_qyddi"]
 [ext_resource type="Texture2D" uid="uid://doej8703wqxk8" path="res://Assets/Textures/decor2.png" id="6_qyddi"]
 [ext_resource type="PackedScene" uid="uid://dqfr6866igvmk" path="res://Scenes/Enemies/enemy_skele.tscn" id="7_qek6e"]
+[ext_resource type="PackedScene" uid="uid://bc8na73pad60t" path="res://Scenes/item_shower.tscn" id="8_tlryv"]
 
 [node name="Level" instance=ExtResource("1_mkwgf")]
 
@@ -62,3 +63,6 @@ position = Vector2(-277, -1278)
 scale = Vector2(1.2441406, 1.2441406)
 texture = ExtResource("5_qyddi")
 flip_h = true
+
+[node name="ItemShower" parent="." index="12" instance=ExtResource("8_tlryv")]
+position = Vector2(40.999996, -648.00006)

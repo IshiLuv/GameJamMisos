@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=4 uid="uid://b0i1m8ucroik6"]
+[gd_scene load_steps=10 format=4 uid="uid://b0i1m8ucroik6"]
 
 [ext_resource type="PackedScene" uid="uid://3r74sqojsqwy" path="res://Scenes/levels/level.tscn" id="1_863cj"]
 [ext_resource type="PackedScene" uid="uid://bjpapxo1gx4qd" path="res://Scenes/Enemies/enemy_spitter.tscn" id="2_tsnyi"]
@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://clxipojyem4p" path="res://Assets/Textures/decor1.png" id="6_1qnut"]
 [ext_resource type="Texture2D" uid="uid://doej8703wqxk8" path="res://Assets/Textures/decor2.png" id="7_dlr6t"]
 [ext_resource type="PackedScene" uid="uid://erygsjx0yta2" path="res://Scenes/Enemies/enemy_spitter2.tscn" id="8_tsnyi"]
+[ext_resource type="PackedScene" uid="uid://bc8na73pad60t" path="res://Scenes/item_shower.tscn" id="9_hip6n"]
 
 [node name="Level" instance=ExtResource("1_863cj")]
 
@@ -84,11 +85,9 @@ position = Vector2(3869, -717)
 
 [node name="Enemy2" parent="." index="16" instance=ExtResource("2_tsnyi")]
 position = Vector2(1228, -326)
-bullet_count = 1
 
 [node name="Enemy7" parent="." index="17" instance=ExtResource("2_tsnyi")]
 position = Vector2(3366, -592)
-bullet_count = 1
 
 [node name="Enemy3" parent="." index="18" instance=ExtResource("3_hip6n")]
 position = Vector2(-696, -1172)
@@ -98,3 +97,6 @@ position = Vector2(-639, -295)
 
 [node name="Enemy5" parent="." index="20" instance=ExtResource("8_tsnyi")]
 position = Vector2(542, -1080)
+
+[node name="ItemShower" parent="." index="21" instance=ExtResource("9_hip6n")]
+position = Vector2(-675, -689)

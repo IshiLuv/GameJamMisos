@@ -52,18 +52,21 @@ func _process_idle(delta: float) -> void:
 	scale.y = scale_y
 
 func _process_walk(_delta: float) -> void:
+	if not $LookAtPlayer/RayCast2D.is_colliding():
+		# на краю — не двигаемся
+		velocity = Vector2.ZERO
+		move_and_slide()
+		return
 	if target:
 		var distance = global_position.distance_to(target.global_position)
-
+		
 		# Если игрок далеко
 		if distance > attack_range:
-			# Проверяем край
 			if not $LookAtPlayer/RayCast2D.is_colliding():
 				# на краю — не двигаемся
 				velocity = Vector2.ZERO
 				move_and_slide()
 				return
-
 			# идём к игроку
 			var dir = (target.global_position - global_position).normalized()
 			velocity = dir * move_speed
@@ -115,9 +118,10 @@ func _do_attack() -> void:
 	
 	$ShootCD.start()
 	for i in bullet_count:
-		Sounds.play_sound(global_position, "enemy_attack", -2.0, "SFX", 0.2, 1.0)
-		G.spawn_bullet(self, bullet_scene, gun_marker.global_position, gun_marker.global_position.direction_to(target.global_position))
-		await get_tree().create_timer(0.1).timeout
+		if target: 
+			Sounds.play_sound(global_position, "enemy_attack", -2.0, "SFX", 0.2, 1.0)
+			G.spawn_bullet(self, bullet_scene, gun_marker.global_position, gun_marker.global_position.direction_to(target.global_position))
+			await get_tree().create_timer(0.1).timeout
 		
 	$Sprite2D.frame = 0
 	state = State.WALK

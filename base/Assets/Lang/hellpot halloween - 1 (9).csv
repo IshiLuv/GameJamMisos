@@ -6,6 +6,7 @@ item_nest_name,Nest,Гнездо
 item_match_name,Match,Коробок Спичек
 item_bird_protein_name,Bird Protein,Птичий Корм
 item_clock_name,Clock,Часы
+item_clock2_name,Clock,Часы
 item_wings_name,Wings,Крылья
 item_pogo_name,Pogo,Пого
 item_chef_hat_name,Chef Hat,Поварский Колпак
@@ -25,6 +26,7 @@ item_nest_desc,"Alternative attack, launches 8 bullets on all directions, decrea
 item_match_desc,Sets your bullets on fire,Позволяет выпускать огненные заряды
 item_bird_protein_desc,Increase bullet damage by 1,Увеличивает урон от пуль на 1
 item_clock_desc,Reduces the reload time of alternative attack by 2 times,Уменьшает время перезарядки альтернативной атаки в 2 раза
+item_clock2_desc,Reduces the reload time of main attack by 2 times,Уменьшает время перезарядки основной атаки в 2 раза
 item_wings_desc,Allows you to stay in the air for a short time,Позволяет ненадолго задержаться в воздухе
 item_pogo_desc,Increases jump distance,Увеличивает дальность прыжка
 item_chef_hat_desc,Throws a knife [Q],Запускает нож при использовании [Q]

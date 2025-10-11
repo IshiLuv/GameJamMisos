@@ -1,0 +1,29 @@
+[gd_scene load_steps=3 format=3 uid="uid://cogyislkqndom"]
+
+[ext_resource type="Script" uid="uid://cr1an12kx6jw0" path="res://Scripts/item_popup.gd" id="1_28odr"]
+[ext_resource type="Texture2D" uid="uid://2ey22dvjsp4" path="res://Assets/Textures/bullet.png" id="2_hk5yg"]
+
+[node name="Button" type="Button"]
+custom_minimum_size = Vector2(74, 74)
+offset_right = 74.0
+offset_bottom = 74.0
+focus_mode = 0
+script = ExtResource("1_28odr")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(37, 35)
+texture = ExtResource("2_hk5yg")
+
+[node name="Name" type="Label" parent="."]
+layout_mode = 0
+offset_left = 83.0
+offset_top = 6.0
+offset_right = 431.0
+offset_bottom = 61.0
+theme_override_colors/font_color = Color(1, 0.95, 0, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 4
+theme_override_constants/shadow_offset_y = 4
+theme_override_constants/shadow_outline_size = 6
+theme_override_font_sizes/font_size = 40
+text = "Candy Corn"

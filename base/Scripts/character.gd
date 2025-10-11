@@ -8,6 +8,8 @@ var max_charge_time: float = 0.5
 var charge_timer: float = 0.0
 var jump_timer: float = 0.0
 
+var camera_zoom: Vector2 = Vector2(1.2,1.2)
+
 var bullet_scene = preload("res://Scenes/Bullets/bullet_player.tscn")
 
 var items: Array = []
@@ -37,6 +39,10 @@ var on_ground: bool = true
 var pre_jump_pos: Vector2
 
 func _ready() -> void:
+	can_move = false
+	$CanvasLayer/Restart.visible = true
+	await get_tree().create_timer(0.5).timeout
+	Animations.disappear($CanvasLayer/Restart)
 	$Sprite/Head.material.set_shader_parameter("dissolve_value", 1.0)
 	health = max_health
 	update_health()
@@ -44,7 +50,11 @@ func _ready() -> void:
 	$CanvasLayer/AltAttackCD.text = "Alt Attack Cooldown: %s" % $AltAttackCD.wait_time
 	$CanvasLayer/BulletDamage.text = "Bullet damage: %s" % bullet_damage
 	$CanvasLayer/DamageMult.text = "Damage mult: %s" % bullet_damage_mult
-	
+	$Camera2D.zoom = camera_zoom
+	if !G.watchedCutscene2:
+		await get_tree().create_timer(10.5).timeout
+	$Camera2D.enabled = true
+	can_move = true
 	
 func _process(delta: float) -> void:
 	$MouseArea.global_position = get_global_mouse_position()
@@ -114,6 +124,12 @@ func _process(delta: float) -> void:
 			var pause_menu = load("res://Scenes/settings_menu.tscn").instantiate()
 			pause_menu.set_anchors_preset(Control.PRESET_CENTER, false)
 			$CanvasLayer.add_child(pause_menu)
+			
+		if Input.is_action_just_released("green_screen"):
+			if $ColorRect.visible:
+				Animations.disappear($ColorRect,5) 
+			else:
+				Animations.appear($ColorRect,5) 
 
 func _physics_process(delta: float) -> void:
 	if can_move and is_jumping:
@@ -189,9 +205,8 @@ func attack():
 		bullet.direction = $Gun/Bullet_Marker.global_position.direction_to(get_global_mouse_position())
 		bullet.look_at(get_global_mouse_position())
 		bullet.sender = self
-		bullet.damage = bullet_damage
+		bullet.damage = bullet_damage+1
 		bullet.is_burning = items.has("match")
-		bullet.damage = 2
 		bullet.do_flip = false
 		G.main.add_child(bullet)
 		await get_tree().create_timer(0.1).timeout
@@ -287,12 +302,11 @@ func special_attack():
 				get_tree().get_root().add_child(royal)
 				
 				royal.global_position = get_global_mouse_position()+Vector2(0,-1000)
-				#var min_enemy: float = 999999
-				#
-				#for enemy in enemies_on_mouse:
-					#if get_global_mouse_position().distance_to(enemy.global_position) < min_enemy:
-						#min_enemy = get_global_mouse_position().distance_to(enemy.global_position)
-						#royal.global_position = enemy.global_position+Vector2(0,-1000)
+				
+				var target_highlight = load("res://Scenes/target_highlight.tscn").instantiate()
+				target_highlight.scale = Vector2(2,2)
+				get_tree().get_root().add_child(target_highlight)
+				target_highlight.global_position = get_global_mouse_position()
 				
 				await get_tree().create_timer(0.6).timeout
 				
@@ -327,10 +341,10 @@ func shakeLoop():
 			if charge_timer >= max_charge_time:
 				Animations.flash(self,1.2)
 			$Sprite.scale = Vector2(1-charge_timer/10, 1-charge_timer/5)
-			$Camera2D.zoom = Vector2(1.2,1.2)/(1+charge_timer/20)
+			$Camera2D.zoom = camera_zoom/(1+charge_timer/20)
 			await get_tree().create_timer(0.05).timeout
 			$Sprite.scale = Vector2(1-charge_timer/10, 1-charge_timer/5)
-			$Camera2D.zoom = Vector2(1.2,1.2)/(1+charge_timer/20)
+			$Camera2D.zoom = camera_zoom/(1+charge_timer/20)
 			var hurtTween = create_tween().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_BOUNCE).set_parallel(false)
 			hurtTween.tween_property($Sprite, "rotation", charge_timer/6, 0.05)
 			hurtTween.tween_property($Sprite, "rotation", -charge_timer/6, 0.05)
@@ -343,7 +357,7 @@ func shakeLoop():
 		is_shaking = false
 		if sound: sound.stop()
 		$Sprite.scale = Vector2.ONE
-		$Camera2D.zoom = Vector2(1.2,1.2)
+		$Camera2D.zoom = camera_zoom
 
 func on_bullet_land(_bullet):
 	if items.has("blood") and randf()>(1 - 0.05*items.count("blood")):
@@ -405,6 +419,17 @@ func add_item(table, item_id: String):
 			await get_tree().create_timer(0.6).timeout
 			await Animations.disappear(G.main)
 			get_tree().change_scene_to_file("res://Scenes/final.tscn")
+		
+	var popup = load("res://Scenes/item_popup.tscn").instantiate()
+	popup.item = item_id
+	$CanvasLayer/ItemPopups.add_child(popup)
+	popup.position = Vector2(-100, 0.0)
+	var tween_popup = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_BACK).set_parallel(false)
+	tween_popup.tween_property(popup, "position", Vector2(50, 0.0), 0.2)
+	tween_popup.tween_property(popup, "position", Vector2(50, 0.0), 1.3)
+	tween_popup.tween_property(popup, "position", Vector2(-300, 0.0), 0.2)
+	await tween_popup.finished
+	popup.queue_free()
 			
 	
 func update_items():
@@ -517,9 +542,8 @@ func die():
 
 	tween.tween_property($Sprite/Head.material, "shader_parameter/dissolve_value", 0, 2.0)
 	
-
+	Animations.appear($CanvasLayer/Restart)
 	await get_tree().create_timer(1.0).timeout
-	await Animations.disappear(G.main)
 	get_tree().change_scene_to_file("res://Scenes/main.tscn")
 
 func heal(hp):

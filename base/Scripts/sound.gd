@@ -2,14 +2,15 @@ extends Node2D
 
 func _ready() -> void:
 	$Music.play()
-
+	$Music.pitch_scale = randf_range(0.8,1.2)
+	
 func stop_music():
 	$Music.stop()
 
 func set_music(sound_name: String):
 	$Music.stream = load("res://Assets/Sounds/" + sound_name + ".ogg")
 	$Music.play()
-	
+
 func play_sound(pos: Vector2, sound_name: String, volume: float = 0.0, bus: String = "Master", pitch_offset: float = 0.0, pitch: float = 1.0):
 	sound_name = "res://Assets/Sounds/" + sound_name + ".ogg"
 	var new_audio: AudioStreamPlayer = AudioStreamPlayer.new()
@@ -27,3 +28,7 @@ func play_sound(pos: Vector2, sound_name: String, volume: float = 0.0, bus: Stri
 func delete_sound(sound):
 	await get_tree().create_timer(sound.stream.get_length() + 0.7).timeout 
 	sound.queue_free()
+
+
+func _on_music_finished() -> void:
+	$Music.pitch_scale = randf_range(0.8,1.2)
